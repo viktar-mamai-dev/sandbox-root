@@ -1,0 +1,69 @@
+{
+	"actors": [
+	{
+	    "name":"Ganry Wilkinson",
+	    "address": 
+	    	{
+	    		"country" : "USA",
+	    		"city" : "Washington",
+	    		"street" : "Apple Street",
+	    		"houseNumber" : 45
+	    	}, 
+	    "income":12350,
+	    "description":"supporting actor"
+    },
+    {
+	    "name":"Ron Harrison",
+	    "address": 
+	    	{
+	    		"country" : "Scotland",
+	    		"city" : "Edinburg",
+	    		"street" : "Peach Street",
+	    		"houseNumber" : 56
+	    	},
+	    "income":7440,
+    }
+], 
+    
+    "directors": [
+	{
+		"name":"James Cameron",
+		"address": 
+	    	{
+	    		"country" : "USA",
+	    		"city" : "Los-Angeles",
+	    		"street" : "Grape Street",
+	    		"houseNumber" : 3
+	    	},
+		"income" : 17600, 
+		"films":["Titanic", "Avatar", "Terminator", "Aliens"]
+	}
+],
+	"workers": [
+	{
+		"name" : "Ronnie O'Sullivan",
+		"address": 
+	    	{
+	    		"country" : "France",
+	    		"city" : "Nant",
+	    		"street" : "Saint Patrick Street",
+	    		"houseNumber" : 114
+	    	}, 
+		"income" : 8560, 
+		"type" : "costumer"
+	}, 
+	{
+		"name" : "Michael Jefferson",
+		"address": 
+	    	{
+	    		"country" : "Sweden",
+	    		"city" : "Stockholm",
+	    		"street" : "Cransberg Street",
+	    		"houseNumber" : 72
+	    	}, 
+		"income" : 3900, 
+		"type" : "make_up_man"
+	}
+]
+    
+}

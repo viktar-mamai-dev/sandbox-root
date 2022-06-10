@@ -1,0 +1,24 @@
+{
+	"persons": [
+		{
+			"name": "Adriano Mortalli", 
+			"address": 
+	    	{
+	    		"country" : "Italy",
+	    		"city" : "Milan",
+	    		"street" : "Collisio Street",
+	    		"houseNumber" : 39
+	    	}
+		}, 
+		{
+			"name": "Vincento Cannavaro", 
+			"address": 
+	    	{
+	    		"country" : "Spain",
+	    		"city" : "Barcelona",
+	    		"street" : "Gooseberry Street",
+	    		"houseNumber" : 7
+	    	}, 
+		}
+	]
+}

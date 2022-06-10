@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<news news_id="1" short_text="Netanyahu Likud storms to victory"
+		full_text="Prime Minister Benjamin Netanyahu's right-wing Likud Party has won a surprise victory in Israel's election."
+		title="Israel election" creation_date="2012-02-24" modification_date="2012-02-28" />
+
+	<news news_id="2" short_text="South Africa need to score 13 more runs"
+		full_text="Chameera gets the hook after two rather forgettable overs, and fellow right-arm seamer Thisara Perera is on as Sri Lanka's sixth bowler, looking to make amends for his third-ball duck."
+		title="Cricket superbowl" creation_date="2009-07-07"
+		modification_date="2009-07-08" />
+
+	<news news_id="3" short_text="Does Neighbours really represent Australia"
+		full_text="The Australian soap opera Neighbours is now 30 years old – but where is the diversity? Ramsay Street doesn’t reflect modern Australia, writes Clementine Ford"
+		title="Australia culture" creation_date="2007-11-11"
+		modification_date="2007-11-16" />
+
+	<news news_id="4" short_text="New protocol http2 to speedup the web"
+		full_text="New protocol http2 to speedup the web" title="New protocol http2"
+		creation_date="2015-02-16" modification_date="2015-02-16" />
+
+	<news news_id="5" short_text="Why museums hide masterpieces away"
+		full_text="n major museums around the world, some truly great works of art are hidden away from public view. What are they – and why can’t we see them? Kimberly Bradley finds out."
+		title="Masterpieces from scotland" creation_date="2010-12-12"
+		modification_date="2010-12-16" />
+
+	<news news_id="6" short_text="Looking: A new way to break a TV taboo"
+		full_text="The HBO series Looking is one of the most revolutionary depictions of gay life ever on TV – and that’s because it makes it totally ordinary, writes Keith Uhlich"
+		title="TV taboo to be broken" creation_date="2009-06-23"
+		modification_date="2009-06-24" />
+
+	<news news_id="7"
+		short_text="Germany riot in Frankfurt targets new ECB headquarters"
+		full_text="Anti-austerity demonstrators in the German city of Frankfurt have set police cars alight and thrown stones in protest at the opening of a new base for the European Central Bank"
+		title="Destabilized situation in Frankfurt" creation_date="2001-04-29"
+		modification_date="2001-04-30" />
+
+	<news news_id="8" short_text="Serbia arrests seven over 1995 Srebrenica massacre"
+		full_text="Serbian police have arrested seven men accused of taking part in the slaughter of over 1,000 Muslims at a warehouse on the outskirts of Srebrenica"
+		title="Political decision in Serbia" creation_date="2012-05-17"
+		modification_date="2012-06-24" />
+
+	<news news_id="9"
+		short_text="Syria claims shooting down of US drone over Latakia"
+		full_text="The Syrian military says it has shot down a US drone near the city of Latakia, a stronghold of President Bashar al-Assad in north-west Syria."
+		title="Clashes in Asia" creation_date="2011-10-07" modification_date="2015-10-11" />
+
+	<news news_id="10"
+		short_text="Solar Impulse: Plane sets out on two-hop journey to Myanmar"
+		full_text="The solar-powered plane attempting to fly around the world is in the air again, crossing India and hoping to make it to Myanmar on Thursday"
+		title="Myanmar climate" creation_date="2002-02-02" modification_date="2002-03-03" />
+
+	<news news_id="11" short_text="Switzerland to return Sani Abacha loot to Nigeria"
+		full_text="Switzerland will return to Nigeria some $380m (£260m) allegedly looted by ex-military ruler Sani Abacha, an official has said.\n
+		 The transfer, to be conducted under the supervision of the World Bank, will end a 16-year case against the Abacha family"
+		title="Sani Abacho return Nigeria police" creation_date="2013-08-14"
+		modification_date="2013-08-16" />
+
+	<news news_id="12"
+		short_text="The online dating site sued for targeting married people"
+		full_text="An online dating site that targets married people is being accused of breaking the law. A court in\n
+		 France must now decide whether the company is illegally encouraging spouses to cheat"
+		title="Online daing" creation_date="2005-05-05" modification_date="2005-05-06" />
+
+	<news news_id="13" short_text="Who is The Archangel of Death fighting IS"
+		full_text="The fight against Islamic State in Iraq is raging in Tikrit, where government forces are being helped by\n
+		 dozens of Shia militias. One soldier in particular has gained thousands of fans online - but his story is also a revealing insight into Iran's propaganda machine"
+		title="BBC trending" creation_date="2005-07-07" modification_date="2005-07-08" />
+
+	<news news_id="14" short_text="Will California Dry Up Fall Off"
+		full_text="It got me wondering, just how bad and widespread is California's drought? I did a few web searches and\n
+		 found lots of dramatic before-and-after pictures of its lakes, which are down to about 35% of capacity statewide"
+		title="California earthquake" creation_date="2005-07-17"
+		modification_date="2005-07-20" />
+
+
+	<news news_id="15"
+		short_text="Millions of people in the UK and northern Europe have glimpsed the best solar eclipse in years"
+		full_text="In all parts of the UK the eclipse reached at least 83% and the darkness peaked at about 09:35 GMT.\n
+		 Actual viewing opportunities were heavily dependent on the cloud cover that shrouded much of the country. The deep shadow formed first in the North Atlantic,\n
+		  before sweeping up into the Arctic Circle and ending at the North Pole. The UK will not see a solar eclipse on this scale again until 2026"
+		title="Solar eclipse witnessed by millions" creation_date="2008-11-02"
+		modification_date="2008-11-07" />
+
+	<news news_id="16"
+		short_text="The uniformed security guard waves us down to the newest city in the Kingdom of Saudi Arabia"
+		full_text="Peppered with cranes, the city - or building site to be more accurate - lies one-and-a-half hours drive north of Jeddah between the Red Sea and scrubby desert"
+		title="Saudi Arabia's new desert megacity" creation_date="2013-04-22"
+		modification_date="2013-04-26" />
+
+	<news news_id="17"
+		short_text="EU leaders say Greece has agreed to come up with a new reform plan"
+		full_text="The development came after marathon talks between Greek PM Alexis Tsipras, German Chancellor Angela Merkel and other European leaders in Brussels"
+		title="Greece to draft new reform plan within days - EU leaders"
+		creation_date="2012-12-12" modification_date="2012-12-14" />
+
+	<news news_id="18"
+		short_text="Cheating in exams is fairly common in the Indian state of Bihar"
+		full_text="Many students smuggled in textbooks and notes into the examination centres despite tight security - and parents and friends were photographed scaling the walls\n
+		 of test centres to pass on answers to students during the current secondary school examinations"
+		title="India students caught cheating in exams in Bihar"
+		creation_date="2001-03-15" modification_date="2001-03-16" />
+
+	<news news_id="19"
+		short_text="Singapore has begun seven days of national mourning of its founding father"
+		full_text="Mr Lee, who was 91, led Singapore's transformation from a small port city to one of the wealthiest nations in the world. World leaders have paid\n
+		 tribute to Mr Lee, who served as the city-state's prime minister for 31 years"
+		title="Singapore mourns founding father Lee Kuan Yew" creation_date="2008-09-05"
+		modification_date="2008-10-05" />
+
+	<news news_id="20"
+		short_text="France centre-right UMP party taken first place in the first round of local elections"
+		full_text="Projections suggest that the far-right National Front - despite strong gains - came second with about 25% of the vote, behind the conservatives on about 30%"
+		title="France local elections" creation_date="2015-01-20"
+		modification_date="2015-01-22" />
+</dataset>

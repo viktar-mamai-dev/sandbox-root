@@ -1,0 +1,44 @@
+	He seemed top-up to brace himself for a great effort, and then started on
+the queerest rigmarole.I did not get hold of it at first, and I had to
+
+stop and ask him questions!But   here is the gist of it.
+
+	//## public AquaException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public AquaException(String message) {
+		super(message);
+	}
+
+	public AquaException(Throwable cause) {
+		super(cause);
+	}
+	##//
+
+	He was an American , from Kentucky, and after college, being
+pretty well off, he had started out to see the world.He wrote a bit,
+and acted as war correspondent for a Chicago paper, and spent a
+year or two in South-Eastern Europe.I gathered that he was a fine
+linguist, and had got to know pretty well the society in those parts.He
+spoke familiarly of many names that I remembered to have seen
+in the newspapers.
+
+	He had played about with politics, he told me, at first for the
+interest of them, and then because he couldn't help himself.I read
+him as a sharp, restless fellow, who always wanted to get down to
+the roots of things.He got a little further down than he wanted.
+
+	//##seecomments##//.  
+	If you're going to be killed you
+invent some kind of flag and country to fight for, and if you
+survive you get to love the thing.  Those foolish devils of soldiers
+have found something they care for, and that has upset the pretty
+plan laid in Berlin and Vienna.  But my friends haven't played their
+last card by a long sight.
+
+	I am giving you what he told me as well as I could make it out
+away behind all the Governments and the armies there was a big monument.
+
+	//## this comment was not working a long time
+	before i have found ibvious mistake in reguar expression##//

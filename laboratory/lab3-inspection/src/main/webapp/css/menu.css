@@ -1,0 +1,69 @@
+@CHARSET "UTF-8";
+
+#logout {
+	width: 100px;
+	margin: auto;
+}
+
+#logout button {
+	color: white;
+	background: rgb(158, 164, 65);
+	font-size: 15px;
+	border: 1px solid #660;
+	padding: 10px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-top: 1px solid #660;
+	margin: 10px;
+}
+
+#logout button:HOVER {
+	cursor: pointer;
+	color: maroon;
+}
+
+.main-list {
+	list-style-type: none;
+	margin: auto;
+	padding: 0;
+	margin: 10px;
+	font-size: 1.3em;
+}
+
+.main-list li {
+	display: inline;
+	padding: 5px;
+	margin: 0;
+}
+
+.main-list a {
+	text-decoration: none;
+	color: blue;
+}
+
+.main-list li a:hover {
+	color: rgb(20, 211, 20);
+}
+
+#language {
+	border-collapse: collapse;
+	margin: auto;
+	padding: 10px;
+	margin: 10px;
+	font-size: 1.3em;
+	background-color: rgb(220, 220, 0);
+}
+
+#language a {
+	text-decoration: none;
+	color: blue;
+	margin: 10px;
+}
+
+#language a:hover {
+	color: rgb(20, 211, 20);
+}
+
+.border_bottom {
+	border-top: 1px solid black;
+}

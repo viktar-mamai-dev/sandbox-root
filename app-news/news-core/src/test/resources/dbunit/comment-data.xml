@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<comments comment_id="1" comment_text="arabic world do not trust..."
+		creation_date="2012-03-01" news_id="1" />
+
+	<comments comment_id="2" comment_text="better play volleyball than this game"
+		creation_date="2009-07-09" news_id="2" />
+
+	<comments comment_id="3"
+		comment_text="Manny Williams did it for second times!!! yeeee..."
+		creation_date="2009-07-12" news_id="2" />
+
+	<comments comment_id="4" comment_text="this man will save Israeli!!!"
+		creation_date="2012-03-02" news_id="1" />
+
+	<comments comment_id="5" comment_text="british museum - my favourite one"
+		creation_date="2010-12-19" news_id="5" />
+
+	<comments comment_id="6" comment_text="but boston pitcher failed lats shot!??"
+		creation_date="2009-07-15" news_id="2" />
+
+	<comments comment_id="7" comment_text="Why old protocol not satisfy them???"
+		creation_date="2015-02-18" news_id="4" />
+
+	<comments comment_id="8" comment_text="scotland artefacts are awesome!!!"
+		creation_date="2010-12-26" news_id="5" />
+
+	<comments comment_id="9" comment_text="Kimberley digs into truth greatly"
+		creation_date="2010-12-22" news_id="5" />
+
+	<comments comment_id="10"
+		comment_text="Most of them nevertheless will use http!" creation_date="2015-02-25"
+		news_id="4" />
+
+	<comments comment_id="11" comment_text="Please dont post it any more"
+		creation_date="2009-07-01" news_id="6" />
+
+	<comments comment_id="12" comment_text="conflict in serbia wont stop!!!"
+		creation_date="2012-06-27" news_id="8" />
+
+	<comments comment_id="13" comment_text="plane that flyes over pacific ocean..."
+		creation_date="2002-03-11" news_id="10" />
+
+	<comments comment_id="14" comment_text="what taboo they wanna break??"
+		creation_date="2009-07-02" news_id="6" />
+
+	<comments comment_id="15" comment_text="how much it will be cost??"
+		creation_date="2009-07-03" news_id="6" />
+
+	<comments comment_id="16"
+		comment_text="in 1995 was a hard year of all serbians!" creation_date="2012-06-29"
+		news_id="8" />
+
+	<comments comment_id="17" comment_text="it is incredible!"
+		creation_date="2002-03-13" news_id="10" />
+
+	<comments comment_id="18"
+		comment_text="i live in switzerland and i not accept this. so far"
+		creation_date="2013-08-20" news_id="11" />
+
+	<comments comment_id="19" comment_text="officials hide real numbers!!!.."
+		creation_date="2013-08-21" news_id="11" />
+
+	<comments comment_id="20"
+		comment_text="really really positive emotions reading it"
+		creation_date="2013-08-25" news_id="11" />
+
+</dataset>

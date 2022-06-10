@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flatwares xmlns="http://www.example.org/flatware" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.example.org/flatware flatware.xsd ">
+
+    <!-- 1 -->
+    <primary-flatware origin="netherlands" value="true"
+                      id="a4567329">
+        <type>spoon</type>
+        <price>54000</price>
+
+    </primary-flatware>
+
+    <primary-flatware origin="england" value="true" id="b8763457">
+        <type>fork</type>
+        <price>109000</price>
+
+    </primary-flatware>
+
+    <primary-flatware origin="sweden" value="false" id="c0910987">
+        <type>scissors</type>
+        <price>34500</price>
+    </primary-flatware>
+
+    <primary-flatware origin="italy" value="true" id="d0349870">
+        <type>scapula</type>
+        <price>67800</price>
+    </primary-flatware>
+
+    <primary-flatware origin="netherlands" value="false"
+                      id="e2867100">
+        <type>knife</type>
+        <visual>
+            <blade-length>8</blade-length>
+            <prong-length>15</prong-length>
+            <blade-width>15</blade-width>
+            <blade-material>copper</blade-material>
+            <helve>metal</helve>
+        </visual>
+        <price>54000</price>
+    </primary-flatware>
+
+    <!-- 6 -->
+    <primary-flatware origin="sweden" value="true" id="a2765493a">
+        <type>pincers</type>
+        <price>73200</price>
+    </primary-flatware>
+
+    <primary-flatware origin="italy" id="b9012091b">
+        <type>fork</type>
+        <price>58000</price>
+    </primary-flatware>
+
+    <primary-flatware origin="france" id="c9084563c">
+        <type>spoon</type>
+        <price>81900</price>
+    </primary-flatware>
+
+    <primary-flatware origin="belgium" value="true" id="d1235463d">
+        <type>scapula</type>
+        <price>92700</price>
+    </primary-flatware>
+
+    <primary-flatware origin="france" id="e6574738e">
+        <type>knife</type>
+        <visual>
+            <blade-length>13</blade-length>
+            <prong-length>12</prong-length>
+            <blade-width>16</blade-width>
+            <blade-material>copper</blade-material>
+            <helve>plastic</helve>
+        </visual>
+        <price>23000</price>
+    </primary-flatware>
+
+    <!-- 11 -->
+
+    <secondary-flatware origin="belgium" production-date="12-12-2010">
+        <type>spoon</type>
+        <dish>salad</dish>
+    </secondary-flatware>
+
+    <secondary-flatware origin="italy" production-date="20-12-1997" durability="54">
+        <type>scapula</type>
+        <dish>pate</dish>
+        <dish>fish</dish>
+    </secondary-flatware>
+
+    <secondary-flatware origin="denmark" durability="45" production-date="02-08-2004" value="true">
+        <type>pincers</type>
+        <dish>sugar</dish>
+        <dish>marmalade</dish>
+        <dish>jam</dish>
+    </secondary-flatware>
+
+    <secondary-flatware origin="spain" production-date="05-07-1999" value="false" durability="49">
+        <type>knife</type>
+        <visual>
+            <blade-length>10</blade-length>
+            <prong-length>16</prong-length>
+            <blade-width>11</blade-width>
+            <blade-material>steel</blade-material>
+            <helve>rubber</helve>
+        </visual>
+        <dish>lemon</dish>
+        <dish>cheese</dish>
+    </secondary-flatware>
+
+    <secondary-flatware origin="france" production-date="29-02-2001">
+        <type>pincers</type>
+        <dish>nut</dish>
+        <dish>ice</dish>
+    </secondary-flatware>
+
+    <!-- 16 -->
+
+    <secondary-flatware origin="netherlands" production-date="11-10-2007" value="true">
+        <type>fork</type>
+        <dish>sprat</dish>
+        <dish>sardine</dish>
+    </secondary-flatware>
+
+    <secondary-flatware origin="belgium" production-date="07-01-2008" durability="18">
+        <type>scissors</type>
+        <dish>grape</dish>
+    </secondary-flatware>
+</flatwares>

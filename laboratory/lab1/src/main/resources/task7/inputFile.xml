@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<programs>
+	<soft>
+		<name>WinRar</name>
+		<price>0</price>
+		<size>20.08</size>
+		<type>Commercial</type>
+		<os>Windows</os>
+	</soft>
+	<soft>
+		<name>Avast Pro</name>
+		<price>40.5</price>
+		<size>250.67</size>
+		<security>2</security>
+		<os>Windows</os>
+		<os>Linux</os>
+		<os>Mac</os>
+		<os>Android</os>
+	</soft>
+	<soft>
+		<name>UltraEdit</name>
+		<price>80.5</price>
+		<size>80</size>
+		<year>1994</year>
+		<opencode>false</opencode>
+	</soft>
+	<soft>
+		<name>Comodo Pro</name>
+		<price>40</price>
+		<size>209.74</size>
+		<security>2</security>
+		<os>Windows</os>
+		<os>Linux</os>
+		<os>Mac</os>
+	</soft>
+	<soft>
+		<name>Chrome</name>
+		<price>0</price>
+		<size>63.013</size>
+		<year>2008</year>
+		<engine>Blink</engine>
+	</soft>
+	<soft>
+		<name>EditPlus</name>
+		<price>42.99</price>
+		<size>35.87</size>
+		<year>1983</year>
+		<opencode>false</opencode>
+	</soft>
+</programs>

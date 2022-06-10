@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/flatware"
+	xmlns:tns="http://www.example.org/flatware" elementFormDefault="qualified">
+
+	<element name="flatwares">
+		<complexType>
+			<sequence>
+				<element ref="tns:flatware" minOccurs="10" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+
+	<element name="flatware" type="tns:Flatware" abstract="true"/>
+	<element name="primary-flatware" type="tns:PrimaryFlatware"
+		substitutionGroup="tns:flatware" />
+	<element name="secondary-flatware" type="tns:SecondaryFlatware" substitutionGroup="tns:flatware"/>
+
+	<complexType name="Flatware">
+		<sequence>
+			<element name="type">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="fork" />
+						<enumeration value="knife" />
+						<enumeration value="spoon" />
+						<enumeration value="scissors" />
+						<enumeration value="scapula" />
+						<enumeration value="pincers" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="visual" type="tns:Visual" minOccurs="0" maxOccurs="1"/>
+
+		</sequence>
+
+		<attribute name="origin" type="string" use="required" />
+		<attribute name="value" type="boolean" use="optional"
+			default="false" />
+	</complexType>
+
+	<complexType name="PrimaryFlatware">
+		<complexContent>
+			<extension base="tns:Flatware">
+				<sequence>
+					<element name="price" type="positiveInteger" />
+				</sequence>
+				<attribute name="id" use="required" type="ID" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<complexType name="SecondaryFlatware">
+		<complexContent>
+			<extension base="tns:Flatware">
+				<sequence>
+					<element name="dish" type="string" minOccurs="1" maxOccurs="unbounded"/>
+				</sequence>
+				<attribute name="production-date" use="required" type="tns:dateType" />
+				<attribute name="durability" type="int" use="optional" />
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<simpleType name="dateType">
+		<restriction base="date">
+			<pattern value="([0-9]){2}-([0-9]){2}-([0-9]){4}" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="Visual">
+		<sequence>
+			<element name="blade-length" type="integer" />
+			<element name="prong-length">
+				<simpleType>
+					<restriction base="integer">
+						<minInclusive value="10" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="blade-width">
+				<simpleType>
+					<restriction base="integer">
+						<minInclusive value="10" />
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="blade-material">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="cast_iron" />
+						<enumeration value="copper" />
+						<enumeration value="steel" />
+
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="helve">
+				<simpleType>
+					<restriction base="string">
+						<enumeration value="wood">
+
+						</enumeration>
+						<enumeration value="plastic" />
+						<enumeration value="metal" />
+						<enumeration value="leather" />
+						<enumeration value="rubber" />
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+</schema>

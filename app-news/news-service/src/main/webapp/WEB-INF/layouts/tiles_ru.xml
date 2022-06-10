@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="news/list" extends="DefaultTemplate">
+		<put-attribute name="title" value="Список новостей" />
+		<put-attribute name="body" value="/WEB-INF/pages/news/list.jsp" />
+	</definition>
+
+	<definition name="news/item" extends="DefaultTemplate">
+		<put-attribute name="title" value="Новость" />
+		<put-attribute name="body" value="/WEB-INF/pages/news/item.jsp" />
+	</definition>
+
+	<definition name="news/create" extends="DefaultTemplate">
+		<put-attribute name="title" value="Создание/Обновление" />
+		<put-attribute name="body" value="/WEB-INF/pages/news/create.jsp" />
+	</definition>
+
+	<definition name="tag" extends="DefaultTemplate">
+		<put-attribute name="title" value="Список тегов" />
+		<put-attribute name="body" value="/WEB-INF/pages/tag/list.jsp" />
+	</definition>
+
+	<definition name="author" extends="DefaultTemplate">
+		<put-attribute name="title" value="Список авторов" />
+		<put-attribute name="body" value="/WEB-INF/pages/author/list.jsp" />
+	</definition>
+
+	<definition name="login" extends="DefaultTemplate">
+		<put-attribute name="title" value="Вход" />
+		<put-attribute name="body" value="/WEB-INF/pages/login/login.jsp" />
+	</definition>
+
+	<definition name="errorTemplate" extends="DefaultTemplate">
+		<put-attribute name="title" value="Ошибка" />
+	</definition>
+
+</tiles-definitions>

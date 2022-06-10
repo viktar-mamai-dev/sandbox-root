@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<import resource="entity-beans.xml" />
+
+	<bean id="raceDao" class="com.mamay.dao.RaceDao">
+		<property name="raceMap">
+			<map>
+				<entry key="1" value-ref="race1" />
+				<entry key="2" value-ref="race2" />
+				<entry key="3" value-ref="race3" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="horseDao" class="com.mamay.dao.HorseDao">
+		<property name="horseMap">
+			<map>
+				<entry key="1" value-ref="horse1" />
+				<entry key="2" value-ref="horse2" />
+				<entry key="3" value-ref="horse3" />
+				<entry key="4" value-ref="horse4" />
+				<entry key="5" value-ref="horse5" />
+				<entry key="6" value-ref="horse6" />
+				<entry key="7" value-ref="horse7" />
+				<entry key="8" value-ref="horse8" />
+				<entry key="9" value-ref="horse9" />
+				<entry key="10" value-ref="horse10" />
+				<entry key="11" value-ref="horse11" />
+				<entry key="12" value-ref="horse12" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="raceService" class="com.mamay.service.RaceService">
+		<property name="raceDao" ref="raceDao" />
+	</bean>
+
+	<bean id="horseService" class="com.mamay.service.HorseService">
+		<property name="horseDao" ref="horseDao" />
+
+	</bean>
+
+	<bean id="emulationService" class="com.mamay.service.EmulationService">
+		<property name="emulations">
+			<array></array>
+		</property>
+		<property name="horseService" ref="horseService" />
+		<property name="raceService" ref="raceService" />
+	</bean>
+
+</beans>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Riders -->
+	<bean id="rider1" class="com.mamay.task3.service.Rider">
+		<property name="name" value="John" />
+		<property name="ranking" value="1" />
+	</bean>
+
+	<bean id="rider2" class="com.mamay.task3.service.Rider">
+		<property name="name" value="Tom" />
+		<property name="ranking" value="2" />
+	</bean>
+
+	<bean id="rider3" class="com.mamay.task3.service.Rider">
+		<property name="name" value="Andrew" />
+		<property name="ranking" value="3" />
+	</bean>
+
+	<bean id="rider4" class="com.mamay.task3.service.Rider">
+		<property name="name" value="George" />
+		<property name="ranking" value="4" />
+	</bean>
+
+	<bean id="rider5" class="com.mamay.task3.service.Rider">
+		<property name="name" value="John" />
+		<property name="ranking" value="5" />
+	</bean>
+
+	<bean id="rider6" class="com.mamay.task3.service.Rider">
+		<property name="name" value="Garry" />
+		<property name="ranking" value="6" />
+	</bean>
+
+	<!-- Breeds -->
+	<bean id="breed1" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Quarter" />
+		<property name="originCountry" value="USA" />
+	</bean>
+
+	<bean id="breed2" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Tennesie Walker" />
+		<property name="originCountry" value="England" />
+	</bean>
+
+	<bean id="breed3" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Morgan" />
+		<property name="originCountry" value="USA" />
+	</bean>
+
+	<bean id="breed4" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Miniature" />
+		<property name="originCountry" value="Germany" />
+	</bean>
+
+	<bean id="breed5" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Andalusian" />
+		<property name="originCountry" value="Spain" />
+	</bean>
+
+	<bean id="breed6" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Percheron" />
+		<property name="originCountry" value="France" />
+	</bean>
+
+	<bean id="breed7" class="com.mamay.task3.service.Breed">
+		<property name="name" value="Clydesdale" />
+		<property name="originCountry" value="Scotland" />
+	</bean>
+
+	<!-- Horses -->
+	<bean id="horse1" class="com.mamay.task3.service.Horse">
+		<property name="id" value="1"></property>
+		<property name="name" value="Jaguar" />
+		<property name="breed" ref="breed1" />
+		<property name="rider" ref="rider1" />
+	</bean>
+
+	<bean id="horse2" class="com.mamay.task3.service.Horse">
+		<property name="id" value="2"></property>
+		<property name="name" value="Onyx" />
+		<property name="breed" ref="breed2" />
+		<property name="rider" ref="rider2" />
+	</bean>
+
+	<bean id="horse3" class="com.mamay.task3.service.Horse">
+		<property name="id" value="3"></property>
+		<property name="name" value="Cleveland" />
+		<property name="breed" ref="breed3" />
+		<property name="rider" ref="rider3" />
+	</bean>
+
+	<bean id="horse4" class="com.mamay.task3.service.Horse">
+		<property name="id" value="4"></property>
+		<property name="name" value="Adobe" />
+		<property name="breed" ref="breed4" />
+		<property name="rider" ref="rider4" />
+	</bean>
+
+	<bean id="horse5" class="com.mamay.task3.service.Horse">
+		<property name="id" value="5"></property>
+		<property name="name" value="Russel" />
+		<property name="breed" ref="breed3" />
+		<property name="rider" ref="rider3" />
+	</bean>
+
+	<bean id="horse6" class="com.mamay.task3.service.Horse">
+		<property name="id" value="6"></property>
+		<property name="name" value="Spirit" />
+		<property name="breed" ref="breed5" />
+		<property name="rider" ref="rider5" />
+	</bean>
+
+	<bean id="horse7" class="com.mamay.task3.service.Horse">
+		<property name="id" value="7"></property>
+		<property name="name" value="Trapper" />
+		<property name="breed" ref="breed6" />
+		<property name="rider" ref="rider6" />
+	</bean>
+
+	<bean id="horse8" class="com.mamay.task3.service.Horse">
+		<property name="id" value="8"></property>
+		<property name="name" value="Jigsaw" />
+		<property name="breed" ref="breed7" />
+		<property name="rider" ref="rider1" />
+	</bean>
+
+	<bean id="horse9" class="com.mamay.task3.service.Horse">
+		<property name="id" value="9"></property>
+		<property name="name" value="Universe" />
+		<property name="breed" ref="breed1" />
+		<property name="rider" ref="rider6" />
+	</bean>
+
+	<bean id="horse10" class="com.mamay.task3.service.Horse">
+		<property name="id" value="10"></property>
+		<property name="name" value="Napoleon" />
+		<property name="breed" ref="breed2" />
+		<property name="rider" ref="rider5" />
+	</bean>
+
+	<bean id="horse11" class="com.mamay.task3.service.Horse">
+		<property name="id" value="11"></property>
+		<property name="name" value="Snowball" />
+		<property name="breed" ref="breed3" />
+		<property name="rider" ref="rider4" />
+	</bean>
+
+	<bean id="horse12" class="com.mamay.task3.service.Horse">
+		<property name="id" value="12"></property>
+		<property name="name" value="Scout" />
+		<property name="breed" ref="breed4" />
+		<property name="rider" ref="rider2" />
+	</bean>
+
+	<!-- Races -->
+	<bean id="race1" class="com.mamay.task3.service.Race">
+		<property name="id" value="1"></property>
+		<property name="place" value="Central Ippodrom" />
+		<property name="time" ref="localDateTime1" />
+		<property name="length" value="100" />
+		<property name="participants">
+			<list>
+				<value>1</value>
+				<value>2</value>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+				<value>6</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="race2" class="com.mamay.task3.service.Race">
+		<property name="id" value="2"></property>
+		<property name="place" value="Margaret Court Stadium" />
+		<property name="time" ref="localDateTime2" />
+		<property name="length" value="70" />
+		<property name="participants">
+			<list>
+				<value>7</value>
+				<value>8</value>
+				<value>9</value>
+				<value>10</value>
+				<value>11</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="race3" class="com.mamay.task3.service.Race">
+		<property name="id" value="3"></property>
+		<property name="place" value="Wembley" />
+		<property name="time" ref="localDateTime3" />
+		<property name="length" value="50" />
+		<property name="participants">
+			<list>
+				<value>12</value>
+				<value>1</value>
+				<value>11</value>
+				<value>2</value>
+				<value>10</value>
+				<value>3</value>
+				<value>9</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- LocalDateTime beans -->
+	<bean id="localDateTime1" class="java.time.LocalDateTime" factory-method="of">
+		<constructor-arg value="2019" type="int" />
+		<constructor-arg value="03" type="int" />
+		<constructor-arg value="11" type="int" />
+		<constructor-arg value="12" type="int" />
+		<constructor-arg value="00" type="int" />
+	</bean>
+
+	<bean id="localDateTime2" class="java.time.LocalDateTime" factory-method="of">
+		<constructor-arg value="2019" type="int" />
+		<constructor-arg value="06" type="int" />
+		<constructor-arg value="4" type="int" />
+		<constructor-arg value="8" type="int" />
+		<constructor-arg value="30" type="int" />
+	</bean>
+
+	<bean id="localDateTime3" class="java.time.LocalDateTime" factory-method="of">
+		<constructor-arg value="2019" type="int" />
+		<constructor-arg value="12" type="int" />
+		<constructor-arg value="25" type="int" />
+		<constructor-arg value="20" type="int" />
+		<constructor-arg value="45" type="int" />
+	</bean>
+
+</beans>
