@@ -12,7 +12,6 @@
     <artifactId>specialization-pcd</artifactId>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <pcdp.version>0.0.4-SNAPSHOT</pcdp.version>
         <maven.test.skip>true</maven.test.skip>
     </properties>
@@ -38,6 +37,19 @@
             <groupId>edu.rice.pcdp</groupId>
             <artifactId>pcdp-core</artifactId>
             <version>${pcdp.version}</version>
+        </dependency>
+		
+		<!-- Apache Spark -->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-core_2.10</artifactId>
+            <version>1.6.1</version> <!-- DO not change -->
+        </dependency>
+
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>4.2.2</version>
         </dependency>
     </dependencies>
 
@@ -103,4 +115,41 @@
             </plugins>
         </pluginManagement>
     </build>
+	
+	<profiles>
+        <profile>
+            <id>MPITests-4</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- executes the main program -->
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>mpirun</executable>
+                            <arguments>
+                                <argument>-n</argument>
+                                <argument>4</argument>
+                                <argument>java</argument>
+                                <argument>-Xmx4g</argument>
+                                <argument>-DCOURSERA_GRADER_NCORES=4</argument>
+                                <argument>-cp</argument>
+                                <argument>jna-4.2.2.jar:junit-4.12.jar:hamcrest-core-1.3.jar:${basedir}/target/classes:${basedir}/target/test-classes</argument>
+                                <argument>org.junit.runner.JUnitCore</argument>
+                                <argument>edu.coursera.distributed.week3.MpiJavaTest</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -1,4 +1,4 @@
-package edu.coursera.concurrent.week1;
+package edu.coursera.concurrent.week1.seq;
 
 /**
  * A helper class for generating different types of integer sequences. These are

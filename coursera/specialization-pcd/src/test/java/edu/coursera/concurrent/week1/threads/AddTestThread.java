@@ -1,4 +1,7 @@
-package edu.coursera.concurrent.week1;
+package edu.coursera.concurrent.week1.threads;
+
+import edu.coursera.concurrent.week1.ListSet;
+import edu.coursera.concurrent.week1.seq.SequenceGenerator;
 
 /**
  * A Runnable class used to test the performance of each concurrent ListSet

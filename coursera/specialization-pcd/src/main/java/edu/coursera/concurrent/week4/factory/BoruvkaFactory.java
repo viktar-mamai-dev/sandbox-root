@@ -1,7 +1,10 @@
 package edu.coursera.concurrent.week4.factory;
 
+import edu.coursera.concurrent.week4.algo.AbstractBoruvka;
 import edu.coursera.concurrent.week4.components.Component;
 import edu.coursera.concurrent.week4.edges.Edge;
+
+import java.util.Queue;
 
 /**
  * An abstract interface to implement when manufacturing components and edges in
@@ -28,4 +31,8 @@ public interface BoruvkaFactory<C extends Component, E extends Edge> {
      * @return New edge.
      */
     E newEdge(C from, C to, double weight);
+
+    AbstractBoruvka<C> generateBoruvka();
+
+    Queue<C> createQueue();
 }

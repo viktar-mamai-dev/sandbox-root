@@ -1,9 +1,6 @@
 package edu.coursera.concurrent.week2;
 
-import edu.coursera.concurrent.week2.Account;
-import edu.coursera.concurrent.week2.BankTransactionsUsingGlobalIsolation;
-import edu.coursera.concurrent.week2.BankTransactionsUsingObjectIsolation;
-import edu.coursera.concurrent.week2.ThreadSafeBankTransaction;
+import edu.coursera.Util;
 import junit.framework.TestCase;
 
 import java.util.Random;
@@ -14,15 +11,7 @@ import static edu.rice.pcdp.PCDP.finish;
 public class BankTransactionsTest extends TestCase {
     private final static int numAccounts = 3_000;
     private final static int numTransactions = 800_000;
-
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
+    private static final int nCores = Util.getNCores();
 
     private static int randomIntValue(final Random random, final int limit) {
         return (int) (Math.abs(random.nextDouble() * 10000) % limit);
@@ -66,7 +55,7 @@ public class BankTransactionsTest extends TestCase {
         final long elapsed = System.currentTimeMillis() - startTime;
 
         System.out.println(impl.getClass().getSimpleName() + ": Performed " + numTransactions + " transactions with "
-                + numAccounts + " accounts and " + getNCores() + " threads, in " + elapsed + " ms");
+                + numAccounts + " accounts and " + nCores + " threads, in " + elapsed + " ms");
 
         final long postSumOfBalances = sumBalances(bankAccounts);
         assertEquals("Expected total balance before and after simulation to be equal, but was " + preSumOfBalances
@@ -85,7 +74,7 @@ public class BankTransactionsTest extends TestCase {
         final long objectTime = testDriver(new BankTransactionsUsingObjectIsolation());
         final double improvement = (double) globalTime / (double) objectTime;
 
-        final int ncores = getNCores();
+        final int ncores = nCores;
         double expected;
         if (ncores == 2) {
             expected = 1.4;

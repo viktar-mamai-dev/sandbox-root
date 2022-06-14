@@ -31,7 +31,7 @@ class RWCoarseList extends ListSet {
      * TODO Use a read-write lock to protect against concurrent access.
      */
     @Override
-    boolean add(final Integer object) {
+    public boolean add(final Integer object) {
         try {
             lock.writeLock().lock();
 
@@ -62,7 +62,7 @@ class RWCoarseList extends ListSet {
      * TODO Use a read-write lock to protect against concurrent access.
      */
     @Override
-    boolean remove(final Integer object) {
+    public boolean remove(final Integer object) {
         try {
             lock.writeLock().lock();
 
@@ -91,7 +91,7 @@ class RWCoarseList extends ListSet {
      * TODO Use a read-write lock to protect against concurrent access.
      */
     @Override
-    boolean contains(final Integer object) {
+    public boolean contains(final Integer object) {
         try {
             lock.readLock().lock();
 

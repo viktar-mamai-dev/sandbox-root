@@ -18,16 +18,17 @@ public final class MatrixMultiply {
      *
      * @param A An input matrix with dimensions NxN
      * @param B An input matrix with dimensions NxN
-     * @param C The output matrix
      * @param N Size of each dimension of the input matrices
      */
-    public static void seqMatrixMultiply(final double[][] A, final double[][] B, final double[][] C, final int N) {
+    public static double[][] seqMatrixMultiply(final double[][] A, final double[][] B, final int N) {
+        final double[][] C = new double[N][N];
         forseq2d(0, N - 1, 0, N - 1, (i, j) -> {
             C[i][j] = 0.0;
             for (int k = 0; k < N; k++) {
                 C[i][j] += A[i][k] * B[k][j];
             }
         });
+        return C;
     }
 
     /**
@@ -35,18 +36,19 @@ public final class MatrixMultiply {
      *
      * @param A An input matrix with dimensions NxN
      * @param B An input matrix with dimensions NxN
-     * @param C The output matrix
      * @param N Size of each dimension of the input matrices
      */
-    public static void parMatrixMultiply(final double[][] A, final double[][] B, final double[][] C, final int N) {
+    public static double[][] parMatrixMultiply(final double[][] A, final double[][] B, final int N) {
         /*
          * TODO Parallelize this outermost two-dimension sequential loop to achieve performance improvement.
          */
+        final double[][] C = new double[N][N];
         forall2dChunked(0, N - 1, 0, N - 1, (i, j) -> {
             C[i][j] = 0.0;
             for (int k = 0; k < N; k++) {
                 C[i][j] += A[i][k] * B[k][j];
             }
         });
+        return C;
     }
 }

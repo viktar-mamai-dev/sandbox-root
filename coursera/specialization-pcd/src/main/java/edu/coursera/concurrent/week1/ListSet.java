@@ -37,7 +37,7 @@ public abstract class ListSet {
      * @param o The integer to add.
      * @return false if this value already exists in the list, true otherwise
      */
-    abstract boolean add(Integer o);
+    public abstract boolean add(Integer o);
 
     /**
      * Remove an integer value from this list if it exists. This method must use
@@ -45,9 +45,9 @@ public abstract class ListSet {
      *
      * @param o The integer to remove.
      * @return true if this value is found in the list and successfully removed,
-     *         false otherwise
+     * false otherwise
      */
-    abstract boolean remove(Integer o);
+    public abstract boolean remove(Integer o);
 
     /**
      * Check if this list contains the provided value. This method must use
@@ -56,5 +56,5 @@ public abstract class ListSet {
      * @param o The integer to check for.
      * @return true if this list contains the target value, false otherwise.
      */
-    abstract boolean contains(Integer o);
+    public abstract boolean contains(Integer o);
 }

@@ -1,21 +1,15 @@
 package edu.coursera.parallel.week4;
 
+import edu.coursera.TestExecutor;
+import edu.coursera.TestResults;
+import edu.coursera.Util;
 import junit.framework.TestCase;
-
-import java.util.concurrent.Phaser;
 
 public class OneDimAveragingPhaserTest extends TestCase {
     // Number of times to repeat each test, for consistent timing results.
     final static private int niterations = 40000;
 
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
+    private static final int nCores = Util.getNCores();
 
     private double[] createArray(final int N, final int iterations) {
         final double[] input = new double[N + 2];
@@ -44,32 +38,23 @@ public class OneDimAveragingPhaserTest extends TestCase {
         // Create a random input
         double[] myNew = createArray(N, niterations);
         double[] myVal = createArray(N, niterations);
-        final double[] myNewRef = createArray(N, niterations);
-        final double[] myValRef = createArray(N, niterations);
 
-        long barrierTotalTime = 0;
-        long fuzzyTotalTime = 0;
+        final int REPEATS = 3;
+        final TestExecutor testExecutor = new TestExecutor(REPEATS);
 
-        for (int r = 0; r < 3; r++) {
-            final long barrierStartTime = System.currentTimeMillis();
-            OneDimAveragingPhaser.runParallelBarrier(niterations, myNew, myVal, N, ntasks);
-            final long barrierEndTime = System.currentTimeMillis();
+        TestResults<double[]> parResults = testExecutor.execute(() ->
+                OneDimAveragingPhaser.runParallelBarrier(niterations, myNew, myVal, N, ntasks));
 
-            final long fuzzyStartTime = System.currentTimeMillis();
-            OneDimAveragingPhaser.runParallelFuzzyBarrier(niterations, myNewRef, myValRef, N, ntasks);
-            final long fuzzyEndTime = System.currentTimeMillis();
+        TestResults<double[]> parFuzzyResults = testExecutor.execute(() ->
+                OneDimAveragingPhaser.runParallelFuzzyBarrier(niterations, myNew, myVal, N, ntasks));
 
-            if (niterations % 2 == 0) {
-                checkResult(myNew, myNewRef);
-            } else {
-                checkResult(myVal, myValRef);
-            }
-
-            barrierTotalTime += (barrierEndTime - barrierStartTime);
-            fuzzyTotalTime += (fuzzyEndTime - fuzzyStartTime);
+        int size = parFuzzyResults.getResults().size();
+        assertEquals(size, parResults.getResults().size());
+        for (int i = 0; i < size; i++) {
+            checkResult(parFuzzyResults.getResults().get(i), parResults.getResults().get(i));
         }
 
-        return (double) barrierTotalTime / (double) fuzzyTotalTime;
+        return parResults.getExecutionTime() / parFuzzyResults.getExecutionTime();
     }
 
     /**
@@ -77,7 +62,7 @@ public class OneDimAveragingPhaserTest extends TestCase {
      */
     public void testFuzzyBarrier() {
         final double expected = 1.05;
-        final double speedup = parTestHelper(2 * 1024 * 1024, getNCores() * 1);
+        final double speedup = parTestHelper(2 * 1024 * 1024, nCores * 1);
         final String errMsg = String.format("It was expected that the fuzzy barrier parallel implementation would " +
                 "run %fx faster than the barrier implementation, but it only achieved %fx speedup", expected, speedup);
         assertTrue(errMsg, speedup >= expected);

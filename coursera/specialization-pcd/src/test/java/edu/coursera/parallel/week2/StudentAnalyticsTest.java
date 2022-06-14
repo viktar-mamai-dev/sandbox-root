@@ -1,25 +1,24 @@
 package edu.coursera.parallel.week2;
 
-import java.util.Random;
-
+import edu.coursera.TestExecutor;
+import edu.coursera.Util;
+import edu.coursera.TestResults;
 import junit.framework.TestCase;
+
+import java.util.DoubleSummaryStatistics;
+import java.util.Random;
 
 public class StudentAnalyticsTest extends TestCase {
     final static int REPEATS = 10;
     private final static String[] firstNames = {"Sanjay", "Yunming", "John", "Vivek", "Shams", "Max"};
     private final static String[] lastNames = {"Chatterjee", "Zhang", "Smith", "Sarkar", "Imam", "Grossman"};
 
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
+    private static final double nCores = Util.getNCores();
+
+    private static final StudentAnalytics analytics = new StudentAnalytics();
 
     private Student[] generateStudentData() {
-        final int N_STUDENTS = 2000000;
+        final int N_STUDENTS = 8000000;
         final int N_CURRENT_STUDENTS = 600000;
 
         Student[] students = new Student[N_STUDENTS];
@@ -40,28 +39,22 @@ public class StudentAnalyticsTest extends TestCase {
 
     private double averageAgeOfEnrolledStudentsHelper(final int repeats) {
         final Student[] students = generateStudentData();
-        final StudentAnalytics analytics = new StudentAnalytics();
 
-        final double ref = analytics.averageAgeOfEnrolledStudentsImperative(students);
+        final TestExecutor testExecutor = new TestExecutor(repeats);
+        TestResults<Double> seq = testExecutor.execute(students, analytics::averageAgeOfEnrolledStudentsImperative);
 
-        final long startSequential = System.currentTimeMillis();
-        for (int r = 0; r < repeats; r++) {
-            analytics.averageAgeOfEnrolledStudentsImperative(students);
-        }
-        final long endSequential = System.currentTimeMillis();
+        TestResults<Double> par = testExecutor.execute(students, analytics::averageAgeOfEnrolledStudentsParallelStream);
 
-        final double calc = analytics.averageAgeOfEnrolledStudentsParallelStream(students);
-        final double err = Math.abs(calc - ref);
-        final String msg = "Expected " + ref + " but found " + calc + ", err = " + err;
-        assertTrue(msg, err < 1E-5);
+        DoubleSummaryStatistics parStat = par.getResults().stream().mapToDouble(d -> d).summaryStatistics();
+        DoubleSummaryStatistics seqStat = seq.getResults().stream().mapToDouble(d -> d).summaryStatistics();
 
-        final long startParallel = System.currentTimeMillis();
-        for (int r = 0; r < repeats; r++) {
-            analytics.averageAgeOfEnrolledStudentsParallelStream(students);
-        }
-        final long endParallel = System.currentTimeMillis();
+        final double eps = 1E-5;
+        assertTrue("Mismatch in calculated values", Math.abs(parStat.getMin() - seqStat.getMin()) < eps);
+        assertTrue("Mismatch in calculated values", Math.abs(parStat.getMax() - seqStat.getMax()) < eps);
+        assertTrue("Mismatch in calculated values", Math.abs(parStat.getAverage() - seqStat.getAverage()) < eps);
+        assertTrue("Mismatch in calculated values", Math.abs(parStat.getSum() - seqStat.getSum()) < 10 * eps);
 
-        return (double)(endSequential - startSequential) / (double)(endParallel - startParallel);
+        return seq.getExecutionTime() / par.getExecutionTime();
     }
 
     /*
@@ -75,7 +68,6 @@ public class StudentAnalyticsTest extends TestCase {
      * Test performance of averageAgeOfEnrolledStudentsParallelStream.
      */
     public void testAverageAgeOfEnrolledStudentsPerf() {
-        final int ncores = getNCores();
         final double speedup = averageAgeOfEnrolledStudentsHelper(REPEATS);
         String msg = "Expected parallel version to run at least 1.2x faster but speedup was " + speedup;
         assertTrue(msg, speedup > 1.2);
@@ -83,26 +75,17 @@ public class StudentAnalyticsTest extends TestCase {
 
     private double mostCommonFirstNameOfInactiveStudentsHelper(final int repeats) {
         final Student[] students = generateStudentData();
-        final StudentAnalytics analytics = new StudentAnalytics();
 
-        final String ref = analytics.mostCommonFirstNameOfInactiveStudentsImperative(students);
+        final TestExecutor testExecutor = new TestExecutor(repeats);
+        TestResults<String> seq = testExecutor.execute(students,
+                analytics::mostCommonFirstNameOfInactiveStudentsImperative);
 
-        final long startSequential = System.currentTimeMillis();
-        for (int r = 0; r < repeats; r++) {
-            analytics.mostCommonFirstNameOfInactiveStudentsImperative(students);
-        }
-        final long endSequential = System.currentTimeMillis();
+        TestResults<String> par = testExecutor.execute(students,
+                analytics::mostCommonFirstNameOfInactiveStudentsParallelStream);
 
-        final String calc = analytics.mostCommonFirstNameOfInactiveStudentsParallelStream(students);
-        assertEquals("Mismatch in calculated values", ref, calc);
+        assertEquals("Mismatch in calculated values", par.getResults(), seq.getResults());
 
-        final long startParallel = System.currentTimeMillis();
-        for (int r = 0; r < repeats; r++) {
-            analytics.mostCommonFirstNameOfInactiveStudentsParallelStream(students);
-        }
-        final long endParallel = System.currentTimeMillis();
-
-        return (double)(endSequential - startSequential) / (double)(endParallel - startParallel);
+        return seq.getExecutionTime() / par.getExecutionTime();
     }
 
     /*
@@ -116,9 +99,8 @@ public class StudentAnalyticsTest extends TestCase {
      * Test performance of mostCommonFirstNameOfInactiveStudentsParallelStream.
      */
     public void testMostCommonFirstNameOfInactiveStudentsPerf() {
-        final int ncores = getNCores();
         final double speedup = mostCommonFirstNameOfInactiveStudentsHelper(REPEATS);
-        final double expectedSpeedup = (double)ncores * 0.5;
+        final double expectedSpeedup = nCores * 0.5;
         String msg = "Expected speedup to be at least " + expectedSpeedup + " but was " + speedup;
         assertTrue(msg, speedup >= expectedSpeedup);
 
@@ -126,26 +108,17 @@ public class StudentAnalyticsTest extends TestCase {
 
     private double countNumberOfFailedStudentsOlderThan20Helper(final int repeats) {
         final Student[] students = generateStudentData();
-        final StudentAnalytics analytics = new StudentAnalytics();
 
-        final int ref = analytics.countNumberOfFailedStudentsOlderThan20Imperative(students);
+        final TestExecutor testExecutor = new TestExecutor(repeats);
+        TestResults<Integer> seq = testExecutor.execute(students,
+                analytics::countNumberOfFailedStudentsOlderThan20Imperative);
 
-        final long startSequential = System.currentTimeMillis();
-        for (int r = 0; r < repeats; r++) {
-            analytics.countNumberOfFailedStudentsOlderThan20Imperative(students);
-        }
-        final long endSequential = System.currentTimeMillis();
+        TestResults<Integer> par = testExecutor.execute(students,
+                analytics::countNumberOfFailedStudentsOlderThan20ParallelStream);
 
-        final int calc = analytics.countNumberOfFailedStudentsOlderThan20ParallelStream(students);
-        assertEquals("Mismatch in calculated values", ref, calc);
+        assertEquals("Mismatch in calculated values", seq.getResults(), par.getResults());
 
-        final long startParallel = System.currentTimeMillis();
-        for (int r = 0; r < repeats; r++) {
-            analytics.countNumberOfFailedStudentsOlderThan20ParallelStream(students);
-        }
-        final long endParallel = System.currentTimeMillis();
-
-        return (double)(endSequential - startSequential) / (double)(endParallel - startParallel);
+        return seq.getExecutionTime() / par.getExecutionTime();
     }
 
     /*
@@ -159,10 +132,8 @@ public class StudentAnalyticsTest extends TestCase {
      * Test performance of countNumberOfFailedStudentsOlderThan20ParallelStream.
      */
     public void testCountNumberOfFailedStudentsOlderThan20Perf() {
-        final int ncores = getNCores();
         final double speedup = countNumberOfFailedStudentsOlderThan20Helper(REPEATS);
         String msg = "Expected parallel version to run at least 1.2x faster but speedup was " + speedup;
         assertTrue(msg, speedup > 1.2);
     }
-
 }

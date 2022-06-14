@@ -1,4 +1,4 @@
-package edu.coursera.concurrent.week1;
+package edu.coursera.concurrent.week1.seq;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package edu.coursera.concurrent.week1;
+package edu.coursera.concurrent.week1.seq;
 
 public class RepeatingSequenceGenerator implements SequenceGenerator {
     private final int[] subsequence;

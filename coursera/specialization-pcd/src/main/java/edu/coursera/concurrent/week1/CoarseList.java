@@ -30,7 +30,7 @@ class CoarseList extends ListSet {
      * {@inheritDoc}
      */
     @Override
-    boolean add(final Integer object) {
+    public boolean add(final Integer object) {
         try {
             lock.lock();
 
@@ -60,7 +60,7 @@ class CoarseList extends ListSet {
      * <p>
      */
     @Override
-    boolean remove(final Integer object) {
+    public boolean remove(final Integer object) {
         try {
             lock.lock();
 
@@ -89,7 +89,7 @@ class CoarseList extends ListSet {
      * <p>
      */
     @Override
-    boolean contains(final Integer object) {
+    public boolean contains(final Integer object) {
         try {
             lock.lock();
 

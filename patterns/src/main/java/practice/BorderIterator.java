@@ -36,10 +36,7 @@ public class BorderIterator {
                     hasNext = false;
                     return false;
                 }
-
-
                 return true;
-
             }
 
             @Override

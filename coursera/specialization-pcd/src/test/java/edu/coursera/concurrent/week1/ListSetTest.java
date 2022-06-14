@@ -1,5 +1,13 @@
 package edu.coursera.concurrent.week1;
 
+import edu.coursera.Util;
+import edu.coursera.concurrent.week1.seq.RandomSequenceGenerator;
+import edu.coursera.concurrent.week1.seq.RepeatingSequenceGenerator;
+import edu.coursera.concurrent.week1.seq.ReversedSequenceGenerator;
+import edu.coursera.concurrent.week1.seq.SequenceGenerator;
+import edu.coursera.concurrent.week1.threads.AddTestThread;
+import edu.coursera.concurrent.week1.threads.ContainsTestThread;
+import edu.coursera.concurrent.week1.threads.RemoveTestThread;
 import junit.framework.TestCase;
 
 import java.util.concurrent.BrokenBarrierException;
@@ -7,23 +15,15 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class ListSetTest extends TestCase {
+    private static final int nCores = Util.getNCores();
     private final int randNumsLength = 10_000;
     private final int randNumRange = 80_000;
-
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
 
     private static void printStats(TestResults ref, TestResults test, final SequenceGenerator seq, final String datasetName) {
         System.out.println("=========================================================");
         System.out.println(test.lbl + " vs. " + ref.lbl + " (" + datasetName + " " + seq.getLabel() + ")");
         System.out.println("=========================================================");
-        System.out.println("# threads = " + getNCores());
+        System.out.println("# threads = " + nCores);
         System.out.println((test.addRate / ref.addRate) + "x improvement in add throughput (" + ref.addRate + " -> " + test.addRate + ")");
         System.out.println((test.containsRate / ref.containsRate) + "x improvement in contains throughput (" + ref.containsRate + " -> " + test.containsRate + ")");
         System.out.println((test.removeRate / ref.removeRate) + "x improvement in remove throughput (" + ref.removeRate + " -> " + test.removeRate + ")");
@@ -34,7 +34,7 @@ public class ListSetTest extends TestCase {
                                              final String lblA, final ListFactory factoryB, final String lblB,
                                              final SequenceGenerator addSeq, final SequenceGenerator containsSeq,
                                              final SequenceGenerator removeSeq) throws InterruptedException {
-        final int numThreads = getNCores();
+        final int numThreads = nCores;
 
         /*
          * Require several warm-ups to ensure JIT does not interfere with thread
@@ -118,8 +118,7 @@ public class ListSetTest extends TestCase {
         requestGarbageCollection();
 
         /*
-         * Assert that the resulting list is sorted and save the length of the
-         * list after the initial adds.
+         * Assert that the resulting list is sorted and save the length of the list after the initial adds.
          */
         int listLengthAfterAdds = 1;
         Entry prev = list.getHead();
@@ -206,106 +205,104 @@ public class ListSetTest extends TestCase {
 
     public void testCoarseGrainedLockingRandomLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RandomSequenceGenerator(0,
-                getNCores() * randNumsLength, randNumRange);
+                nCores * randNumsLength, randNumRange);
         final SequenceGenerator containsSeq = new RandomSequenceGenerator(1,
-                getNCores() * randNumsLength, randNumRange);
+                nCores * randNumsLength, randNumRange);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RandomSequenceGenerator(2, getNCores() * randNumsLength, randNumRange));
+                new RandomSequenceGenerator(2, nCores * randNumsLength, randNumRange));
 
         final double expectedAdd = 0.5;
         final double expectedContains = 0.7;
         final double expectedRemove = 0.7;
 
-        testCoarseGrainedLockingHelper(addSeq, containsSeq, removeSeq, expectedAdd, expectedContains, expectedRemove,
-                "Large");
+        assertImprovementStats(new ImprovementStats(expectedAdd, expectedContains, expectedRemove),
+                testCoarseGrainedLockingHelper(addSeq, containsSeq, removeSeq, "Large"));
     }
 
     public void testCoarseGrainedLockingRepeatingLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                nCores * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator containsSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                nCores * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RepeatingSequenceGenerator(getNCores() * 6 * randNumsLength,
-                        randNumsLength));
+                new RepeatingSequenceGenerator(nCores * 6 * randNumsLength, randNumsLength));
 
         final double expectedAdd = 0.5;
         final double expectedContains = 0.6;
         final double expectedRemove = 0.6;
 
-        testCoarseGrainedLockingHelper(addSeq, containsSeq, removeSeq,
-                expectedAdd, expectedContains, expectedRemove, "Large");
+        assertImprovementStats(new ImprovementStats(expectedAdd, expectedContains, expectedRemove),
+                testCoarseGrainedLockingHelper(addSeq, containsSeq, removeSeq, "Large"));
     }
 
     public void testReadWriteLocksRandomLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RandomSequenceGenerator(0,
-                getNCores() * randNumsLength, randNumRange);
+                nCores * randNumsLength, randNumRange);
         final SequenceGenerator containsSeq = new RandomSequenceGenerator(1,
-                getNCores() * randNumsLength, randNumRange);
+                nCores * randNumsLength, randNumRange);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RandomSequenceGenerator(2, getNCores() * randNumsLength, randNumRange));
+                new RandomSequenceGenerator(2, nCores * randNumsLength, randNumRange));
 
         final double expectedAdd = 0.5;
         final double expectedRemove = 0.5;
         final double expectedContains = 1.8;
 
-        testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, expectedAdd,
-                expectedContains, expectedRemove, "Large");
+        assertImprovementStats(new ImprovementStats(expectedAdd, expectedContains, expectedRemove),
+                testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, "Large"));
     }
 
     public void testReadWriteLocksRandomSmall() throws InterruptedException {
         final SequenceGenerator addSeq = new RandomSequenceGenerator(0,
-                getNCores() * randNumsLength / 2, randNumRange);
+                nCores * randNumsLength / 2, randNumRange);
         final SequenceGenerator containsSeq = new RandomSequenceGenerator(1,
-                getNCores() * randNumsLength / 2, randNumRange);
+                nCores * randNumsLength / 2, randNumRange);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RandomSequenceGenerator(2, getNCores() * randNumsLength / 2, randNumRange));
+                new RandomSequenceGenerator(2, nCores * randNumsLength / 2, randNumRange));
 
         final double expectedAdd = 0.5;
         final double expectedRemove = 0.5;
         final double expectedContains = 1.8;
 
-        testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, expectedAdd,
-                expectedContains, expectedRemove, "Small");
+        assertImprovementStats(new ImprovementStats(expectedAdd, expectedContains, expectedRemove),
+                testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, "Small"));
     }
 
     public void testReadWriteLocksRepeatingLarge() throws InterruptedException {
         final SequenceGenerator addSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                nCores * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator containsSeq = new RepeatingSequenceGenerator(
-                getNCores() * 6 * randNumsLength, randNumsLength);
+                nCores * 6 * randNumsLength, randNumsLength);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RepeatingSequenceGenerator(getNCores() * 6 * randNumsLength, randNumsLength));
+                new RepeatingSequenceGenerator(nCores * 6 * randNumsLength, randNumsLength));
 
         final double expectedAdd = 0.5;
         final double expectedRemove = 0.5;
         final double expectedContains = 1.8;
 
-        testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, expectedAdd,
-                expectedContains, expectedRemove, "Large");
+        assertImprovementStats(new ImprovementStats(expectedAdd, expectedContains, expectedRemove),
+                testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, "Large"));
     }
 
     public void testReadWriteLocksRepeatingSmall() throws InterruptedException {
         final SequenceGenerator addSeq = new RepeatingSequenceGenerator(
-                getNCores() * 3 * randNumsLength, randNumsLength);
+                nCores * 3 * randNumsLength, randNumsLength);
         final SequenceGenerator containsSeq = new RepeatingSequenceGenerator(
-                getNCores() * 3 * randNumsLength, randNumsLength);
+                nCores * 3 * randNumsLength, randNumsLength);
         final SequenceGenerator removeSeq = new ReversedSequenceGenerator(
-                new RepeatingSequenceGenerator(getNCores() * 3 * randNumsLength, randNumsLength));
+                new RepeatingSequenceGenerator(nCores * 3 * randNumsLength, randNumsLength));
 
         final double expectedAdd = 0.4;
         final double expectedRemove = 0.4;
         final double expectedContains = 1.8;
 
-        testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, expectedAdd,
-                expectedContains, expectedRemove, "Small");
+        assertImprovementStats(new ImprovementStats(expectedAdd, expectedContains, expectedRemove),
+                testReadWriteLocksHelper(addSeq, containsSeq, removeSeq, "Small"));
     }
 
-    private void testCoarseGrainedLockingHelper(final SequenceGenerator addSeq,
-                                                final SequenceGenerator containsSeq,
-                                                final SequenceGenerator removeSeq, final double expectedAdd,
-                                                final double expectedContains, final double expectedRemove,
-                                                final String datasetName) throws InterruptedException {
+    private ImprovementStats testCoarseGrainedLockingHelper(final SequenceGenerator addSeq,
+                                                            final SequenceGenerator containsSeq,
+                                                            final SequenceGenerator removeSeq,
+                                                            final String datasetName) throws InterruptedException {
 
         final TestResultsPair results = runKernel(CoarseList::new, "CoarseList", SyncList::new, "SyncList",
                 addSeq, containsSeq, removeSeq);
@@ -324,24 +321,13 @@ public class ListSetTest extends TestCase {
         final double containsImprovement = lockResults.containsRate / syncResults.containsRate;
         final double removeImprovement = lockResults.removeRate / syncResults.removeRate;
 
-        final String addmsg = String.format("Expected add throughput to remain " +
-                "similar (at least %fx) with locks, but found %fx", expectedAdd, addImprovement);
-        assertTrue(addmsg, addImprovement >= expectedAdd);
-
-        final String containsmsg = String.format("Expected contains throughput to " +
-                "remain similar (at least %fx) with locks, but found %fx", expectedContains, containsImprovement);
-        assertTrue(containsmsg, containsImprovement >= expectedContains);
-
-        final String removemsg = String.format("Expected remove throughput to " +
-                "remain similar (at least %fx) with locks, but found %fx", expectedRemove, removeImprovement);
-        assertTrue(removemsg, removeImprovement >= expectedRemove);
+        return new ImprovementStats(addImprovement, containsImprovement, removeImprovement);
     }
 
-    public void testReadWriteLocksHelper(final SequenceGenerator addSeq,
-                                         final SequenceGenerator containsSeq,
-                                         final SequenceGenerator removeSeq, final double expectedAdd,
-                                         final double expectedContains, final double expectedRemove,
-                                         final String datasetName) throws InterruptedException {
+    public ImprovementStats testReadWriteLocksHelper(final SequenceGenerator addSeq,
+                                                     final SequenceGenerator containsSeq,
+                                                     final SequenceGenerator removeSeq,
+                                                     final String datasetName) throws InterruptedException {
         final TestResultsPair results = runKernel(RWCoarseList::new, "RWCoarseList", SyncList::new, "SyncList",
                 addSeq, containsSeq, removeSeq);
         final TestResults rwResults = results.A;
@@ -359,17 +345,22 @@ public class ListSetTest extends TestCase {
         final double containsImprovement = rwResults.containsRate / syncResults.containsRate;
         final double removeImprovement = rwResults.removeRate / syncResults.removeRate;
 
+        return new ImprovementStats(addImprovement, containsImprovement, removeImprovement);
+    }
+
+    private void assertImprovementStats(ImprovementStats expected, ImprovementStats actual) {
         final String addmsg = String.format("Expected add throughput " +
-                "improvement to be at least %fx with read-write locks, but found %fx", expectedAdd, addImprovement);
-        assertTrue(addmsg, addImprovement >= expectedAdd);
+                "improvement to be %fx, but found %fx", expected.getAddImprovement(), actual.getAddImprovement());
+        assertTrue(addmsg, actual.getAddImprovement() >= expected.getAddImprovement());
 
         final String containsmsg = String.format("Expected contains throughput " +
-                "improvement to be at least %fx with read-write locks, but found %fx", expectedContains, containsImprovement);
-        assertTrue(containsmsg, containsImprovement >= expectedContains);
+                        "improvement to be %fx with read-write locks, but found %fx", expected.getContainsImprovement(),
+                actual.getContainsImprovement());
+        assertTrue(containsmsg, actual.getContainsImprovement() >= expected.getContainsImprovement());
 
-        final String removemsg = String.format("Expected remove throughput " +
-                "improvement to be at least %fx with read-write locks, but found %fx", expectedRemove, removeImprovement);
-        assertTrue(removemsg, removeImprovement >= expectedRemove);
+        final String removemsg = String.format("Expected remove throughput improvement to be %fx with read-write locks, " +
+                "but found %fx", expected.getRemoveImprovement(), actual.getRemoveImprovement());
+        assertTrue(removemsg, actual.getRemoveImprovement() >= expected.getRemoveImprovement());
     }
 
     private interface ListFactory {

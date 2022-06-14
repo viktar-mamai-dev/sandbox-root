@@ -1,14 +1,24 @@
 package edu.coursera.concurrent.week4;
 
-import edu.coursera.concurrent.week4.IntPair;
-import edu.coursera.concurrent.week4.edges.Edge;
+import edu.coursera.concurrent.week4.algo.SeqBoruvka;
 import edu.coursera.concurrent.week4.components.Component;
+import edu.coursera.concurrent.week4.edges.Edge;
 import edu.coursera.concurrent.week4.factory.BoruvkaFactory;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StreamTokenizer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.zip.GZIPInputStream;
-import java.util.Queue;
 
 /**
  * This class should not be modified.
@@ -19,19 +29,17 @@ public final class Loader {
     /**
      * Read edges from the provided input file.
      */
-    public static <C extends Component, E extends Edge> void read(final String fileName,
-                                                                  final BoruvkaFactory<C, E> boruvkaFactory,
-                                                                  final Queue<C> nodesLoaded) {
+    public static <C extends Component, E extends Edge> List<C> read(final String fileName,
+                                                                     final BoruvkaFactory<C, E> boruvkaFactory) {
 
         final Map<Integer, C> nodesMap = new HashMap<>();
         final Map<IntPair, E> edgesMap = new HashMap<>();
 
         double totalWeight = 0;
         int edges = 0;
-        try {
-            // Open the compressed file
-            final GZIPInputStream in = new GZIPInputStream(new FileInputStream(fileName));
-            final Reader r = new BufferedReader(new InputStreamReader(in));
+
+        try (final GZIPInputStream in = new GZIPInputStream(new FileInputStream(fileName));
+             final Reader r = new BufferedReader(new InputStreamReader(in))) {
             final StreamTokenizer st = new StreamTokenizer(r);
             final String cstring = "c";
             final String pstring = "p";
@@ -53,19 +61,17 @@ public final class Loader {
                 totalWeight += weight;
                 edges++;
             }
-            // Close the file and stream
-            in.close();
         } catch (final IOException e) {
             e.printStackTrace();
         }
 
         final List<C> nodesList = new ArrayList<>(nodesMap.values());
         Collections.shuffle(nodesList);
-        nodesLoaded.addAll(nodesList);
+        return nodesList;
     }
 
     private static <C extends Component, E extends Edge> C getComponent(final BoruvkaFactory<C, E> factory,
-            final Map<Integer, C> nodesMap, final int node) {
+                                                                        final Map<Integer, C> nodesMap, final int node) {
         if (!nodesMap.containsKey(node)) {
             nodesMap.put(node, factory.newComponent(node));
         }

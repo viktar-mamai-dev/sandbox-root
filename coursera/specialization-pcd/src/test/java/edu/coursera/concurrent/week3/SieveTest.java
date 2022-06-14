@@ -1,20 +1,13 @@
 package edu.coursera.concurrent.week3;
 
+import edu.coursera.Util;
 import edu.coursera.concurrent.week3.SieveActor;
 import edu.coursera.concurrent.week3.SieveSequential;
 import junit.framework.TestCase;
 
 public class SieveTest extends TestCase {
     static final double expectedScalability = 1.6;
-
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
+    private static final int nCores = Util.getNCores();
 
     private static long driver(final int limit, final int ref) {
         new SieveActor().countPrimes(limit); // warmup
@@ -38,7 +31,7 @@ public class SieveTest extends TestCase {
 
         long prev = -1;
         int cores = 2;
-        while (cores <= getNCores()) {
+        while (cores <= nCores) {
             edu.rice.pcdp.runtime.Runtime.resizeWorkerThreads(cores);
             final long elapsed = driver(limit, ref);
 
@@ -60,7 +53,7 @@ public class SieveTest extends TestCase {
 
         long prev = -1;
         int cores = 2;
-        while (cores <= getNCores()) {
+        while (cores <= nCores) {
             edu.rice.pcdp.runtime.Runtime.resizeWorkerThreads(cores);
             final long elapsed = driver(limit, ref);
 

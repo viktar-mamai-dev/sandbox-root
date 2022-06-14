@@ -1,21 +1,19 @@
 package edu.coursera.parallel.week3;
 
+import edu.coursera.TestExecutor;
+import edu.coursera.Util;
+import edu.coursera.TestResults;
 import junit.framework.TestCase;
 
+import java.util.List;
 import java.util.Random;
 
 public class MatrixMultiplyTest extends TestCase {
     // Number of times to repeat each test, for consistent timing results.
     final static private int REPEATS = 20;
 
-    private static int getNCores() {
-        String ncoresStr = System.getenv("COURSERA_GRADER_NCORES");
-        if (ncoresStr == null) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return Integer.parseInt(ncoresStr);
-        }
-    }
+    private static final double nCores = Util.getNCores();
+    private final TestExecutor testExecutor = new TestExecutor(REPEATS);
 
     /**
      * Create a double[] of length N to use as input for the tests.
@@ -39,12 +37,21 @@ public class MatrixMultiplyTest extends TestCase {
     /**
      * Check if there is any difference in the correct and generated outputs.
      */
-    private void checkResult(final double[][] ref, final double[][] output, final int N) {
+    private void checkResult(final double[][] ref, final double[][] output) {
+        assertEquals(ref.length, output.length);
+        final int N = ref.length;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 String msg = "Error detected on cell (" + i + ", " + j + ")";
                 assertEquals(msg, ref[i][j], output[i][j]);
             }
+        }
+    }
+
+    private void checkResult(final List<double[][]> ref, final List<double[][]> output, final int N) {
+        assertEquals(ref.size(), output.size());
+        for (int i = 0; i < ref.size(); i++) {
+            checkResult(ref.get(i), output.get(i));
         }
     }
 
@@ -58,46 +65,23 @@ public class MatrixMultiplyTest extends TestCase {
         // Create a random input
         final double[][] A = createMatrix(N);
         final double[][] B = createMatrix(N);
-        final double[][] C = new double[N][N];
-        final double[][] refC = new double[N][N];
 
         // Use a reference sequential version to compute the correct result
-        MatrixMultiply.seqMatrixMultiply(A, B, refC, N);
+        TestResults<double[][]> seqResults = testExecutor.execute(() -> MatrixMultiply.seqMatrixMultiply(A, B, N));
 
-        // Use the parallel implementation to compute the result
-        MatrixMultiply.parMatrixMultiply(A, B, C, N);
+        TestResults<double[][]> parResults = testExecutor.execute(() -> MatrixMultiply.parMatrixMultiply(A, B, N));
 
-        checkResult(refC, C, N);
+        checkResult(parResults.getResults(), seqResults.getResults(), N);
 
-        /*
-         * Run several repeats of the sequential and parallel versions to get an accurate measurement of parallel
-         * performance.
-         */
-        final long seqStartTime = System.currentTimeMillis();
-        for (int r = 0; r < REPEATS; r++) {
-            MatrixMultiply.seqMatrixMultiply(A, B, C, N);
-        }
-        final long seqEndTime = System.currentTimeMillis();
-
-        final long parStartTime = System.currentTimeMillis();
-        for (int r = 0; r < REPEATS; r++) {
-            MatrixMultiply.parMatrixMultiply(A, B, C, N);
-        }
-        final long parEndTime = System.currentTimeMillis();
-
-        final long seqTime = (seqEndTime - seqStartTime) / REPEATS;
-        final long parTime = (parEndTime - parStartTime) / REPEATS;
-
-        return (double) seqTime / (double) parTime;
+        return seqResults.getExecutionTime() / parResults.getExecutionTime();
     }
 
     /**
      * Tests the performance of the parallel implementation on a 512x512 matrix.
      */
     public void testPar512_x_512() {
-        final int ncores = getNCores();
         double speedup = parTestHelper(512);
-        double minimalExpectedSpeedup = (double) ncores * 0.6;
+        double minimalExpectedSpeedup = nCores * 0.6;
         final String errMsg = String.format("It was expected that the parallel implementation would run at " +
                 "least %fx faster, but it only achieved %fx speedup", minimalExpectedSpeedup, speedup);
         assertTrue(errMsg, speedup >= minimalExpectedSpeedup);
@@ -107,9 +91,8 @@ public class MatrixMultiplyTest extends TestCase {
      * Tests the performance of the parallel implementation on a 768x768 matrix.
      */
     public void testPar768_x_768() {
-        final int ncores = getNCores();
         double speedup = parTestHelper(768);
-        double minimalExpectedSpeedup = (double) ncores * 0.6;
+        double minimalExpectedSpeedup = nCores * 0.6;
         final String errMsg = String.format("It was expected that the parallel implementation would run at " +
                 "least %fx faster, but it only achieved %fx speedup", minimalExpectedSpeedup, speedup);
         assertTrue(errMsg, speedup >= minimalExpectedSpeedup);
