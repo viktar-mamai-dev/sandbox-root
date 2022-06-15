@@ -3,6 +3,7 @@ package com.mamay.task3.service;
 import java.util.List;
 
 import com.mamay.task3.dao.RaceDao;
+import com.mamay.task3.entity.Race;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,7 @@
 package com.mamay.task3.service;
 
 import com.mamay.task3.dao.HorseDao;
+import com.mamay.task3.entity.Horse;
 
 import java.util.List;
 

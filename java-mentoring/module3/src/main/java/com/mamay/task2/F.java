@@ -1,28 +1,26 @@
 package com.mamay.task2;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+@Log4j2
 public class F implements InitializingBean, DisposableBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(F.class);
-
     public void init() {
-        LOGGER.info("Entering F.init method");
+        log.info("Entering F.init method");
     }
 
     public void destroy() {
-        LOGGER.info("Entering F.destroy method");
+        log.info("Entering F.destroy method");
     }
-    
+
     public void destroyMethod() {
-        LOGGER.info("Entering custom F.destroy method");
+        log.info("Entering custom F.destroy method");
     }
 
     public void afterPropertiesSet() throws Exception {
-        LOGGER.info("Entering F.afterPropertiesSet method");
+        log.info("Entering F.afterPropertiesSet method");
     }
 
 }

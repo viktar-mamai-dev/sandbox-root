@@ -16,7 +16,6 @@
         <module>java-mentoring</module>
         <module>algo</module>
         <module>coursera</module>
-        <module>laboratory</module>
         <module>app-news</module>
         <module>shopping-system</module>
     </modules>

@@ -16,6 +16,9 @@
         <module>module2</module>
         <module>module3</module>
         <module>module4</module>
+        <module>lab1</module>
+        <module>lab2-flatware</module>
+        <module>lab3-inspection</module>
     </modules>
 
     <dependencies>
@@ -23,12 +26,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.36</version>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,6 @@
 package com.mamay.task3.dao;
 
-import com.mamay.task3.service.Race;
+import com.mamay.task3.entity.Race;
 import lombok.Getter;
 import lombok.Setter;
 

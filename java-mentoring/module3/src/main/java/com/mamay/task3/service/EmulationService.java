@@ -1,5 +1,9 @@
 package com.mamay.task3.service;
 
+import com.mamay.task3.entity.Emulation;
+import com.mamay.task3.entity.Horse;
+import com.mamay.task3.entity.Race;
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;

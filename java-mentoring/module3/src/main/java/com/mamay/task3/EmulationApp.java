@@ -1,9 +1,8 @@
 package com.mamay.task3;
 
-import com.mamay.task3.service.Emulation;
+import com.mamay.task3.entity.Emulation;
 import com.mamay.task3.service.EmulationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeansException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,8 +10,8 @@ import java.util.Scanner;
 
 import static java.lang.System.out;
 
+@Log4j2
 public class EmulationApp {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmulationApp.class);
 
     public static void main(String[] args) {
 
@@ -58,9 +57,9 @@ public class EmulationApp {
             }
 
         } catch (BeansException e) {
-            LOGGER.error("Something wrong happened during bean instantiation", e);
+            log.error("Something wrong happened during bean instantiation", e);
         } catch (InterruptedException e) {
-            LOGGER.error("Thread is interrupted", e);
+            log.error("Thread is interrupted", e);
         }
     }
 }
