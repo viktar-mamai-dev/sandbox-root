@@ -1,8 +1,6 @@
 package edu.coursera.concurrent.week3;
 
 import edu.coursera.Util;
-import edu.coursera.concurrent.week3.SieveActor;
-import edu.coursera.concurrent.week3.SieveSequential;
 import junit.framework.TestCase;
 
 public class SieveTest extends TestCase {

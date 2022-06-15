@@ -17,8 +17,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<TagEntity> loadAll() throws DaoException {
-        Query query = entityManager.createQuery("from TagEntity t order by t.name asc");
-        return query.getResultList();
+        return entityManager.createQuery("from TagEntity t order by t.name asc", TagEntity.class).getResultList();
     }
 
     @Override

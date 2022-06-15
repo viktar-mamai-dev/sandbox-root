@@ -1,15 +1,15 @@
 package com.mamay.dao;
 
+import com.mamay.entity.Image;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mamay.entity.Image;
-
 public class ImageDao {
 
-    private static Long nextImageId = 1l;
+    private static Long nextImageId = 1L;
 
-    private static Map<Long, Image> imageMap = new HashMap<Long, Image>();
+    private static final Map<Long, Image> imageMap = new HashMap<Long, Image>();
 
     public void save(Image image) {
         Long imageId = nextImageId++;

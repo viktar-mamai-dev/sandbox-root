@@ -7,7 +7,6 @@ import org.junit.Test;
 public class Task6Test {
 
     @Test
-    @Ignore
     public void test1() {
         Assert.fail();
     }

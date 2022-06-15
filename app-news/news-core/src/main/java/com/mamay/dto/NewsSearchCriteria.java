@@ -1,23 +1,15 @@
 package com.mamay.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
+@AllArgsConstructor
 public class NewsSearchCriteria {
 
-    private final Long authorId;
     private final List<Long> tagIdList;
-
-    public NewsSearchCriteria(List<Long> tagIdList, Long authorId) {
-        this.authorId = authorId;
-        this.tagIdList = tagIdList;
-    }
-
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public List<Long> getTagIdList() {
-        return tagIdList;
-    }
+    private final Long authorId;
 
 }

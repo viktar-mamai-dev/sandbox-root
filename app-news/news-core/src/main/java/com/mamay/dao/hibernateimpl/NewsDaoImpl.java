@@ -33,7 +33,7 @@ public class NewsDaoImpl implements NewsDao {
     @Override
     public NewsEntity loadById(Long id) throws DaoException {
         Session session = this.sessionFactory.getCurrentSession();
-        return (NewsEntity) session.get(NewsEntity.class, id);
+        return session.get(NewsEntity.class, id);
     }
 
     @Override
@@ -41,8 +41,7 @@ public class NewsDaoImpl implements NewsDao {
                                                  Integer pageNumber, int newsPerPage) throws DaoException {
         Session session = sessionFactory.getCurrentSession();
         Long authorId = searchCriteria.getAuthorId();
-        boolean isAuthorNull = authorId == null
-                || Long.compare(authorId, 0) == 0;
+        boolean isAuthorNull = authorId == null || authorId == 0;
         String strQuery = QueryHelper.loadOrderedList(searchCriteria);
         Query query = session.createSQLQuery(strQuery).addScalar("news_id",
                 LongType.INSTANCE);
@@ -59,7 +58,7 @@ public class NewsDaoImpl implements NewsDao {
             return new NewsPageItem<>(newsList, pageNumber, newsPerPage);
         }
         for (Long obj : idList) {
-            NewsEntity newsEntity = (NewsEntity) session.get(NewsEntity.class, obj);
+            NewsEntity newsEntity = session.get(NewsEntity.class, obj);
             newsList.add(newsEntity);
         }
         return new NewsPageItem<>(newsList, pageNumber, newsPerPage);
@@ -114,7 +113,7 @@ public class NewsDaoImpl implements NewsDao {
     @Override
     public void delete(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        NewsEntity entity = (NewsEntity) session.get(NewsEntity.class, id);
+        NewsEntity entity = session.get(NewsEntity.class, id);
         if (entity != null) {
             session.delete(entity);
         }

@@ -1,6 +1,7 @@
 package com.mamay.hackerrank.javamodules;
 
-import java.util.*;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class StringInto {
 
@@ -38,7 +39,7 @@ class MyQueue<T> {
         if (!supStack.isEmpty()) {
             supStack.pop();
         }
-        while(!mainStack.isEmpty()) {
+        while (!mainStack.isEmpty()) {
             supStack.push(mainStack.pop());
         }
         supStack.pop();

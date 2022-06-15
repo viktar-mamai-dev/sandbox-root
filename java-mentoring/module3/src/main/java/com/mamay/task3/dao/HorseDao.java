@@ -23,7 +23,9 @@ public class HorseDao {
     }
 
     public List<Horse> retrieveRange(List<Long> p) {
-        return horseMap.entrySet().stream().filter(entry -> p.contains(entry.getKey())).map(Map.Entry::getValue)
+        return horseMap.entrySet().stream()
+                .filter(entry -> p.contains(entry.getKey()))
+                .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
     }
 }

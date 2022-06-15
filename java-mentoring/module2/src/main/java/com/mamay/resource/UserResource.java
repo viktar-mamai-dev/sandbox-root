@@ -20,7 +20,7 @@ import com.mamay.entity.User;
 @Path("/users")
 public class UserResource {
 
-    private UserDao userDao = new UserDao();
+    private final UserDao userDao = new UserDao();
 
     @GET
     @Produces(MediaType.WILDCARD)

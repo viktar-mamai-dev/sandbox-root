@@ -4,20 +4,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-class VolatileImpl {
-	private static VolatileImpl instance = null;
-	private static AtomicBoolean instanceCreated = new AtomicBoolean(false);
-	private static Lock lock = new ReentrantLock();
+class Singleton {
+	private static Singleton instance = null;
+	private static final AtomicBoolean instanceCreated = new AtomicBoolean(false);
+	private static final Lock lock = new ReentrantLock();
 
-	private VolatileImpl() {
+	private Singleton() {
 	}
 
-	public static VolatileImpl getInstance() {
+	public static Singleton getInstance() {
 		if (!instanceCreated.get()) {
 			lock.lock();
 			try {
 				if (!instanceCreated.get()) {
-					instance = new VolatileImpl();
+					instance = new Singleton();
 					instanceCreated.set(true);
 				}
 			} catch (Exception e) {

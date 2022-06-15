@@ -16,14 +16,13 @@ public class CustomClassloader extends ClassLoader {
     }
 
     /**
-     * Every request for a class passes through this method. If the class is in
-     * com.journaldev package, we will use this classloader or else delegate the
-     * request to parent classloader.
+     * Every request for a class passes through this method. If the class is in package we will use
+     * this classloader or else delegate the request to parent classloader.
      *
      * @param name Full class name
      */
     @Override
-    public Class loadClass(String name) throws ClassNotFoundException {
+    public Class<?> loadClass(String name) throws ClassNotFoundException {
         LOGGER.info("Loading Class '" + name + "'");
         if (name.startsWith("com.mamay.entity")) {
             LOGGER.info("Class loaded using CustomCLoader");
@@ -36,18 +35,17 @@ public class CustomClassloader extends ClassLoader {
      * Loads the class from the file system. The class file should be located in the
      * file system. The name should be relative to get the file location
      *
-     * @param name Fully Classified name of class, for example com.journaldev.Foo
+     * @param name Fully Classified name of class, for example com.mamay.Foo
      */
-    private Class getClass(String name) throws ClassNotFoundException {
+    private Class<?> getClass(String name) throws ClassNotFoundException {
         String file = name.replace('.', File.separatorChar) + ".class";
         byte[] b = null;
         try {
             // This loads the byte code data from the file
             b = loadClassFileData(file);
-            // defineClass is inherited from the ClassLoader class
-            // that converts byte array into a Class. defineClass is Final
-            // so we cannot override it
-            Class c = defineClass(name, b, 0, b.length);
+            // defineClass is inherited from the ClassLoader class that converts byte array into a Class.
+            // defineClass is Final so we cannot override it
+            Class<?> c = defineClass(name, b, 0, b.length);
             resolveClass(c);
             return c;
         } catch (IOException e) {
@@ -68,9 +66,9 @@ public class CustomClassloader extends ClassLoader {
         InputStream stream = getClass().getClassLoader().getResourceAsStream(name);
         int size = stream.available();
         byte[] buff = new byte[size];
-        DataInputStream in = new DataInputStream(stream);
-        in.readFully(buff);
-        in.close();
-        return buff;
+        try (DataInputStream in = new DataInputStream(stream)) {
+            in.readFully(buff);
+            return buff;
+        }
     }
 }

@@ -21,8 +21,7 @@ public class LocalDate1 {
         DayOfWeek dayOfWeek = independenceDay.getDayOfWeek();
         System.out.println(dayOfWeek);    // FRIDAY
 
-        DateTimeFormatter germanFormatter =
-                DateTimeFormatter
+        DateTimeFormatter germanFormatter = DateTimeFormatter
                         .ofLocalizedDate(FormatStyle.MEDIUM)
                         .withLocale(Locale.GERMAN);
 

@@ -4,13 +4,16 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class BorderIterator {
+public class BorderIterator<T extends Number & Comparable<T>> {
+
     public static void main(String[] args) {
         Iterator<Integer> iterator = Arrays.asList(1, 3, 5, 7, 9, 12, 17).iterator();
-        print(m(iterator, 18));
+        BorderIterator<Integer> borderIterator = new BorderIterator<>();
+        Iterator<Integer> outputIterator = borderIterator.convert(iterator, 10);
+        borderIterator.print(outputIterator);
     }
 
-    private static <T extends Number & Comparable<T>> Iterator<T> m(Iterator<T> iter1, T num) {
+    private Iterator<T> convert(Iterator<T> inputIterator, T num) {
 
         Iterator<T> iter2 = new Iterator<T>() {
 
@@ -20,13 +23,13 @@ public class BorderIterator {
             @Override
             public boolean hasNext() {
                 hasNext = true;
-                if (!iter1.hasNext()) {
+                if (!inputIterator.hasNext()) {
                     hasNext = false;
                     return false;
                 }
 
                 try {
-                    next = iter1.next();
+                    next = inputIterator.next();
                 } catch (NoSuchElementException e) {
                     hasNext = false;
                     return false;
@@ -51,7 +54,7 @@ public class BorderIterator {
         return iter2;
     }
 
-    private static <T extends Number & Comparable<T>> void print(Iterator<T> iterator) {
+    private void print(Iterator<T> iterator) {
         while (iterator.hasNext()) {
             System.out.print(iterator.next().toString() + "  ");
         }

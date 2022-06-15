@@ -1,12 +1,14 @@
 package com.mamay.dto;
 
+import lombok.Getter;
+
 import java.util.List;
 
 /**
  * <p>
- * value object that stores data about specific list of objects that corresponds
- * to one page on user view
+ * value object that stores data about specific list of objects that corresponds to one page on user view
  */
+@Getter
 public class NewsPageItem<T> {
 
     private final List<T> newsList;
@@ -17,17 +19,5 @@ public class NewsPageItem<T> {
         this.newsList = newsList;
         this.pageNumber = pageNumber;
         this.pageCount = pageCount;
-    }
-
-    public List<T> getNewsList() {
-        return newsList;
-    }
-
-    public Integer getPageNumber() {
-        return pageNumber;
-    }
-
-    public Integer getPageCount() {
-        return pageCount;
     }
 }

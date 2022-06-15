@@ -1,5 +1,9 @@
 package com.mamay.lambdas.pack1;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,11 +15,6 @@ import java.util.function.Supplier;
 
 public class Lambda3 {
 
-    @FunctionalInterface
-    interface Fun {
-        void foo();
-    }
-
     public static void main(String[] args) throws Exception {
 
         // Predicates
@@ -26,7 +25,7 @@ public class Lambda3 {
 
         Predicate<Boolean> nonNull = Objects::nonNull;
         Predicate<Boolean> isNull = Objects::isNull;
-        System.out.println(nonNull.or(isNull).test(new Boolean("true")));
+        System.out.println(nonNull.or(isNull).test(true));
 
         Predicate<String> isEmpty = String::isEmpty;
         Predicate<String> isNotEmpty = isEmpty.negate();
@@ -49,7 +48,7 @@ public class Lambda3 {
         // Comparators
         Comparator<Person> comparator = Comparator.comparing(Person::getFirstName);
         Comparator<Person> comparator1 = Comparator.comparing(Person::getLastName);
-        
+
         Person p1 = new Person("John", "Doe");
         Person p2 = new Person("Alice", "Bonderland");
 
@@ -63,5 +62,27 @@ public class Lambda3 {
         // Callables
         Callable<UUID> callable = UUID::randomUUID;
         UUID uuid = callable.call();
+
+        // constructor reference
+        PersonFactory<Person> personFactory = Person::new;
+        Person person = personFactory.create("Peter", "Parker");
+        System.out.println(person);
+    }
+
+    interface PersonFactory<P extends Person> {
+        P create(String firstName, String lastName);
+    }
+
+    @Getter
+    @ToString
+    @NoArgsConstructor
+    private static class Person {
+        private String firstName;
+        private String lastName;
+
+        Person(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
     }
 }

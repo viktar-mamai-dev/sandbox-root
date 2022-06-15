@@ -3,9 +3,6 @@ package com.mamay.task1;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +13,6 @@ public class HeapStackErrorsApp {
     private static int iteration = 1;
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello World!");
         try (Scanner scanner = new Scanner(System.in)) {
             boolean proceed = true;
             while (proceed) {
@@ -62,8 +58,7 @@ public class HeapStackErrorsApp {
                 TimeUnit.MILLISECONDS.sleep(300);
             }
         } catch (OutOfMemoryError error) {
-            out.println("1.OutOfMemory error caught" +
-                    LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
+            out.println("1.OutOfMemory error caught" + error.getMessage());
             out.println("Final array size=" + arraySize);
             error.printStackTrace();
         }
@@ -78,7 +73,7 @@ public class HeapStackErrorsApp {
                 iteration++;
             }
         } catch (OutOfMemoryError error) {
-            out.println("2.OutOfMemory error caught");
+            out.println("2.OutOfMemory error caught: " + error.getMessage());
             out.println("Iterations=" + iteration);
             error.printStackTrace();
         }
@@ -135,6 +130,6 @@ public class HeapStackErrorsApp {
         b.append("Press 4 for SO error \n");
         b.append("Press 5 for SO error (without recursion function)\n");
         b.append("Press another symbol to exit");
-        out.println(b.toString());
+        out.println(b);
     }
 }

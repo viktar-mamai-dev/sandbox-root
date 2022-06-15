@@ -1,5 +1,7 @@
 package com.mamay.util;
 
+import com.sun.istack.NotNull;
+import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.core.env.PropertiesPropertySource;
@@ -12,7 +14,7 @@ import java.util.Properties;
 @Log4j2
 public class AppInitializer implements ApplicationContextInitializer<ConfigurableWebApplicationContext> {
 
-    public void initialize(ConfigurableWebApplicationContext ctx) {
+    public void initialize(@NonNull ConfigurableWebApplicationContext ctx) {
         try {
             addPropertySource("fileLocations", "/util.properties", ctx);
         } catch (IOException e) {
@@ -20,14 +22,15 @@ public class AppInitializer implements ApplicationContextInitializer<Configurabl
         }
     }
 
-    private void addPropertySource(String beanName, String fileName, ConfigurableWebApplicationContext ctx) throws IOException {
+    private void addPropertySource(String beanName, String fileName, ConfigurableWebApplicationContext ctx)
+            throws IOException {
         log.info("Loading properties " + fileName + " into property source " + beanName);
-		try (InputStream input = AppInitializer.class.getResourceAsStream(fileName)) {
-			Properties props = new Properties();
-			props.load(input);
-			PropertiesPropertySource propSource = new PropertiesPropertySource(beanName, props);
-			ctx.getEnvironment().getPropertySources().addFirst(propSource);
-		}
+        try (InputStream input = AppInitializer.class.getResourceAsStream(fileName)) {
+            Properties props = new Properties();
+            props.load(input);
+            PropertiesPropertySource propSource = new PropertiesPropertySource(beanName, props);
+            ctx.getEnvironment().getPropertySources().addFirst(propSource);
+        }
     }
 
 }

@@ -19,10 +19,8 @@ public final class MultithreadedFileServer extends BaseFileServer {
      * Main entrypoint for the basic file server.
      *
      * @param socket Provided socket to accept connections on.
-     * @throws IOException If an I/O error is detected on the server. This
-     *                     should be a fatal error, your file server
-     *                     implementation is not expected to ever throw
-     *                     IOExceptions during normal operation.
+     * @throws IOException If an I/O error is detected on the server. This should be a fatal error, your file server
+     *                     implementation is not expected to ever throw IOExceptions during normal operation.
      */
     public void run(final ServerSocket socket) throws IOException {
         /*

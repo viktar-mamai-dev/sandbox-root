@@ -51,7 +51,7 @@ class RunFactoryMethodSimplest {
 		Client1 c = new Client1();
 		c.someOperation(new ExtendedOrderFactory());
 		
-		Client2 c2 = new Client2();
+		Client c2 = new Client();
 		c2.makeMediaFactoryWork(new VideoFactory());
 	}
 }

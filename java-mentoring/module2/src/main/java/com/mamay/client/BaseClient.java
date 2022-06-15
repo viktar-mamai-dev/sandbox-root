@@ -1,11 +1,11 @@
 package com.mamay.client;
 
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.filter.LoggingFilter;
 
 public abstract class BaseClient {
 
@@ -19,6 +19,6 @@ public abstract class BaseClient {
         Client client = ClientBuilder.newClient(config);
         webTarget = client.target(BASE_URI);
     }
-    
+
     public abstract void run();
 }

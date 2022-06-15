@@ -48,10 +48,12 @@ public class NewsEntity implements Serializable {
     private int version;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "news_tag", joinColumns = {@JoinColumn(name = "news_id")}, inverseJoinColumns = {@JoinColumn(name = "tag_id")})
+    @JoinTable(name = "news_tag", joinColumns = {@JoinColumn(name = "news_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private List<TagEntity> tags;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "news_author", joinColumns = {@JoinColumn(name = "news_id")}, inverseJoinColumns = {@JoinColumn(name = "author_id")})
+    @JoinTable(name = "news_author", joinColumns = {@JoinColumn(name = "news_id")},
+            inverseJoinColumns = {@JoinColumn(name = "author_id")})
     private AuthorEntity author;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "news")
     @OrderBy(value = "creationDate desc")

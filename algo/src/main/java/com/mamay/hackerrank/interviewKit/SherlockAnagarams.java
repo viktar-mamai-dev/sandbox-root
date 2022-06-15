@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class SherlockAnagarams {
+    private static final Scanner scanner = new Scanner(System.in);
+
     // Complete the sherlockAndAnagrams function below.
     static int sherlockAndAnagrams(String s) {
         // TODO
         return 0;
     }
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")))) {

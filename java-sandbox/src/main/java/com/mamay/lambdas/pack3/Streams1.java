@@ -1,6 +1,7 @@
 package com.mamay.lambdas.pack3;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class Streams1 {
 				.forEach(System.out::println);
 
 		stringCollection.stream().map(String::toUpperCase)
-				.sorted((a, b) -> b.compareTo(a)).forEach(System.out::println);
+				.sorted(Comparator.reverseOrder()).forEach(System.out::println);
 
 		boolean anyStartsWithA = stringCollection.stream().anyMatch(
 				(s) -> s.startsWith("a"));

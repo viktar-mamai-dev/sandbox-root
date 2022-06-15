@@ -1,4 +1,4 @@
-package com.mamay.core.pack2;
+package com.mamay.core.singletons;
 
 public class LazySingleton {
     private static LazySingleton instance;

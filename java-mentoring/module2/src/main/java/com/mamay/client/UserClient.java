@@ -36,7 +36,7 @@ public class UserClient extends BaseClient {
 
     private void testRetrieve(Long userId) {
         Response response = webTarget.path("/" + userId).request().accept(MediaType.MEDIA_TYPE_WILDCARD).get();
-        System.out.println(String.format("Testing GET /users/%d. Status=%s", userId, response.getStatus()));
+        System.out.printf("Testing GET /users/%d. Status=%s%n", userId, response.getStatus());
         System.out.println("\tEntity= " + response.readEntity(User.class));
     }
 
@@ -51,14 +51,16 @@ public class UserClient extends BaseClient {
     private void testUpdate(Long userId) {
         User user = new User("Aizek", "Azimov", "aizekmegarobot", "aizek.azimov@para.com");
         user.setId(userId);
-        Response response = webTarget.path("/" + userId).request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+        Response response = webTarget.path("/" + userId)
+                .request(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .put(Entity.entity(user, MediaType.APPLICATION_JSON));
-        System.out.println(String.format("Testing PUT /user/%d. Status=%s", userId, response.getStatus()));
+        System.out.printf("Testing PUT /user/%d. Status=%s%n", userId, response.getStatus());
         System.out.println("\tEntity= " + response.readEntity(User.class));
     }
 
     private void testDelete(Long userId) {
         Response response = webTarget.path("/" + userId).request().accept(MediaType.MEDIA_TYPE_WILDCARD).delete();
-        System.out.println(String.format("Testing DELETE /user/%d. Status=%s", userId, response.getStatus()));
+        System.out.printf("Testing DELETE /user/%d. Status=%s%n", userId, response.getStatus());
     }
 }

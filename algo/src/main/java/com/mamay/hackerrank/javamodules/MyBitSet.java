@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+interface PerformOperation {
+    boolean check(int a);
+}
+
 class Prime {
 
     HashMap<Integer, Boolean> map = new HashMap<>();
@@ -14,8 +18,7 @@ class Prime {
         for (int n1 : val) {
             Boolean b = map.get(n1);
             if (b != null) {
-                if (b)
-                    System.out.print(n1 + " ");
+                if (b) System.out.print(n1 + " ");
             } else {
                 boolean isPrime = isPrime(n1);
                 map.put(n1, isPrime);
@@ -40,10 +43,6 @@ class Prime {
     }
 }
 
-interface PerformOperation {
-    boolean check(int a);
-}
-
 class MyMath {
     public boolean checker(PerformOperation p, int num) {
         return p.check(num);
@@ -59,19 +58,16 @@ class MyMath {
     }
 
     public PerformOperation isPrime() {
-        return new PerformOperation() {
-            @Override
-            public boolean check(int val) {
-                if (val < 2) return false;
-                if (val == 2) return true;
-                if (val % 2 == 0) return false;
-                for (int k = 3; k <= Math.sqrt(val); k += 2) {
-                    if (val % k == 0) {
-                        return false;
-                    }
+        return val -> {
+            if (val < 2) return false;
+            if (val == 2) return true;
+            if (val % 2 == 0) return false;
+            for (int k = 3; k <= Math.sqrt(val); k += 2) {
+                if (val % k == 0) {
+                    return false;
                 }
-                return true;
             }
+            return true;
         };
     }
 

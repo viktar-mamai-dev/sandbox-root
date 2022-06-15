@@ -165,7 +165,7 @@ public class NewsServiceImplTest {
     }
 
     @Test(expected = ServiceException.class)
-    public void deleteListFailNull() throws ServiceException, DaoException {
+    public void deleteListFailNull() throws ServiceException {
         newsService.deleteList(null);
     }
 

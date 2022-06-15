@@ -7,22 +7,11 @@ import java.util.Scanner;
 
 public class ImageUtil {
 
-    private static final int IMAGE_NUMBER = 1;
-
     public static byte[] retrieveImageFromFile() {
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(new File("images.txt"));
+        try (Scanner scanner = new Scanner(new File("images.txt"))) {
+            return Base64.getDecoder().decode(scanner.nextLine());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return new byte[0];
         }
-        int i = 1;
-        while (i < IMAGE_NUMBER) {
-            scanner.nextLine();
-        }
-        String str = scanner.nextLine();
-
-        byte[] data = Base64.getDecoder().decode(str);
-        return data;
     }
 }

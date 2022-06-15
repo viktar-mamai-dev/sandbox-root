@@ -1,18 +1,15 @@
-package com.mamay.entity;
+package com.mamay.task2.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Animal {
 
 	private String name;
 
 	public Animal(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
 		this.name = name;
 	}
 

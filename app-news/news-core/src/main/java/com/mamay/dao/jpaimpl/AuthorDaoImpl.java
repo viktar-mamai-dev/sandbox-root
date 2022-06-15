@@ -7,9 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -20,14 +19,13 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public List<AuthorEntity> loadAll() throws DaoException {
-        Query query = entityManager.createQuery("from AuthorEntity a order by a.name DESC", AuthorEntity.class);
+        TypedQuery<AuthorEntity> query = entityManager.createQuery("from AuthorEntity a order by a.name DESC", AuthorEntity.class);
         return query.getResultList();
     }
 
     @Override
     public AuthorEntity loadById(Long id) throws DaoException {
-        AuthorEntity author = entityManager.find(AuthorEntity.class, id);
-        return author;
+        return entityManager.find(AuthorEntity.class, id);
     }
 
     @Override
@@ -64,7 +62,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public List<AuthorEntity> loadActiveAuthors() throws DaoException {
-        Query query = entityManager.createNamedQuery("Author.loadActiveAuthors", AuthorEntity.class);
+        TypedQuery<AuthorEntity> query = entityManager.createNamedQuery("Author.loadActiveAuthors", AuthorEntity.class);
         return query.getResultList();
     }
 

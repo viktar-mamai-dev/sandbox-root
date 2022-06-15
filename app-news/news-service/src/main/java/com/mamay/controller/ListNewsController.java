@@ -1,8 +1,8 @@
 package com.mamay.controller;
 
+import com.mamay.dto.NewsDto;
 import com.mamay.dto.NewsPageItem;
 import com.mamay.dto.NewsSearchCriteria;
-import com.mamay.dto.NewsDto;
 import com.mamay.exception.ControllerException;
 import com.mamay.exception.ServiceException;
 import com.mamay.service.AuthorService;
@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,7 @@ import java.util.Locale;
 
 @Controller
 @SessionAttributes(value = {"filteredItem", "sourcePage"})
+@RequestMapping("news")
 public class ListNewsController {
 
     private final int NEWS_PER_PAGE = 6;
@@ -43,7 +45,7 @@ public class ListNewsController {
     @Autowired
     private MessageSource messageSource;
 
-    @RequestMapping(value = {"/news/page/{page}"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/page/{page}"})
     public ModelAndView loadAll(@PathVariable(value = "page") Integer pageNumber, ModelAndView model,
                                 HttpServletRequest request) throws ControllerException {
         try {
@@ -60,7 +62,7 @@ public class ListNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/filter", method = RequestMethod.POST)
+    @PostMapping(value = "/filter")
     public String loadByFilter(Model model,
                                @RequestParam(value = "tagId", required = false) List<Long> tagIdList,
                                @RequestParam(value = "authorId", required = false) Long authorId) {
@@ -68,7 +70,7 @@ public class ListNewsController {
         return "redirect:/news/filter/1";
     }
 
-    @RequestMapping(value = "/news/filter/{page}", method = {RequestMethod.GET})
+    @GetMapping(value = "/filter/{page}")
     public ModelAndView loadByFilterPageable(@ModelAttribute("filteredItem") NewsSearchCriteria filteredItem,
                                              @PathVariable(value = "page") Integer pageNumber,
                                              HttpServletRequest request) throws ControllerException {
@@ -84,7 +86,7 @@ public class ListNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     public String delete(@RequestParam(value = "newsId", required = false) List<Long> newsIdList,
                          @RequestParam(value = "pageNumber") Integer pageNumber,
                          RedirectAttributes ra,

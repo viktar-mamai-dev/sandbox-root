@@ -3,18 +3,14 @@ package com.mamay.task3.service;
 import java.util.List;
 
 import com.mamay.task3.dao.RaceDao;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class RaceService {
 
     private RaceDao raceDao;
-
-    public RaceDao getRaceDao() {
-        return raceDao;
-    }
-
-    public void setRaceDao(RaceDao raceDao) {
-        this.raceDao = raceDao;
-    }
 
     public Race retrieve(Long raceId) {
         return raceDao.retrieve(raceId);

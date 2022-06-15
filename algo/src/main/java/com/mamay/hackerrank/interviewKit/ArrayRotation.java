@@ -4,9 +4,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class ArrayRotation {
+    private static final Scanner scanner = new Scanner(System.in);
+
     // Complete the rotLeft function below.
     // Complete the minimumMoves function below.
     static int minimumMoves(String[] strGrid, int startX, int startY, int goalX, int goalY) {
@@ -111,8 +117,6 @@ public class ArrayRotation {
         return "YES";
 
     }
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("output_hackerrank.txt")));

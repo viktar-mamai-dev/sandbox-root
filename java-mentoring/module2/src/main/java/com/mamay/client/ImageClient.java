@@ -11,7 +11,7 @@ import com.mamay.util.ImageUtil;
 
 public class ImageClient extends BaseClient {
 
-    private Long userId;
+    private final Long userId;
 
     public ImageClient(Long userId) {
         this.userId = userId;
@@ -21,7 +21,7 @@ public class ImageClient extends BaseClient {
     private Long testUpload(byte[] data) {
 
         Response response = webTarget.request(MediaType.APPLICATION_XML).post(Entity.entity(data, MediaType.TEXT_PLAIN));
-        System.out.println(String.format("Testing POST /users/%d/images. Status=%s", userId, response.getStatus()));
+        System.out.printf("Testing POST /users/%d/images. Status=%s%n", userId, response.getStatus());
         Image uploadedImage = response.readEntity(Image.class);
         System.out.println("\tEntity id= " + uploadedImage.getId());
         return uploadedImage.getId();
@@ -29,9 +29,8 @@ public class ImageClient extends BaseClient {
 
     private byte[] testDownload(Long imageId) {
         Response response = webTarget.path("/" + imageId).request().get();
-        System.out.println(String.format("Testing GET /users/%d/images/%d. Status=%s", userId, imageId, response.getStatus()));
-        byte data[] = response.readEntity(byte[].class);
-        return data;
+        System.out.printf("Testing GET /users/%d/images/%d. Status=%s%n", userId, imageId, response.getStatus());
+        return response.readEntity(byte[].class);
     }
 
     @Override
@@ -40,9 +39,5 @@ public class ImageClient extends BaseClient {
         Long imageId = testUpload(input);
         byte[] output = testDownload(imageId);
         System.out.println(Arrays.equals(input, output));
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 }

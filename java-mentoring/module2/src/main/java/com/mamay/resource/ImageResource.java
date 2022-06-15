@@ -12,8 +12,8 @@ import javax.ws.rs.core.Response;
 
 public class ImageResource {
 
-    private ImageDao imageDao = new ImageDao();
-    private UserDao userDao = new UserDao();
+    private final ImageDao imageDao = new ImageDao();
+    private final UserDao userDao = new UserDao();
 
     @POST
     public Response upload(@PathParam("userId") Long userId, byte[] data) {

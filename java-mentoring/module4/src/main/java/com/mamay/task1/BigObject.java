@@ -2,8 +2,8 @@ package com.mamay.task1;
 
 public class BigObject {
 
-    private BigObject obj;
-    String str = new String(getClass().getName());
+    private final BigObject obj;
+    String str = getClass().getName();
 
     public BigObject(BigObject obj) {
 

@@ -5,7 +5,6 @@ import com.mamay.dao.TagDao;
 import com.mamay.entity.TagEntity;
 import com.mamay.exception.DaoException;
 import com.mamay.exception.ServiceException;
-import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

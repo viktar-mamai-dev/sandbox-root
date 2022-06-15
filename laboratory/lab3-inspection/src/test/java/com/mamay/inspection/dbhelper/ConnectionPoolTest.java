@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 public class ConnectionPoolTest {
@@ -37,9 +36,6 @@ public class ConnectionPoolTest {
 
     @Test(timeout = 10000)
     public void openConnectionTest() throws DAOException {
-        for (int k = 0; k < poolSize; k++) {
-            assertNotNull("Connection equals to null");
-        }
         ProxyConnection conn = pool.getConnection();
         assertNull("Connection doesn't equal to null", conn);
         pool.closeConnection(conn);

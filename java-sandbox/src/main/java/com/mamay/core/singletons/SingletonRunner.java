@@ -1,4 +1,4 @@
-package com.mamay.core.pack2;
+package com.mamay.core.singletons;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,9 +18,7 @@ public class SingletonRunner {
 
         // construct new singleton with Multithreading
         for (int i = 0; i < 3; i++) {
-            new Thread(() -> {
-                System.out.println(LazySingleton.getInstance().hashCode());
-            }).start();
+            new Thread(() -> System.out.println("lazy: " + LazySingleton.getInstance().hashCode())).start();
         }
         Thread.sleep(100);
 
@@ -32,15 +30,15 @@ public class SingletonRunner {
         System.out.println("Cloned: " + clonedIncorrectSingleton.hashCode());
 
         // construct new singleton with Serializable
-        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-                new FileOutputStream("singleton.txt")); ObjectInputStream in = new ObjectInputStream(new FileInputStream("singleton.txt"))) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("singleton.txt"));
+             ObjectInputStream in = new ObjectInputStream(new FileInputStream("singleton.txt"))) {
             objectOutputStream.writeObject(incorectSingleton);
             IncorectSingleton serializedSingleton = (IncorectSingleton) in.readObject();
             System.out.println("Serialized: " + serializedSingleton.hashCode());
         }
 
         // construct new singleton with Reflection
-        Constructor constructor = IncorectSingleton.class.getDeclaredConstructors()[0];
+        Constructor<?> constructor = IncorectSingleton.class.getDeclaredConstructors()[0];
         constructor.setAccessible(true);
         IncorectSingleton reflectionSingleton = (IncorectSingleton) constructor.newInstance();
         System.out.println("reflection: " + reflectionSingleton.hashCode());

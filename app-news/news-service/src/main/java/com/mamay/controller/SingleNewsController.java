@@ -1,7 +1,7 @@
 package com.mamay.controller;
 
-import com.mamay.dto.NewsSearchCriteria;
 import com.mamay.dto.NewsDto;
+import com.mamay.dto.NewsSearchCriteria;
 import com.mamay.entity.CommentEntity;
 import com.mamay.exception.ControllerException;
 import com.mamay.exception.ServiceException;
@@ -10,8 +10,11 @@ import com.mamay.service.NewsManagementService;
 import com.mamay.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +34,7 @@ public class SingleNewsController {
     @Autowired
     private CommentService commentService;
 
-    @RequestMapping(value = "/news/next/{newsId}", method = RequestMethod.GET)
+    @GetMapping(value = "/news/next/{newsId}")
     public String loadNextNews(@ModelAttribute("filteredItem") NewsSearchCriteria filteredItem,
                                @PathVariable Long newsId) throws ControllerException {
         try {
@@ -45,7 +48,7 @@ public class SingleNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/previous/{newsId}", method = RequestMethod.GET)
+    @GetMapping(value = "/news/previous/{newsId}")
     public String loadPreviousNews(@ModelAttribute("filteredItem") NewsSearchCriteria filteredItem,
                                    @PathVariable Long newsId) throws ControllerException {
         try {
@@ -59,9 +62,10 @@ public class SingleNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/{newsId}", method = RequestMethod.GET)
+    @GetMapping(value = "/news/{newsId}")
     public ModelAndView loadById(@PathVariable Long newsId,
-                                 @ModelAttribute("filteredItem") NewsSearchCriteria filteredItem) throws ControllerException {
+                                 @ModelAttribute("filteredItem") NewsSearchCriteria filteredItem)
+            throws ControllerException {
         try {
             ModelAndView model = new ModelAndView("news/item");
             NewsDto newsObject = newsManageService.loadById(newsId);
@@ -77,7 +81,7 @@ public class SingleNewsController {
         }
     }
 
-    @RequestMapping(value = "/comment/create", method = RequestMethod.POST)
+    @PostMapping(value = "/comment/create")
     public String createComment(@ModelAttribute("comment") CommentEntity entity) throws ControllerException {
         try {
             commentService.create(entity);
@@ -87,7 +91,7 @@ public class SingleNewsController {
         }
     }
 
-    @RequestMapping(value = "/comment/delete")
+    @DeleteMapping(value = "/comment/delete")
     public String delete(@RequestParam("commentId") Long commentId, @RequestParam("newsId") Long newsId)
             throws ControllerException {
         try {

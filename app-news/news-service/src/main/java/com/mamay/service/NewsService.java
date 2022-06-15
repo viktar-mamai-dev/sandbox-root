@@ -123,8 +123,8 @@ public class NewsService {
         }
     }
 
-    public NewsPageItem<NewsEntity> loadByFilter(NewsSearchCriteria filteredItem, Integer pageNumber,
-                                                 int newsPerPage) throws ServiceException {
+    public NewsPageItem<NewsEntity> loadByFilter(NewsSearchCriteria filteredItem, Integer pageNumber, int newsPerPage)
+            throws ServiceException {
         if (pageNumber == null) {
             pageNumber = 1;
         }

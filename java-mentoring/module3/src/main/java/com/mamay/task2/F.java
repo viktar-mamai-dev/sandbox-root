@@ -23,7 +23,6 @@ public class F implements InitializingBean, DisposableBean {
 
     public void afterPropertiesSet() throws Exception {
         LOGGER.info("Entering F.afterPropertiesSet method");
-        
     }
 
 }

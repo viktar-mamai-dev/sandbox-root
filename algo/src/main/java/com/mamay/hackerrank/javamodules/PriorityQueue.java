@@ -1,6 +1,9 @@
 package com.mamay.hackerrank.javamodules;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 class Student implements Comparable<Student> {
 
@@ -39,11 +42,7 @@ class Student implements Comparable<Student> {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cgpa=" + cgpa +
-                '}';
+        return "Student{" + "id=" + id + ", name='" + name + '\'' + ", cgpa=" + cgpa + '}';
     }
 }
 

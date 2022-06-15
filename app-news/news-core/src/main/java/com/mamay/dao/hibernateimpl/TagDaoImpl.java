@@ -5,10 +5,10 @@ import com.mamay.entity.TagEntity;
 import com.mamay.exception.DaoException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Repository
@@ -20,32 +20,29 @@ public class TagDaoImpl implements TagDao {
     @Override
     public List<TagEntity> loadAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        return (List<TagEntity>) session.createCriteria(TagEntity.class)
-                .addOrder(Order.asc("name")).list();
+        CriteriaQuery<TagEntity> criteria = session.getCriteriaBuilder().createQuery(TagEntity.class);
+        return sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
     }
 
     @Override
     public TagEntity loadById(Long id) {
-        Session session = this.sessionFactory.getCurrentSession();
-        return (TagEntity) session.get(TagEntity.class, id);
+        return this.sessionFactory.getCurrentSession().get(TagEntity.class, id);
     }
 
     @Override
     public Long create(TagEntity entity) {
-        Session session = this.sessionFactory.getCurrentSession();
-        return (Long) session.save(entity);
+        return (Long) this.sessionFactory.getCurrentSession().save(entity);
     }
 
     @Override
     public void update(TagEntity entity) {
-        Session session = this.sessionFactory.getCurrentSession();
-        session.saveOrUpdate(entity);
+        this.sessionFactory.getCurrentSession().saveOrUpdate(entity);
     }
 
     @Override
     public void delete(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        TagEntity entity = (TagEntity) session.get(TagEntity.class, id);
+        TagEntity entity = session.get(TagEntity.class, id);
         if (entity != null) {
             session.delete(entity);
         }

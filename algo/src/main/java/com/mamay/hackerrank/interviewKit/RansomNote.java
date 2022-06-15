@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class RansomNote {
+    private static final Scanner scanner = new Scanner(System.in);
+
     // Complete the checkMagazine function below.
     private static void checkMagazine(String[] magazine, String[] note) {
         HashMap<String, Integer> magazinMap = new HashMap<>();
@@ -49,8 +51,6 @@ public class RansomNote {
         }
         return "Yes";
     }
-
-    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         String[] mn = scanner.nextLine().split(" ");

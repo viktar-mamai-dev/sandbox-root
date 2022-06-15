@@ -39,14 +39,9 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public List<AuthorEntity> loadAll() throws DaoException {
-
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet rs = null;
-        try {
-            connection = DataSourceUtils.getConnection(dataSource);
-            statement = connection.createStatement();
-            rs = statement.executeQuery(SQL_LOAD_ALL);
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(SQL_LOAD_ALL)) {
             List<AuthorEntity> authorList = new ArrayList<AuthorEntity>();
             while (rs.next()) {
                 AuthorEntity entity = ResultSetCreator.createAuthor(rs);
@@ -55,20 +50,14 @@ public class AuthorDaoImpl implements AuthorDao {
             return authorList;
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            DatabaseUtil.close(dataSource, connection, statement, rs);
         }
     }
 
     @Override
     public List<AuthorEntity> loadActiveAuthors() throws DaoException {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet rs = null;
-        try {
-            connection = DataSourceUtils.getConnection(dataSource);
-            statement = connection.createStatement();
-            rs = statement.executeQuery(SQL_LOAD_ACTIVE);
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(SQL_LOAD_ACTIVE)) {
             List<AuthorEntity> authorList = new ArrayList<AuthorEntity>();
             while (rs.next()) {
                 AuthorEntity entity = ResultSetCreator.createAuthor(rs);
@@ -77,21 +66,15 @@ public class AuthorDaoImpl implements AuthorDao {
             return authorList;
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            DatabaseUtil.close(dataSource, connection, statement, rs);
         }
     }
 
     @Override
     public AuthorEntity loadByNewsId(Long newsId) throws DaoException {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DataSourceUtils.getConnection(dataSource);
-            ps = connection.prepareStatement(SQL_LOAD_BY_NEWS_ID);
-            ps.setLong(1, newsId);
-            rs = ps.executeQuery();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
+             PreparedStatement statement = connection.prepareStatement(SQL_LOAD_BY_NEWS_ID)) {
+            statement.setLong(1, newsId);
+            ResultSet rs = statement.executeQuery();
             AuthorEntity entity = null;
             if (rs.next()) {
                 entity = ResultSetCreator.createAuthor(rs);
@@ -100,21 +83,15 @@ public class AuthorDaoImpl implements AuthorDao {
         } catch (SQLException e) {
             throw new DaoException("Unable to load author by news id: "
                     + newsId, e);
-        } finally {
-            DatabaseUtil.close(dataSource, connection, ps, rs);
         }
     }
 
     @Override
     public AuthorEntity loadById(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DataSourceUtils.getConnection(dataSource);
-            ps = connection.prepareStatement(SQL_LOAD_BY_ID);
-            ps.setLong(1, id);
-            rs = ps.executeQuery();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
+             PreparedStatement statement = connection.prepareStatement(SQL_LOAD_BY_ID)) {
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
             AuthorEntity authorEntity = null;
             if (rs.next()) {
                 authorEntity = ResultSetCreator.createAuthor(rs);
@@ -122,46 +99,33 @@ public class AuthorDaoImpl implements AuthorDao {
             return authorEntity;
         } catch (SQLException e) {
             throw new DaoException("Unable to load author by id: " + id, e);
-        } finally {
-            DatabaseUtil.close(dataSource, connection, ps, rs);
         }
     }
 
     @Override
     public void delete(Long id) throws DaoException {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        try {
-            connection = DataSourceUtils.getConnection(dataSource);
-            ps = connection.prepareStatement(SQL_DELETE);
-            ps.setLong(1, id);
-            ps.executeUpdate();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
+             PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
+            statement.setLong(1, id);
+            statement.setLong(1, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException("Unable to delete author by id: " + id, e);
-        } finally {
-            DatabaseUtil.close(dataSource, connection, ps);
         }
     }
 
     @Override
     public Long create(AuthorEntity entity) throws DaoException {
-        Connection connection = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            connection = DataSourceUtils.getConnection(dataSource);
-            ps = connection.prepareStatement(SQL_INSERT,
-                    new String[]{SchemaSQL.AUTHOR_ID});
-            ps.setString(1, entity.getName());
-            ps.executeUpdate();
-            rs = ps.getGeneratedKeys();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
+             PreparedStatement statement = connection.prepareStatement(SQL_INSERT,
+                     new String[]{SchemaSQL.AUTHOR_ID})) {
+            statement.setString(1, entity.getName());
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
             rs.next();
-            Long lastIndex = rs.getLong(1);
-            return lastIndex;
+            return rs.getLong(1);
         } catch (SQLException e) {
             throw new DaoException("Unable to create author: " + entity, e);
-        } finally {
-            DatabaseUtil.close(dataSource, connection, ps, rs);
         }
     }
 
@@ -192,8 +156,7 @@ public class AuthorDaoImpl implements AuthorDao {
             ps.setLong(1, authorId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Unable to make expired author with id: "
-                    + authorId, e);
+            throw new DaoException("Unable to make expired author with id: " + authorId, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps);
         }

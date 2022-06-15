@@ -1,18 +1,18 @@
 package com.mamay.dao;
 
+import com.mamay.entity.Image;
+import com.mamay.entity.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mamay.entity.Image;
-import com.mamay.entity.User;
-
 public class UserDao {
 
-    private static Long nextUserId = 1l;
+    private static Long nextUserId = 1L;
 
-    private static Map<Long, User> userMap = new HashMap<Long, User>();
+    private static final Map<Long, User> userMap = new HashMap<Long, User>();
 
     static {
         userMap.put(nextUserId++, new User("Viktar", "Gugo", "Viktar2", "viktar.gugo@doodle.com"));

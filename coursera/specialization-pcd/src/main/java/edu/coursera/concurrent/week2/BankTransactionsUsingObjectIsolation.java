@@ -12,10 +12,9 @@ public final class BankTransactionsUsingObjectIsolation extends ThreadSafeBankTr
     @Override
     public void issueTransfer(final int amount, final Account src, final Account dst) {
         /*
-         * TODO implement issueTransfer using object-based isolation instead of
-         * global isolation, based on the reference code provided in
-         * BankTransactionsUsingGlobalIsolation. Keep in mind that isolation
-         * must be applied to both src and dst.
+         * TODO implement issueTransfer using object-based isolation instead of global isolation, based on the
+         *  reference code provided in BankTransactionsUsingGlobalIsolation. Keep in mind that isolation
+         *  must be applied to both src and dst.
          */
         isolated(src, dst, () -> src.performTransfer(amount, dst));
     }

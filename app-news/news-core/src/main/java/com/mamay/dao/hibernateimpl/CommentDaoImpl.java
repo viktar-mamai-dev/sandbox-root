@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,13 +21,14 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<CommentEntity> loadAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        return (List<CommentEntity>) session.createCriteria(CommentEntity.class).list();
+        CriteriaQuery<CommentEntity> criteria = session.getCriteriaBuilder().createQuery(CommentEntity.class);
+        return sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
     }
 
     @Override
     public CommentEntity loadById(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        return (CommentEntity) session.get(CommentEntity.class, id);
+        return session.get(CommentEntity.class, id);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public void delete(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
-        CommentEntity entity = (CommentEntity) session.get(CommentEntity.class, id);
+        CommentEntity entity = session.get(CommentEntity.class, id);
         if (entity != null) {
             session.delete(entity);
         }

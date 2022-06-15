@@ -186,8 +186,6 @@ public class NewsDaoImplTest {
         assertEquals(1, item.getNewsList().size());
     }
 
-    // additional methods for assertions
-
     private void assertEntityEquals(NewsEntity expectedEntity, NewsEntity actualEntity) {
 
         Assert.assertEquals(expectedEntity.getTitle(), actualEntity.getTitle());

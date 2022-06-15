@@ -16,9 +16,8 @@ public class EmulationApp {
 
     public static void main(String[] args) {
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("task3-applicationContext.xml");
-
-        try (Scanner scanner = new Scanner(System.in)) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("task3-applicationContext.xml");
+             Scanner scanner = new Scanner(System.in)) {
 
             EmulationService emulationService = context.getBean("emulationService", EmulationService.class);
 
@@ -62,8 +61,6 @@ public class EmulationApp {
             LOGGER.error("Something wrong happened during bean instantiation", e);
         } catch (InterruptedException e) {
             LOGGER.error("Thread is interrupted", e);
-        } finally {
-            context.close();
         }
     }
 }

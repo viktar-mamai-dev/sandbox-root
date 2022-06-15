@@ -1,11 +1,6 @@
 package com.mamay.hackerrank.interviewKit.linkedlist;
 
 public class ContainsCycle {
-    class Node {
-        int data;
-        Node next;
-    }
-
     boolean hasCycle(Node head) {
         if (head == null) return false;
 
@@ -19,5 +14,10 @@ public class ContainsCycle {
         }
 
         return true;
+    }
+
+    class Node {
+        int data;
+        Node next;
     }
 }

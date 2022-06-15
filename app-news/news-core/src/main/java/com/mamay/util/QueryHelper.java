@@ -3,27 +3,18 @@ package com.mamay.util;
 import com.mamay.dto.NewsSearchCriteria;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class QueryHelper {
 	
 	public static String convertListToString(List<Long> tagIdList) {
-		StringBuilder builder = new StringBuilder();
-		int size = tagIdList.size();
-		for (int i = 0; i < size; i++) {
-			builder.append(tagIdList.get(i));
-			if (i < size - 1) {
-				builder.append(", ");
-			}
-		}
-		return builder.toString();
+		return tagIdList.stream().map(String::valueOf).collect(Collectors.joining(", "));
 	}
 
 	public static String wrapQueryToRownum(String query) {
 		String begin = "SELECT * FROM ( SELECT n.*, ROWNUM rn, count(*) OVER () total_count FROM (";
 		String end = ") n ) WHERE rn BETWEEN ? AND ?";
-		StringBuilder builder = new StringBuilder();
-		builder.append(begin).append(query).append(end);
-		return builder.toString();
+		return begin + query + end;
 	}
 
 	/**

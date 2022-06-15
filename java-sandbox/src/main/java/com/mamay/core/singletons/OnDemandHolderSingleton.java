@@ -1,4 +1,4 @@
-package com.mamay.core.pack2;
+package com.mamay.core.singletons;
 
 public class OnDemandHolderSingleton {
     public static class SingletonHolder {

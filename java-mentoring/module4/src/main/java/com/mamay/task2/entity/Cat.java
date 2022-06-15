@@ -1,24 +1,23 @@
-package com.mamay.entity;
+package com.mamay.task2.entity;
 
-import org.apache.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class Cat extends Animal {
 
-	private final static Logger LOGGER = Logger.getLogger(Cat.class);
+    public Cat(String name) {
+        super(name);
+    }
 
-	public Cat(String name) {
-		super(name);
-	}
+    @Override
+    public void play() {
+        log.info(getName() + " is playing with mouse");
 
-	@Override
-	public void play() {
-		LOGGER.info(getName() + " is playing with mouse");
+    }
 
-	}
-
-	@Override
-	public void voice(String word) {
-		LOGGER.info("Cat " + getName() + " is saying " + word);
-	}
+    @Override
+    public void voice(String word) {
+        log.info("Cat " + getName() + " is saying " + word);
+    }
 
 }

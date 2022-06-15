@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "author")
-@NamedQueries({@NamedQuery(name = "Author.loadActiveAuthors", query = "SELECT a FROM AuthorEntity a WHERE a.expiredDate is NULL ORDER BY a.name")})
+@NamedQueries({@NamedQuery(name = "Author.loadActiveAuthors",
+        query = "SELECT a FROM AuthorEntity a WHERE a.expiredDate is NULL ORDER BY a.name")})
 @Getter
 @Setter
 @NoArgsConstructor

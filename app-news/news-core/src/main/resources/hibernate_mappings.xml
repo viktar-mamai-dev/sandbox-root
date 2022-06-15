@@ -8,12 +8,9 @@
                 <param name="sequence">AUTHOR_SEQ</param>
             </generator>
         </id>
-        <version name="version" column="version" type="integer">
-        </version>
-        <property name="name" column="name" type="string">
-        </property>
-        <property name="expiredDate" column="expired" type="date">
-        </property>
+        <version name="version" column="version" type="integer" />
+        <property name="name" column="name" type="string" />
+        <property name="expiredDate" column="expired" type="date" />
     </class>
 
     <class name="TagEntity" table="tag">
@@ -22,10 +19,8 @@
                 <param name="sequence">TAG_SEQ</param>
             </generator>
         </id>
-        <version name="version" column="version" type="integer">
-        </version>
-        <property name="name" column="tag_name" type="string">
-        </property>
+        <version name="version" column="version" type="integer" />
+        <property name="name" column="tag_name" type="string" />
     </class>
 
     <class name="NewsEntity" table="news">
@@ -34,18 +29,12 @@
                 <param name="sequence">NEWS__SEQ</param>
             </generator>
         </id>
-        <version name="version" column="version" type="integer">
-        </version>
-        <property name="title" column="title" type="string">
-        </property>
-        <property name="shortText" column="short_text" type="string">
-        </property>
-        <property name="fullText" column="full_text" type="string">
-        </property>
-        <property name="creationDate" column="creation_date" type="date" update="false">
-        </property>
-        <property name="modificationDate" column="modification_date" type="timestamp">
-        </property>
+        <version name="version" column="version" type="integer" />
+        <property name="title" column="title" type="string" />
+        <property name="shortText" column="short_text" type="string" />
+        <property name="fullText" column="full_text" type="string" />
+        <property name="creationDate" column="creation_date" type="date" update="false" />
+        <property name="modificationDate" column="modification_date" type="timestamp" />
 
         <bag name="tags" table="news_tag" lazy="true">
             <key column="news_id"/>
@@ -61,8 +50,7 @@
 
         <join table="news_author" inverse="false">
             <key column="news_id"/>
-            <many-to-one name="author" cascade="all" class="AuthorEntity"
-                         column="author_id" not-null="false"/>
+            <many-to-one name="author" cascade="all" class="AuthorEntity" column="author_id" not-null="false"/>
         </join>
     </class>
 
@@ -72,10 +60,8 @@
                 <param name="sequence">COMMENT_SEQ</param>
             </generator>
         </id>
-        <property name="text" column="comment_text" type="string">
-        </property>
-        <property name="creationDate" column="creation_date" type="timestamp">
-        </property>
+        <property name="text" column="comment_text" type="string" />
+        <property name="creationDate" column="creation_date" type="timestamp" />
         <many-to-one name="news" class="NewsEntity" fetch="select">
             <column name="news_id" not-null="true"/>
         </many-to-one>

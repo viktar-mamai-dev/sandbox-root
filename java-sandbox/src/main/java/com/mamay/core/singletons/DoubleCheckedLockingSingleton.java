@@ -1,8 +1,12 @@
-package com.mamay.core.pack2;
+package com.mamay.core.singletons;
 
 public class DoubleCheckedLockingSingleton {
 
     private static volatile DoubleCheckedLockingSingleton instance;
+
+    private DoubleCheckedLockingSingleton() {
+
+    }
 
     public static DoubleCheckedLockingSingleton getInstance() {
         DoubleCheckedLockingSingleton localInstance = instance;

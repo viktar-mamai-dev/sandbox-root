@@ -13,9 +13,11 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("news")
 public class CreateUpdateNewsController {
     @Autowired
     private NewsManagementService newsManageService;
@@ -53,7 +56,7 @@ public class CreateUpdateNewsController {
         binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));
     }
 
-    @RequestMapping(value = "/news/create", method = RequestMethod.GET)
+    @GetMapping(value = "/create")
     public ModelAndView showFormToCreate() throws ControllerException {
         try {
             ModelAndView model = new ModelAndView("news/create");
@@ -66,7 +69,7 @@ public class CreateUpdateNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
     public String create(
             @ModelAttribute("newsEntity") NewsEntity newsEntity,
             @RequestParam(value = "tagId", required = false) List<Long> tagIdList,
@@ -83,7 +86,7 @@ public class CreateUpdateNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/update/{newsId}", method = RequestMethod.GET)
+    @GetMapping(value = "/update/{newsId}")
     public ModelAndView showFormToUpdate(@PathVariable("newsId") Long id)
             throws ControllerException {
         try {
@@ -103,7 +106,7 @@ public class CreateUpdateNewsController {
         }
     }
 
-    @RequestMapping(value = "/news/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     public String update(
             @ModelAttribute("newsEntity") NewsEntity newsEntity,
             @RequestParam(value = "tagId", required = false) List<Long> tagIdList,

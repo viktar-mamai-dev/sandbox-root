@@ -8,9 +8,11 @@ import com.mamay.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,15 +23,16 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
+@RequestMapping("author")
 public class AuthorController {
 
+    private static final String REDIRECT_URL = "redirect:/author/list";
     @Autowired
     private AuthorService authorService;
-
     @Autowired
     private MessageSource messageSource;
 
-    @RequestMapping(value = "/author/list", method = RequestMethod.GET)
+    @GetMapping(value = "/list")
     public ModelAndView loadAll() throws ControllerException {
         try {
             ModelAndView view = new ModelAndView("author");
@@ -42,9 +45,8 @@ public class AuthorController {
         }
     }
 
-    @RequestMapping(value = "/author/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute AuthorEntity author,
-                         RedirectAttributes ra, HttpServletRequest request)
+    @PostMapping(value = "/create")
+    public String create(@ModelAttribute AuthorEntity author, RedirectAttributes ra, HttpServletRequest request)
             throws ControllerException {
         try {
             authorService.create(author);
@@ -52,13 +54,13 @@ public class AuthorController {
             ra.addFlashAttribute("successMessage", messageSource.getMessage(
                     "message.author.add", new Object[]{author.getName()},
                     locale));
-            return "redirect:/author/list";
+            return REDIRECT_URL;
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }
 
-    @RequestMapping(value = "/author/update", method = RequestMethod.POST)
+    @PutMapping(value = "/update")
     public String update(@ModelAttribute AuthorEntity author,
                          RedirectAttributes ra, HttpServletRequest request)
             throws ControllerException {
@@ -68,22 +70,22 @@ public class AuthorController {
             ra.addFlashAttribute("successMessage", messageSource.getMessage(
                     "message.author.update", new Object[]{author.getName()},
                     locale));
-            return "redirect:/author/list";
+            return REDIRECT_URL;
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }
     }
 
-    @RequestMapping(value = "/author/expired", method = RequestMethod.POST)
+    @PutMapping(value = "/expired")
     public String expired(@RequestParam("id") Long authorId,
                           RedirectAttributes ra, HttpServletRequest request)
             throws ControllerException {
         try {
             authorService.makeExpired(authorId);
             Locale locale = RequestContextUtils.getLocale(request);
-            ra.addFlashAttribute("successMessage", messageSource.getMessage(
-                    "message.author.expired", null, locale));
-            return "redirect:/author/list";
+            ra.addFlashAttribute("successMessage",
+                    messageSource.getMessage("message.author.expired", null, locale));
+            return REDIRECT_URL;
         } catch (ServiceException e) {
             throw new ControllerException(e);
         }

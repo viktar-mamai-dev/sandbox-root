@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -18,14 +17,12 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public List<CommentEntity> loadAll() throws DaoException {
-        Query query = entityManager.createQuery("from CommentEntity c");
-        return query.getResultList();
+        return entityManager.createQuery("from CommentEntity c", CommentEntity.class).getResultList();
     }
 
     @Override
     public CommentEntity loadById(Long id) throws DaoException {
-        CommentEntity comment = entityManager.find(CommentEntity.class, id);
-        return comment;
+        return entityManager.find(CommentEntity.class, id);
     }
 
     @Override

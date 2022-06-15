@@ -1,12 +1,12 @@
 package com.mamay.task2;
 
-import java.lang.reflect.Method;
-
 import org.springframework.beans.factory.support.MethodReplacer;
+
+import java.lang.reflect.Method;
 
 public class EReplacer implements MethodReplacer {
 
-    public Object reimplement(Object obj, Method method, Object[] args) throws Throwable {
+    public Object reimplement(Object obj, Method method, Object[] args) {
         Class<?>[] parameterTypes = method.getParameterTypes();
         if (isParameterOfTypeInt(parameterTypes[0]) && isParameterOfTypeInt(parameterTypes[1])) {
             if ((Integer) args[0] < (Integer) args[1]) {
