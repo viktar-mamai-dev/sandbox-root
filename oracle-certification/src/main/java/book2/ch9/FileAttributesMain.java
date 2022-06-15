@@ -78,8 +78,8 @@ public class FileAttributesMain {
             Files.find(path5, 2, (p, a) -> a.isRegularFile()).forEach(out::println);
 
             out.println("Listing all directories");
-            Files.list(path5).filter(p -> Files.isDirectory(p)).
-                    map(p -> p.toAbsolutePath()).forEach(out::println); // get all directories
+            Files.list(path5).filter(Files::isDirectory).
+                    map(Path::toAbsolutePath).forEach(out::println); // get all directories
 
             Files.lines(path1).forEach(out::println);
 

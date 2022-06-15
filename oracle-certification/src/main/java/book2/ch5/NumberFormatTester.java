@@ -11,12 +11,12 @@ import java.time.format.FormatStyle;
 
 public class NumberFormatTester {
     public static void main(String[] args) {
-        NumberFormat nf =NumberFormat.getInstance();
+        NumberFormat nf = NumberFormat.getInstance();
         try {
             System.out.println(nf.parse("456abc")); // 456
             System.out.println(nf.parse("-123.45x10")); // -123.45
             System.out.println(nf.parse("x10")); // parseexception
-        } catch(ParseException e) { // checked exception
+        } catch (ParseException e) { // checked exception
             e.printStackTrace();
         }
 

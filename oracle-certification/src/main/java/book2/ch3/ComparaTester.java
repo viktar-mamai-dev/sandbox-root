@@ -22,20 +22,20 @@ public class ComparaTester {
 }
 
 // interfaces are inherited
-class MyClass1 extends MycClass2 {
+class MyClass1 extends MyClass2 {
 
 }
 
 // possible to implement both
-class MycClass2 implements Comparable<MycClass2>, Comparator<MycClass2> {
+class MyClass2 implements Comparable<MyClass2>, Comparator<MyClass2> {
 
     @Override
-    public int compareTo(MycClass2 o) {
+    public int compareTo(MyClass2 o) {
         return this.hashCode() - o.hashCode();
     }
 
     @Override
-    public int compare(MycClass2 o1, MycClass2 o2) {
+    public int compare(MyClass2 o1, MyClass2 o2) {
         return o2.hashCode() - o1.hashCode();
     }
 }

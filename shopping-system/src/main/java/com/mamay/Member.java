@@ -1,6 +1,19 @@
 package com.mamay;
 
-public class Member extends Customer{
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+public class Member extends Customer {
     private Account account;
-    public OrderStatus placeOrder(Order order)  {return null;}
+
+    // TODO
+    public OrderStatus placeOrder(Order order) {
+        return null;
+    }
 }

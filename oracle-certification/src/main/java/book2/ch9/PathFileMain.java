@@ -21,7 +21,6 @@ public class PathFileMain {
     private static final String FILE__NOTEXIST = "src\\main\\resources\\file555.txt";
     private static final String FILE__NOTEXIST2 = "src\\main\\resources\\file666.txt";
 
-
     public static void main(String[] args) {
         // creating path from Paths
         Path path1 = Paths.get(FILE_1_ABSOLUTE);

@@ -19,9 +19,15 @@ public class Order {
     private List<OrderLog> orderLog;
 
     // TODO implement methods
-    public boolean sendForShipment() {return false;};
+    public boolean sendForShipment() {
+        return false;
+    }
 
-    public boolean makePayment(Payment payment) {return false;};
+    public boolean makePayment(Payment payment) {
+        return false;
+    }
 
-    public boolean addOrderLog(OrderLog orderLog){return false;};
+    public boolean addOrderLog(OrderLog orderLog) {
+        return this.orderLog.add(orderLog);
+    }
 }

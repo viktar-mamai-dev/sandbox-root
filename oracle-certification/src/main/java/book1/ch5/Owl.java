@@ -2,7 +2,7 @@ package book1.ch5;
 
 interface Nocturnal {
     default boolean isBlind() {
-        System.out.println(this.toString());
+        System.out.println(this);
         System.out.println("Nocturnal");
         return true;
     }
@@ -10,7 +10,7 @@ interface Nocturnal {
 
 public class Owl implements Nocturnal{
     public boolean isBlind() {
-        System.out.println(this.toString());
+        System.out.println(this);
         System.out.println("Owl");
         return false;
     }

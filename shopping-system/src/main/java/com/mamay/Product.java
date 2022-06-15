@@ -1,5 +1,14 @@
 package com.mamay;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Product {
     private String productID;
     private String name;
@@ -10,11 +19,7 @@ public class Product {
 
     private Account seller;
 
-    public int getAvailableCount() {
-        return this.availableItemCount;
-    }
-    public boolean updatePrice(double newPrice) {
-        // TODO
-        return false;
+    public void updatePrice(double newPrice) {
+        this.price = newPrice;
     }
 }
