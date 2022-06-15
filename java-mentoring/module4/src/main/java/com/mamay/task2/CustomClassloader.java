@@ -1,15 +1,11 @@
 package com.mamay.task2;
 
-import org.apache.log4j.Logger;
-
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class CustomClassloader extends ClassLoader {
-
-    private final static Logger LOGGER = Logger.getLogger(CustomClassloader.class);
 
     public CustomClassloader(ClassLoader parent) {
         super(parent);
@@ -23,9 +19,9 @@ public class CustomClassloader extends ClassLoader {
      */
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
-        LOGGER.info("Loading Class '" + name + "'");
+        System.out.println("Loading Class '" + name + "'");
         if (name.startsWith("com.mamay.entity")) {
-            LOGGER.info("Class loaded using CustomCLoader");
+            System.out.println("Class loaded using CustomCLoader");
             return getClass(name);
         }
         return super.loadClass(name);

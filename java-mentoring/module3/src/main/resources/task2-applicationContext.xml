@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:property-placeholder location="classpath:beans.properties" />
+    <context:property-placeholder location="classpath:beans.properties"/>
 
-	<bean id="a1" class="A">
-		<property name="title" value="${a1.title}"></property>
-		<property name="numbers" value="#{'${a1.numbers}'.split(',')}" />
-	</bean>
+    <bean id="a1" class="A">
+        <property name="title" value="${a1.title}"/>
+        <property name="numbers" value="#{'${a1.numbers}'.split(',')}"/>
+    </bean>
 
-	<bean id="b1" class="B">
-		<constructor-arg name="a" ref="a1" />
-	</bean>
+    <bean id="b1" class="B">
+        <constructor-arg name="a" ref="a1"/>
+    </bean>
 
-	<bean id="c1" class="com.mamay.task2.C" scope="pack2">
-		<!-- lookup method injection -->
-		<lookup-method name="createValidD" bean="d1" />
-		<lookup-method name="createInvalidD" bean="d3" />
-	</bean>
+    <bean id="c1" class="com.mamay.task2.C" scope="pack2">
+        <!-- lookup method injection -->
+        <lookup-method name="createValidD" bean="d1"/>
+        <lookup-method name="createInvalidD" bean="d3"/>
+    </bean>
 
-	<bean id="d1" class="com.mamay.task2.D" scope="prototype" init-method="init">
-		<property name="valid" value="${d1.valid}" />
-	</bean>
+    <bean id="d1" class="com.mamay.task2.D" scope="prototype" init-method="init">
+        <property name="valid" value="${d1.valid}"/>
+    </bean>
 
-	<bean id="d3" class="com.mamay.task2.D" scope="prototype" init-method="init">
-		<property name="valid" value="${d3.valid}" />
-	</bean>
+    <bean id="d3" class="com.mamay.task2.D" scope="prototype" init-method="init">
+        <property name="valid" value="${d3.valid}"/>
+    </bean>
 
-	<bean id="e1" class="com.mamay.task2.E">
-		<replaced-method name="addition" replacer="e_replacer" />
-		<replaced-method name="multiplication" replacer="e_replacer" />
-	</bean>
+    <bean id="e1" class="com.mamay.task2.E">
+        <replaced-method name="addition" replacer="e_replacer"/>
+        <replaced-method name="multiplication" replacer="e_replacer"/>
+    </bean>
 
-	<bean id="e_replacer" class="com.mamay.task2.EReplacer" />
+    <bean id="e_replacer" class="com.mamay.task2.EReplacer"/>
 
-	<bean id="f1" class="com.mamay.task2.F" init-method="init" destroy-method="destroyMethod">
-	</bean>
+    <bean id="f1" class="com.mamay.task2.F" init-method="init" destroy-method="destroyMethod">
+    </bean>
 </beans>
