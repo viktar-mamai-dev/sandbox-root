@@ -57,7 +57,7 @@ public class WeightedSum {
         }
     }
 
-    private class Node {
+    private static class Node {
         private final short weight;
         private final short length;
 

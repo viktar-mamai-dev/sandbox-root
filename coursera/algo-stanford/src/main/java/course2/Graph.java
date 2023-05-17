@@ -2,11 +2,16 @@ package course2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
 
 class Graph {
-    private int V;   // No. of vertices
-    private LinkedList<Integer> adj[]; //Adjacency List
+    private final int V;   // No. of vertices
+    private final LinkedList<Integer>[] adj; //Adjacency List
 
     private int componentSize;
 
@@ -23,7 +28,7 @@ class Graph {
     }
 
     // A recursive function to print DFS starting from v
-    private void dfs(int v, boolean visited[]) {
+    private void dfs(int v, boolean[] visited) {
         // Mark the current node as visited and print it
         visited[v] = true;
         //System.out.print(v + " ");
@@ -45,7 +50,7 @@ class Graph {
         return g;
     }
 
-    private void fillOrder(int v, boolean visited[], Stack<Integer> stack) {
+    private void fillOrder(int v, boolean[] visited, Stack<Integer> stack) {
         visited[v] = true;
 
         // Recur for all the vertices adjacent to this vertex
@@ -62,7 +67,7 @@ class Graph {
         Stack<Integer> stack = new Stack<Integer>();
 
         // Mark all the vertices as not visited (For first DFS)
-        boolean visited[] = new boolean[V];
+        boolean[] visited = new boolean[V];
         for (int i = 0; i < V; i++)
             visited[i] = false;
 
@@ -96,7 +101,7 @@ class Graph {
     }
 
     // Driver method
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         // Create a graph given in the above diagram
         Graph g = new Graph(875715);
         g.readGraph();

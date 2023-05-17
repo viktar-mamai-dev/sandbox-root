@@ -11,7 +11,6 @@ public class App {
         try (context) {
             context.register(AnnotationConfig.class);
             context.refresh();
-            out.println("Annotation configuration demo");
             Race race1 = context.getBean("race1", Race.class);
             out.println(race1);
         } catch (BeansException e) {

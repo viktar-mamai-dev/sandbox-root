@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class KnapSack {
     private int n;
     private int w;
-
     private int[] weightes;
     private int[] values;
     private int[][] a;

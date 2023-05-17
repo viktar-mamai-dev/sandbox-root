@@ -72,14 +72,11 @@ class MyMath {
     }
 
     public PerformOperation isPalindrome() {
-        return new PerformOperation() {
-            @Override
-            public boolean check(int integer) {
-                String str = String.valueOf(integer);
-                StringBuilder b = new StringBuilder(str);
+        return integer -> {
+            String str = String.valueOf(integer);
+            StringBuilder b = new StringBuilder(str);
 
-                return str.equals(b.reverse().toString());
-            }
+            return str.equals(b.reverse().toString());
         };
     }
 }

@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class WeightedIndependentSet {
     private int n;
-    private int[] weightes;
-    private ArrayList<Integer> path = new ArrayList<>();
+    private int[] weightArr;
+    private final ArrayList<Integer> path = new ArrayList<>();
 
     public static void main(String[] args) {
         WeightedIndependentSet main = new WeightedIndependentSet();
@@ -20,13 +20,13 @@ public class WeightedIndependentSet {
     private void algo() {
         long[] a = new long[n + 1];
         a[0] = 0;
-        a[1] = weightes[0];
+        a[1] = weightArr[0];
         for (int i = 2; i <= n; i++) {
-            a[i] = Math.max(a[i - 1], a[i - 2] + weightes[i - 1]);
+            a[i] = Math.max(a[i - 1], a[i - 2] + weightArr[i - 1]);
         }
         int i = n;
         while (i >= 2) {
-            if (a[i - 1] >= a[i - 2] + weightes[i - 1]) {
+            if (a[i - 1] >= a[i - 2] + weightArr[i - 1]) {
                 i--;
             } else {
                 path.add(i);
@@ -49,11 +49,11 @@ public class WeightedIndependentSet {
     private void readInput() {
         try (Scanner scanner = new Scanner(new File("src/main/resources/course3/mwis.txt"))) {
             n = scanner.nextInt();
-            weightes = new int[n];
+            weightArr = new int[n];
 
             int i = 0;
             while (scanner.hasNextInt()) {
-                weightes[i++] = scanner.nextInt();
+                weightArr[i++] = scanner.nextInt();
             }
 
         } catch (FileNotFoundException e) {

@@ -32,8 +32,8 @@ public class NewsEntity implements Serializable {
     @Column(name = "short_text")
     @EqualsAndHashCode.Include
     private String shortText;
-    @Column(name = "full_text")
-    private String fullText;
+    @Column(name = "view_count")
+    private Integer viewCount;
     @Column(name = "title")
     @EqualsAndHashCode.Include
     private String title;

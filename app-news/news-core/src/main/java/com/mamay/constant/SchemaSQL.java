@@ -11,7 +11,7 @@ public interface SchemaSQL {
 	String NEWS_TABLE = "news";
 	String NEWS_ID = "news_id";
 	String NEWS_SHORT_TEXT = "short_text";
-	String NEWS_FULL_TEXT = "full_text";
+	String NEWS_VIEW_COUNT = "view_count";
 	String NEWS_TITLE = "title";
 	String NEWS_CREATION_DATE = "creation_date";
 	String NEWS_MODIFICATION_DATE = "modification_date";

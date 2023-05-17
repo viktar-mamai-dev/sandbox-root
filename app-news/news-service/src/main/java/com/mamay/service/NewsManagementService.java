@@ -7,7 +7,7 @@ import com.mamay.entity.AuthorEntity;
 import com.mamay.entity.CommentEntity;
 import com.mamay.entity.NewsEntity;
 import com.mamay.entity.TagEntity;
-import com.mamay.exception.ServiceException;
+import com.mamay.exception.NewsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service("newsManageService")
+@Service
 public class NewsManagementService {
 
     @Autowired
@@ -28,30 +28,30 @@ public class NewsManagementService {
     private CommentService commentService;
 
     @Transactional
-    public List<NewsDto> loadAll() throws ServiceException {
+    public List<NewsDto> loadAll() {
         List<NewsEntity> newsList = newsService.loadAll();
         return toDtoList(newsList);
     }
 
     @Transactional
-    public NewsDto loadById(Long newsId) throws ServiceException {
+    public NewsDto loadById(Long newsId) {
         NewsEntity newsEntity = newsService.loadById(newsId);
         if (newsEntity == null) {
-            throw new ServiceException("News with such id does not exist");
+            throw new NewsException("News with such id does not exist");
         }
         return toDto(newsEntity);
     }
 
     @Transactional
     public NewsPageItem<NewsDto> loadByFilter(NewsSearchCriteria filteredItem, Integer pageNumber,
-                                              int newsPerPage) throws ServiceException {
+                                              int newsPerPage) {
         NewsPageItem<NewsEntity> item = newsService.loadByFilter(filteredItem, pageNumber, newsPerPage);
         return new NewsPageItem<NewsDto>(toDtoList(item.getNewsList()),
                 item.getPageNumber(), item.getPageCount());
     }
 
     @Transactional
-    public Long create(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) throws ServiceException {
+    public Long create(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) {
         Long newsId = newsService.create(newsEntity);
         newsService.attachAuthor(newsId, authorId);
         newsService.attachTags(newsId, tagIdList);
@@ -59,7 +59,7 @@ public class NewsManagementService {
     }
 
     @Transactional
-    public Long update(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) throws ServiceException {
+    public Long update(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) {
         newsService.update(newsEntity);
         Long newsId = newsEntity.getId();
         newsService.updateAuthor(newsId, authorId);
@@ -70,7 +70,7 @@ public class NewsManagementService {
         return newsId;
     }
 
-    private List<NewsDto> toDtoList(List<NewsEntity> newsList) throws ServiceException {
+    private List<NewsDto> toDtoList(List<NewsEntity> newsList) {
         List<NewsDto> list = new ArrayList<>();
         for (NewsEntity entity : newsList) {
             list.add(toDto(entity));
@@ -78,7 +78,7 @@ public class NewsManagementService {
         return list;
     }
 
-    private NewsDto toDto(NewsEntity entity) throws ServiceException {
+    private NewsDto toDto(NewsEntity entity) {
         Long newsId = entity.getId();
         List<TagEntity> tagList = tagService.loadByNewsId(newsId);
         AuthorEntity author = authorService.loadByNewsId(newsId);

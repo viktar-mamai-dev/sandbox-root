@@ -1,6 +1,6 @@
 package com.mamay;
 
-import com.mamay.leetcode.practice.easy2.AddBinary_67;
+import com.mamay.leetcode.practice.medium3.LUPrefix;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,48 +22,63 @@ public class FileReaderWriter {
 
     private static final String REGEX_DELETE = "[\\[\\]]";
     private static final String REGEX_SPLIT = "[, ]+";
-    private static final String REGEX_ONELINE_SPLIT = "](\\s)+,\\s+\\[";
+    private static final String REGEX_ONELINE_SPLIT = "](\\s)*,(\\s)*\\[";
 
     public static void main(String[] args) throws IOException {
         ClassLoader classLoader = FileReaderWriter.class.getClassLoader();
         URL inputResource = classLoader.getResource(INPUT_FILE);
-        URL outputResopurce = classLoader.getResource(OUTPUT_FILE);
+        URL outputResource = classLoader.getResource(OUTPUT_FILE);
 
         try (Scanner scanner = new Scanner(new File(inputResource.getPath()));
-             PrintWriter writer = new PrintWriter(new FileWriter(outputResopurce.getPath()))) {
+             PrintWriter writer = new PrintWriter(new FileWriter(outputResource.getPath()))) {
 
-            /* Step 1. Implement your file read here*/
-            int[] integerArray = readIntegerArray(scanner);
-            out.println(Arrays.toString(integerArray));
-            String[] stringArray = readStringArray(scanner);
-            out.println(Arrays.toString(stringArray));
+            int q = scanner.nextInt();
+            scanner.nextLine();
+            for (int i = 0; i < q; i++) {
+                /* Step 1. Implement your file read here*/
+                //String[] words = readStringArray(scanner);
 
-            int[][] intMatrixOneLined = readMatrixOneLined(scanner);
-            cout(intMatrixOneLined);
-
-            int[][] intMatrixSized = readMatrixWithSize(scanner, 3);
-            cout(intMatrixSized);
-
-            int[][] intMatrix = readMatrix(scanner);
-            cout(intMatrix);
-            /* comment above code */
+                //int[][] intMatrixOneLined = readMatrixOneLined(scanner);
+                //cout(intMatrixOneLined);
+                /* comment above code */
 /*
             int q = scanner.nextInt();
             scanner.nextLine();
 */
-            /* Step 2. Implement yor algorithm logix here */
+                /* Step 2. Implement yor algorithm logix here */
 
-            AddBinary_67 addBinary_67 = new AddBinary_67();
-            addBinary_67.addBinary("12", "45");
+                LUPrefix main = new LUPrefix(20);
+                main.upload(13);
+                main.upload(2);
+                main.upload(18);
+                main.upload(1);
+                main.upload(19);
+                main.upload(16);
+                main.upload(15);
+                main.upload(6);
+                main.upload(12);
+                main.upload(3);
+                out.println(main.longest());
 
-            /* Step 3. Implement your file write here */
+                /* Step 3. Implement your file write here */
+                //out.println(resStr);
+                //writer.println(resStr);
+            }
+        }
+    }
 
-            writer.println("FILE writing");
+    void m(String input) {
+        String[] strArray = input.split("_");
+        char[][] board = new char[strArray.length][strArray[0].length()];
+        for (int i = 0; i < strArray.length; i++) {
+            String str = strArray[i];
+            board[i] = str.toCharArray();
         }
     }
 
     private static String[] readStringArray(Scanner scanner) {
-        String[] tokens = scanner.nextLine().replaceAll(REGEX_DELETE, "").split(REGEX_SPLIT);
+        String[] tokens = scanner.nextLine().replaceAll("\"", "")
+                .replaceAll(REGEX_DELETE, "").split(REGEX_SPLIT);
         int len = tokens.length;
         System.out.println("Length of array is: " + len);
         return tokens;

@@ -6,8 +6,7 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class HuffMan {
-    private int n;
-    private PriorityQueue<Node> queue = new PriorityQueue<>();
+    private final PriorityQueue<Node> queue = new PriorityQueue<>();
 
     private Node root;
 
@@ -33,7 +32,7 @@ public class HuffMan {
 
     private void readInput() {
         try (Scanner scanner = new Scanner(new File("src/main/resources/course3/huffman.txt"))) {
-            n = scanner.nextInt();
+            int n = scanner.nextInt();
 
             while (scanner.hasNextInt()) {
                 int weight = scanner.nextInt();
@@ -45,7 +44,7 @@ public class HuffMan {
         }
     }
 
-    public class Node implements Comparable<Node> {
+    public static class Node implements Comparable<Node> {
         private Integer weight;
         private int minDepth = 0;
         private int maxDepth = 0;

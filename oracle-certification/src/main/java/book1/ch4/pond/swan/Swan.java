@@ -16,7 +16,8 @@ public class Swan extends Bird {
 
     public void helpOtherBirdSwam() {
         Bird bird = new Bird();
-        bird.floatWater(); // ERROR, we use through var reference bird. Bird is in another package
-        System.out.println(bird.text);
+        // these two lines are tricky: we use through var reference bird. Bird is in another package => COMPILE-ERROR
+        // bird.floatWater();
+        // System.out.println(bird.text);
     }
 }

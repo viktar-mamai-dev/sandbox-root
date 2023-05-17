@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import part1.ArrayHelper;
 
-import java.util.Arrays;
-
 public class SortingTest {
 
     @Test
@@ -21,6 +19,6 @@ public class SortingTest {
         main.mergeSort(merge);
         helper.printArrays(merge, quick);
 
-        Assert.assertTrue(Arrays.equals(merge, quick));
+        Assert.assertArrayEquals(merge, quick);
     }
 }

@@ -34,7 +34,6 @@ public class Task5 {
                 }
             }
             return bitonicSearch(array, value, mid + 1, high);
-
         }
         else {
             if (value < array[mid]) {

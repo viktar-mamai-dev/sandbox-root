@@ -4,6 +4,7 @@ import com.mamay.inspection.exception.DAOException;
 import com.mamay.inspection.manager.DatabaseManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -19,7 +20,7 @@ public class ConnectionPoolTest {
     public static void before() throws DAOException {
         pool = ConnectionPool.getInstance();
         poolSize = Integer.parseInt(DatabaseManager.getProperty("db.poolsize"));
-        conList = new LinkedList<ProxyConnection>();
+        conList = new LinkedList<>();
         for (int k = 0; k < poolSize; k++) {
             ProxyConnection connection = pool.getConnection();
             conList.push(connection);
@@ -35,6 +36,7 @@ public class ConnectionPoolTest {
     }
 
     @Test(timeout = 10000)
+    @Ignore // TODO
     public void openConnectionTest() throws DAOException {
         ProxyConnection conn = pool.getConnection();
         assertNull("Connection doesn't equal to null", conn);

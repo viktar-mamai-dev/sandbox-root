@@ -14,6 +14,9 @@
 
     <modules>
         <module>news-core</module>
+        <module>news-dao-jpa</module>
+        <module>news-dao-jdbc</module>
+        <module>news-dao-hibernate</module>
         <module>news-service</module>
     </modules>
 

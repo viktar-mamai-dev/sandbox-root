@@ -5,9 +5,7 @@ import com.mamay.dao.NewsDao;
 import com.mamay.dto.NewsPageItem;
 import com.mamay.dto.NewsSearchCriteria;
 import com.mamay.entity.NewsEntity;
-import com.mamay.exception.DaoException;
-import com.mamay.exception.ServiceException;
-import org.apache.commons.lang.ArrayUtils;
+import com.mamay.exception.NewsException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,98 +31,97 @@ public class NewsServiceImplTest {
     private NewsDao newsDao;
 
     @Test
-    public void loadAll() throws ServiceException, DaoException {
+    public void loadAll() {
         Mockito.doReturn(TestHolder.generateNewsList()).when(newsDao).loadAll();
 
         assertNotNull(newsService.loadAll());
         assertEquals(3, newsService.loadAll().size());
     }
 
-    @Test(expected = ServiceException.class)
-    public void loadAllFail() throws ServiceException, DaoException {
-        Mockito.doThrow(DaoException.class).when(newsDao).loadAll();
+    @Test(expected = NewsException.class)
+    public void loadAllFail() {
+        Mockito.doThrow(NewsException.class).when(newsDao).loadAll();
         newsService.loadAll();
     }
 
     @Test
-    public void loadById() throws ServiceException, DaoException {
+    public void loadById() {
         NewsEntity news1 = TestHolder.generateNewsEntity();
-        Mockito.doReturn(news1).when(newsDao).loadById(Long.valueOf(1));
+        Mockito.doReturn(news1).when(newsDao).loadById(1L);
         NewsEntity news2 = TestHolder.generateNewsEntity();
-        Mockito.doReturn(news2).when(newsDao).loadById(Long.valueOf(3));
+        Mockito.doReturn(news2).when(newsDao).loadById(3L);
 
-        assertEquals(news1, newsService.loadById(Long.valueOf(1)));
-        assertEquals(news2, newsService.loadById(Long.valueOf(3)));
-        assertNull(newsService.loadById(Long.valueOf(2)));
+        assertEquals(news1, newsService.loadById(1L));
+        assertEquals(news2, newsService.loadById(3L));
+        assertNull(newsService.loadById(2L));
     }
 
-    @Test(expected = ServiceException.class)
-    public void loadByIdFail() throws ServiceException, DaoException {
-        Mockito.doThrow(DaoException.class).when(newsDao).loadById(Matchers.anyLong());
-        newsService.loadById(Long.valueOf(3));
+    @Test(expected = NewsException.class)
+    public void loadByIdFail() {
+        Mockito.doThrow(NewsException.class).when(newsDao).loadById(Matchers.anyLong());
+        newsService.loadById(3L);
     }
 
     @Test
-    public void loadByFilter() throws ServiceException, DaoException {
+    public void loadByFilter() {
         int newsPerPage = 7;
         int pageNumber = 1;
-        Long authorId = Long.valueOf(3);
-        List<Long> tagIdList = Arrays.asList(ArrayUtils.toObject(new long[]{1, 3, 5, 6}));
+        Long authorId = 3L;
+        List<Long> tagIdList = Arrays.asList(1L, 3L, 5L, 6L);
         NewsSearchCriteria searchCriteria = new NewsSearchCriteria(tagIdList, authorId);
         List<NewsEntity> newsList = TestHolder.generateNewsList();
         Mockito.doReturn(newsList).when(newsDao).loadByFilter(searchCriteria, 1, newsPerPage);
 
-        NewsPageItem item = newsService.loadByFilter(searchCriteria, null, newsPerPage);
+        NewsPageItem<NewsEntity> item = newsService.loadByFilter(searchCriteria, null, newsPerPage);
         assertEquals(Integer.valueOf(5), item.getPageCount());
         assertEquals(Integer.valueOf(pageNumber), item.getPageNumber());
         assertEquals(newsList.size(), item.getNewsList().size());
     }
 
     @Test
-    public void loadNextId() throws ServiceException, DaoException {
-        Long authorId = Long.valueOf(3);
-        List<Long> tagIdList = Arrays.asList(ArrayUtils.toObject(new long[]{1, 3, 5, 6}));
-        Long newsId = Long.valueOf(5);
+    public void loadNextId() {
+        Long authorId = 3L;
+        List<Long> tagIdList = Arrays.asList(1L, 3L, 5L, 6L);
+        Long newsId = 5L;
         NewsSearchCriteria filteredItem = new NewsSearchCriteria(tagIdList, authorId);
         newsService.loadNextId(filteredItem, newsId);
         Mockito.verify(newsDao).loadNextId(filteredItem, newsId);
     }
 
-    @Test(expected = ServiceException.class)
-    public void loadNextIdFail() throws ServiceException, DaoException {
-        Long authorId = Long.valueOf(3);
-        List<Long> tagIdList = Arrays.asList(ArrayUtils.toObject(new long[]{1, 3, 5, 6}));
-        Long newsId = Long.valueOf(5);
+    @Test(expected = NewsException.class)
+    public void loadNextIdFail() {
+        Long authorId = 3L;
+        List<Long> tagIdList = Arrays.asList(1L, 3L, 5L, 6L);
+        Long newsId = 5L;
         NewsSearchCriteria filteredItem = new NewsSearchCriteria(tagIdList, authorId);
-        Mockito.doThrow(DaoException.class).when(newsDao).loadNextId(filteredItem,
+        Mockito.doThrow(NewsException.class).when(newsDao).loadNextId(filteredItem,
                 newsId);
         newsService.loadNextId(filteredItem, newsId);
     }
 
     @Test
-    public void loadPreviousId() throws ServiceException, DaoException {
-        Long authorId = Long.valueOf(3);
-        List<Long> tagIdList = Arrays.asList(ArrayUtils.toObject(new long[]{
-                1, 3, 5, 6}));
-        Long newsId = Long.valueOf(5);
+    public void loadPreviousId() {
+        Long authorId = 3L;
+        List<Long> tagIdList = Arrays.asList(1L, 3L, 5L, 6L);
+        Long newsId = 5L;
         NewsSearchCriteria filteredItem = new NewsSearchCriteria(tagIdList, authorId);
         newsService.loadPreviousId(filteredItem, newsId);
         Mockito.verify(newsDao).loadPreviousId(filteredItem, newsId);
     }
 
-    @Test(expected = ServiceException.class)
-    public void loadPreviousIdFail() throws ServiceException, DaoException {
-        Long authorId = Long.valueOf(3);
-        List<Long> tagIdList = Arrays.asList(ArrayUtils.toObject(new long[]{1, 3, 5, 6}));
-        Long newsId = Long.valueOf(5);
+    @Test(expected = NewsException.class)
+    public void loadPreviousIdFail() {
+        Long authorId = 3L;
+        List<Long> tagIdList = Arrays.asList(1L, 3L, 5L, 6L);
+        Long newsId = 5L;
         NewsSearchCriteria filteredItem = new NewsSearchCriteria(tagIdList, authorId);
-        Mockito.doThrow(DaoException.class).when(newsDao).loadPreviousId(filteredItem,
+        Mockito.doThrow(NewsException.class).when(newsDao).loadPreviousId(filteredItem,
                 newsId);
         newsService.loadPreviousId(filteredItem, newsId);
     }
 
     @Test
-    public void create() throws ServiceException, DaoException {
+    public void create() {
         NewsEntity entity = TestHolder.generateNewsEntity();
         Long id = newsService.create(entity);
         assertNotNull(id);
@@ -132,15 +129,15 @@ public class NewsServiceImplTest {
     }
 
 
-    @Test(expected = ServiceException.class)
-    public void createFail() throws ServiceException, DaoException {
+    @Test(expected = NewsException.class)
+    public void createFail() {
         NewsEntity entity = TestHolder.generateNewsEntity();
-        Mockito.doThrow(DaoException.class).when(newsDao).create(Matchers.any(NewsEntity.class));
+        Mockito.doThrow(NewsException.class).when(newsDao).create(Matchers.any(NewsEntity.class));
         newsService.create(entity);
     }
 
     @Test
-    public void update() throws ServiceException, DaoException {
+    public void update() {
         NewsEntity news = TestHolder.generateNewsEntity();
         news.setTitle("italy beats scotland surprisingly");
         newsService.update(news);
@@ -149,30 +146,30 @@ public class NewsServiceImplTest {
 
 
     @Test
-    public void delete() throws ServiceException, DaoException {
-        newsService.delete(Long.valueOf(5));
-        newsService.delete(Long.valueOf(1));
-        newsService.delete(Long.valueOf(102));
+    public void delete() {
+        newsService.delete(5L);
+        newsService.delete(1L);
+        newsService.delete(102L);
 
         Mockito.verify(newsDao, Mockito.times(3)).delete(Matchers.anyLong());
     }
 
     @Test
-    public void deleteList() throws ServiceException, DaoException {
+    public void deleteList() {
         List<Long> newsIdList = Arrays.asList((long) 3, (long) 4);
         newsService.deleteList(newsIdList);
         Mockito.verify(newsDao).deleteList(newsIdList);
     }
 
-    @Test(expected = ServiceException.class)
-    public void deleteListFailNull() throws ServiceException {
+    @Test(expected = NewsException.class)
+    public void deleteListFailNull() throws NewsException {
         newsService.deleteList(null);
     }
 
-    @Test(expected = ServiceException.class)
-    public void deleteListFail() throws ServiceException, DaoException {
-        Mockito.doThrow(DaoException.class).when(newsDao).deleteList(Mockito.anyListOf(Long.class));
-        List<Long> idList = Arrays.asList(ArrayUtils.toObject(new long[]{1, 3, 5, 6}));
+    @Test(expected = NewsException.class)
+    public void deleteListFail() {
+        Mockito.doThrow(NewsException.class).when(newsDao).deleteList(Mockito.anyListOf(Long.class));
+        List<Long> idList = Arrays.asList(1L, 3L, 5L, 6L);
         newsService.deleteList(idList);
     }
 }

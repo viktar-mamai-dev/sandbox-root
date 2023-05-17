@@ -5,9 +5,10 @@ import com.mamay.entity.CommentEntity;
 import com.mamay.entity.NewsEntity;
 import com.mamay.entity.TagEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TestHolder {
 
@@ -28,12 +29,8 @@ public class TestHolder {
     }
 
     public static List<AuthorEntity> generateAuthorList() {
-        ArrayList<AuthorEntity> authorList = new ArrayList<AuthorEntity>();
-        int size = generateRandomNumber(5, 10);
-        for (int i = 0; i < size; i++) {
-            authorList.add(generateAuthor());
-        }
-        return authorList;
+        return IntStream.range(0, generateRandomNumber(5, 10))
+                .mapToObj(i -> generateAuthor()).collect(Collectors.toList());
     }
 
     public static AuthorEntity generateAuthor() {
@@ -44,12 +41,8 @@ public class TestHolder {
     }
 
     public static List<NewsEntity> generateNewsList() {
-        List<NewsEntity> newsList = new ArrayList<NewsEntity>();
-        int size = generateRandomNumber(5, 10);
-        for (int i = 0; i < size; i++) {
-            newsList.add(generateNewsEntity());
-        }
-        return newsList;
+        return IntStream.range(0, generateRandomNumber(5, 10))
+                .mapToObj(i -> generateNewsEntity()).collect(Collectors.toList());
     }
 
     public static NewsEntity generateNewsEntity() {
@@ -57,17 +50,13 @@ public class TestHolder {
         entity.setId((long) generateRandomNumber(1, 100));
         entity.setTitle(generateRandomString(5, 15));
         entity.setShortText(generateRandomString(15, 20));
-        entity.setFullText(generateRandomString(30, 40));
+        entity.setViewCount(generateRandomNumber(10, 50));
         return entity;
     }
 
     public static List<CommentEntity> generateCommentList() {
-        List<CommentEntity> commentList = new ArrayList<CommentEntity>();
-        int size = generateRandomNumber(5, 10);
-        for (int i = 0; i < size; i++) {
-            commentList.add(generateComment());
-        }
-        return commentList;
+        return IntStream.range(0, generateRandomNumber(5, 10))
+                .mapToObj(i -> generateComment()).collect(Collectors.toList());
     }
 
     public static CommentEntity generateComment() {
@@ -78,12 +67,8 @@ public class TestHolder {
     }
 
     public static List<TagEntity> generateTagList() {
-        ArrayList<TagEntity> tagList = new ArrayList<TagEntity>();
-        int size = generateRandomNumber(5, 10);
-        for (int i = 0; i < size; i++) {
-            tagList.add(generateTag());
-        }
-        return tagList;
+        return IntStream.range(0, generateRandomNumber(5, 10))
+                .mapToObj(i -> generateTag()).collect(Collectors.toList());
     }
 
     public static TagEntity generateTag() {

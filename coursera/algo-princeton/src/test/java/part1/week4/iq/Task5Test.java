@@ -1,12 +1,15 @@
 package part1.week4.iq;
 
-import edu.princeton.cs.algs4.In;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import part1.week4.BinarySearchTree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class Task5Test {
 
@@ -30,7 +33,8 @@ public class Task5Test {
 
     private Task5 createTree() {
         List<Integer> keys = Arrays.asList(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10);
-        List<String> values = Arrays.asList("Italy", "Germany", "France", "Spain", "Portugal", "Russia", "Belgium", "Denmark", "Sweden", "Norway", "Finland");
+        List<String> values = Arrays.asList("Italy", "Germany", "France", "Spain", "Portugal",
+                "Russia", "Belgium", "Denmark", "Sweden", "Norway", "Finland");
         Collections.shuffle(keys);
         Collections.shuffle(values);
 

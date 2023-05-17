@@ -1,5 +1,7 @@
 package part1.week4.iq;
 
+import lombok.Getter;
+
 public class Task6 {
 
     public static class User {
@@ -32,6 +34,7 @@ public class Task6 {
         }
     }
 
+    @Getter
     public static class Visit implements Comparable<Visit> {
         private static Long nextId = 1L;
         private Long id;
@@ -42,14 +45,6 @@ public class Task6 {
             this.id = nextId++;
             this.userId = user.id;
             this.websiteId = webSite.id;
-        }
-
-        public Long getUserId() {
-            return userId;
-        }
-
-        public Long getWebsiteId() {
-            return websiteId;
         }
 
         @Override

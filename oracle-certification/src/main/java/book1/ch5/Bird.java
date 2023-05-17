@@ -18,7 +18,7 @@ public abstract class Bird {
 
 class Pelican extends Bird {
 
-    @Override // without Override - possible, but with - private method
+    //@Override // without Override - possible, but with - private method => COMPILE-ERROR
     protected void fly() {
         System.out.println("Pelican");
     }

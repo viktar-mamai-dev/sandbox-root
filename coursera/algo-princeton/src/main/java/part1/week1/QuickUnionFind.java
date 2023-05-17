@@ -1,24 +1,24 @@
 package part1.week1;
 
 public class QuickUnionFind {
-    protected int[] id;
+    protected int[] parent;
     // this array is used for balancing trees while merging 2 trees into 1
-    protected int[] size;
+    protected int[] rank;
 
     public QuickUnionFind(int n) {
-        id = new int[n];
-        size = new int[n];
+        parent = new int[n];
+        rank = new int[n];
         for (int i = 0; i < n; i++) {
-            id[i] = i;
-            size[i] = 1;
+            parent[i] = i;
+            rank[i] = 1;
         }
     }
 
     // complexity = O(logn)
     protected int root(int node) {
         int i = node;
-        while (i != id[i]) {
-            i = id[i];
+        while (i != parent[i]) {
+            i = parent[i];
         }
         return i;
     }
@@ -35,12 +35,12 @@ public class QuickUnionFind {
 
         if (root1 == root2) return;
 
-        if (size[root1] < size[root2]) {
-            id[root1] = root2;
-            size[root2] += size[root1];
+        if (rank[root1] < rank[root2]) {
+            parent[root1] = root2;
+            rank[root2] += rank[root1];
         } else {
-            id[root2] = root1;
-            size[root1] += size[root2];
+            parent[root2] = root1;
+            rank[root1] += rank[root2];
         }
     }
 }

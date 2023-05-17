@@ -6,13 +6,8 @@ import static java.lang.System.out;
 
 public class StringNullTester {
     public static void main(String[] args) {
-        out.println(null + 1);
-        out.println(true + false);
         out.println(getNull() + 1); // null1
-
-        Integer i1 = new Integer(10);
         Long l1 = 10l;
-        Double d1 = new Double(10);
         Number f1 = 10;
         int i2 = 10;
         long l2 = 10;

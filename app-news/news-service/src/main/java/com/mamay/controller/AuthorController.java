@@ -2,8 +2,6 @@ package com.mamay.controller;
 
 
 import com.mamay.entity.AuthorEntity;
-import com.mamay.exception.ControllerException;
-import com.mamay.exception.ServiceException;
 import com.mamay.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,61 +31,41 @@ public class AuthorController {
     private MessageSource messageSource;
 
     @GetMapping(value = "/list")
-    public ModelAndView loadAll() throws ControllerException {
-        try {
-            ModelAndView view = new ModelAndView("author");
-            List<AuthorEntity> authorList = authorService.loadAll();
-            view.addObject("authorList", authorList);
-            view.addObject("authorEntity", new AuthorEntity());
-            return view;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+    public ModelAndView loadAll() {
+        ModelAndView view = new ModelAndView("author");
+        List<AuthorEntity> authorList = authorService.loadAll();
+        view.addObject("authorList", authorList);
+        view.addObject("authorEntity", new AuthorEntity());
+        return view;
     }
 
     @PostMapping(value = "/create")
-    public String create(@ModelAttribute AuthorEntity author, RedirectAttributes ra, HttpServletRequest request)
-            throws ControllerException {
-        try {
-            authorService.create(author);
-            Locale locale = RequestContextUtils.getLocale(request);
-            ra.addFlashAttribute("successMessage", messageSource.getMessage(
-                    "message.author.add", new Object[]{author.getName()},
-                    locale));
-            return REDIRECT_URL;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+    public String create(@ModelAttribute AuthorEntity author, RedirectAttributes ra, HttpServletRequest request) {
+        authorService.create(author);
+        Locale locale = RequestContextUtils.getLocale(request);
+        ra.addFlashAttribute("successMessage", messageSource.getMessage(
+                "message.author.add", new Object[]{author.getName()},
+                locale));
+        return REDIRECT_URL;
     }
 
     @PutMapping(value = "/update")
     public String update(@ModelAttribute AuthorEntity author,
-                         RedirectAttributes ra, HttpServletRequest request)
-            throws ControllerException {
-        try {
-            authorService.update(author);
-            Locale locale = RequestContextUtils.getLocale(request);
-            ra.addFlashAttribute("successMessage", messageSource.getMessage(
-                    "message.author.update", new Object[]{author.getName()},
-                    locale));
-            return REDIRECT_URL;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+                         RedirectAttributes ra, HttpServletRequest request) {
+        authorService.update(author);
+        Locale locale = RequestContextUtils.getLocale(request);
+        ra.addFlashAttribute("successMessage", messageSource.getMessage(
+                "message.author.update", new Object[]{author.getName()},
+                locale));
+        return REDIRECT_URL;
     }
 
     @PutMapping(value = "/expired")
-    public String expired(@RequestParam("id") Long authorId,
-                          RedirectAttributes ra, HttpServletRequest request)
-            throws ControllerException {
-        try {
-            authorService.makeExpired(authorId);
-            Locale locale = RequestContextUtils.getLocale(request);
-            ra.addFlashAttribute("successMessage",
-                    messageSource.getMessage("message.author.expired", null, locale));
-            return REDIRECT_URL;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+    public String expired(@RequestParam("id") Long authorId, RedirectAttributes ra, HttpServletRequest request) {
+        authorService.makeExpired(authorId);
+        Locale locale = RequestContextUtils.getLocale(request);
+        ra.addFlashAttribute("successMessage",
+                messageSource.getMessage("message.author.expired", null, locale));
+        return REDIRECT_URL;
     }
 }

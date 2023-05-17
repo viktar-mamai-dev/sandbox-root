@@ -2,80 +2,51 @@ package com.mamay.service;
 
 import com.mamay.dao.AuthorDao;
 import com.mamay.entity.AuthorEntity;
-import com.mamay.exception.DaoException;
-import com.mamay.exception.ServiceException;
+import com.mamay.exception.NewsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("authorService")
+@Service
 public class AuthorService {
 
     @Autowired
     private AuthorDao authorDao;
 
-    public List<AuthorEntity> loadAll() throws ServiceException {
-        try {
-            return authorDao.loadAll();
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public List<AuthorEntity> loadAll() {
+        return authorDao.loadAll();
     }
 
-    public List<AuthorEntity> loadActiveAuthors() throws ServiceException {
-        try {
-            return authorDao.loadActiveAuthors();
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public List<AuthorEntity> loadActiveAuthors() {
+        return authorDao.loadActiveAuthors();
     }
 
-    public AuthorEntity loadById(Long id) throws ServiceException {
-        try {
-            return authorDao.loadById(id);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public AuthorEntity loadById(Long id) {
+        return authorDao.loadById(id);
     }
 
-    public AuthorEntity loadByNewsId(Long newsId) throws ServiceException {
+    public AuthorEntity loadByNewsId(Long newsId) throws NewsException {
         try {
             return authorDao.loadByNewsId(newsId);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        } catch (NewsException e) {
+            throw new NewsException(e);
         }
     }
 
-    public Long create(AuthorEntity entity) throws ServiceException {
-        try {
-            return authorDao.create(entity);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public Long create(AuthorEntity entity) {
+        return authorDao.create(entity);
     }
 
-    public void update(AuthorEntity entity) throws ServiceException {
-        try {
-            authorDao.update(entity);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public void update(AuthorEntity entity) {
+        authorDao.update(entity);
     }
 
-    public void delete(Long authorId) throws ServiceException {
-        try {
-            authorDao.delete(authorId);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public void delete(Long authorId) {
+        authorDao.delete(authorId);
     }
 
-    public void makeExpired(Long authorId) throws ServiceException {
-        try {
-            authorDao.makeExpired(authorId);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
+    public void makeExpired(Long authorId) {
+        authorDao.makeExpired(authorId);
     }
 }

@@ -11,5 +11,6 @@ public class ArrayRunner {
         int[] array = {5, 7, 8, 9, 6};
         Spliterator<Integer> spliterator = Arrays.spliterator(array);
         spliterator.forEachRemaining(System.out::println);
+        System.out.println((-7) % 3);
     }
 }

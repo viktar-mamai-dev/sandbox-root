@@ -32,7 +32,7 @@ public class InversionCounter {
         }
 
         int mid = (low + high) / 2;
-
+        // for debug purposes
         long inversionCount = inversionCount(aux, a, low, mid);
         inversionCount += inversionCount(aux, a, mid + 1, high);
         inversionCount += inversionCount(a, aux, low, mid, high);
@@ -43,9 +43,7 @@ public class InversionCounter {
     public long inversionCount(int[] a) {
         int n = a.length;
         int[] aux = new int[n];
-        for (int i = 0; i < n; i++) {
-            aux[i] = a[i];
-        }
+        System.arraycopy(a, 0, aux, 0, n);
         return inversionCount(a, aux, 0, n - 1);
     }
 }

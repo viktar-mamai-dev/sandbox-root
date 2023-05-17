@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Taxicab numbers. A taxicab number is an integer that can be expressed as the sum of two cubes of positive integers in two different ways:
+ * Taxicab numbers. A taxicab number is an integer that can be expressed as the sum of two cubes
+ * of positive integers in two different ways:
  * a^3 + b^3 = c^3 + d^3
  * Design an algorithm to find all taxicab numbers with a, b, c, and d less than n
  */

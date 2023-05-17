@@ -7,15 +7,14 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Median {
-    private PriorityQueue<Integer> maxQueue;
-    private PriorityQueue<Integer> minQueue;
+    private final PriorityQueue<Integer> maxQueue;
+    private final PriorityQueue<Integer> minQueue;
 
     private int n;
 
     private Median() {
         maxQueue = new PriorityQueue<>(Collections.reverseOrder());
         minQueue = new PriorityQueue<>();
-
         n = 0;
     }
 

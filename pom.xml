@@ -12,12 +12,14 @@
     <modules>
         <module>patterns</module>
         <module>java-sandbox</module>
-       <!-- <module>oracle-certification</module> resolve compiler issues TODO -->
+        <module>oracle-certification</module>
         <module>java-mentoring</module>
         <module>algo</module>
         <module>coursera</module>
         <module>app-news</module>
         <module>shopping-system</module>
+        <module>app-news/news-dao-hibernate</module>
+        <module>app-news/news-dao-jdbc</module>
     </modules>
 
     <properties>

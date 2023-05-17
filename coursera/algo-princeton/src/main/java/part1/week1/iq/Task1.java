@@ -27,13 +27,13 @@ public class Task1 extends QuickUnionFind {
         if (root1 == root2) return;
         components--;
 
-        if (size[root1] < size[root2]) {
-            id[root1] = root2;
-            size[root2] += size[root1];
+        if (rank[root1] < rank[root2]) {
+            parent[root1] = root2;
+            rank[root2] += rank[root1];
         }
         else {
-            id[root2] = root1;
-            size[root1] += size[root2];
+            parent[root2] = root1;
+            rank[root1] += rank[root2];
         }
     }
 

@@ -3,8 +3,7 @@ package com.mamay.controller;
 import com.mamay.dto.NewsDto;
 import com.mamay.dto.NewsPageItem;
 import com.mamay.dto.NewsSearchCriteria;
-import com.mamay.exception.ControllerException;
-import com.mamay.exception.ServiceException;
+import com.mamay.exception.NewsException;
 import com.mamay.service.AuthorService;
 import com.mamay.service.NewsManagementService;
 import com.mamay.service.NewsService;
@@ -47,19 +46,15 @@ public class ListNewsController {
 
     @GetMapping(value = {"/page/{page}"})
     public ModelAndView loadAll(@PathVariable(value = "page") Integer pageNumber, ModelAndView model,
-                                HttpServletRequest request) throws ControllerException {
-        try {
-            NewsSearchCriteria filteredItem = new NewsSearchCriteria(null, null);
-            model.addObject("filteredItem", filteredItem);
-            model.setViewName("news/list");
+                                HttpServletRequest request) {
+        NewsSearchCriteria filteredItem = new NewsSearchCriteria(null, null);
+        model.addObject("filteredItem", filteredItem);
+        model.setViewName("news/list");
 
-            NewsPageItem<NewsDto> item = newsManageService.loadByFilter(filteredItem, pageNumber, NEWS_PER_PAGE);
-            prepareModel(model, request, item);
-            model.addObject("sourcePage", "/news/page/" + pageNumber);
-            return model;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+        NewsPageItem<NewsDto> item = newsManageService.loadByFilter(filteredItem, pageNumber, NEWS_PER_PAGE);
+        prepareModel(model, request, item);
+        model.addObject("sourcePage", "/news/page/" + pageNumber);
+        return model;
     }
 
     @PostMapping(value = "/filter")
@@ -73,38 +68,29 @@ public class ListNewsController {
     @GetMapping(value = "/filter/{page}")
     public ModelAndView loadByFilterPageable(@ModelAttribute("filteredItem") NewsSearchCriteria filteredItem,
                                              @PathVariable(value = "page") Integer pageNumber,
-                                             HttpServletRequest request) throws ControllerException {
-        try {
-            ModelAndView model = new ModelAndView("news/list");
-            NewsPageItem<NewsDto> item = newsManageService.loadByFilter(filteredItem, pageNumber, NEWS_PER_PAGE);
-            prepareModel(model, request, item);
-            model.addObject("isFilter", true);
-            model.addObject("sourcePage", "/news/filter/" + pageNumber);
-            return model;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+                                             HttpServletRequest request) {
+        ModelAndView model = new ModelAndView("news/list");
+        NewsPageItem<NewsDto> item = newsManageService.loadByFilter(filteredItem, pageNumber, NEWS_PER_PAGE);
+        prepareModel(model, request, item);
+        model.addObject("isFilter", true);
+        model.addObject("sourcePage", "/news/filter/" + pageNumber);
+        return model;
     }
 
     @PostMapping(value = "/delete")
     public String delete(@RequestParam(value = "newsId", required = false) List<Long> newsIdList,
                          @RequestParam(value = "pageNumber") Integer pageNumber,
                          RedirectAttributes ra,
-                         HttpServletRequest request)
-            throws ControllerException {
-        try {
-            newsService.deleteList(newsIdList);
-            Locale locale = RequestContextUtils.getLocale(request);
-            ra.addFlashAttribute("successMessage",
-                    messageSource.getMessage("message.news.delete", new Object[]{newsIdList.size()}, locale));
-            return "redirect:/news/page/" + pageNumber;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+                         HttpServletRequest request) {
+        newsService.deleteList(newsIdList);
+        Locale locale = RequestContextUtils.getLocale(request);
+        ra.addFlashAttribute("successMessage",
+                messageSource.getMessage("message.news.delete", new Object[]{newsIdList.size()}, locale));
+        return "redirect:/news/page/" + pageNumber;
     }
 
     private void prepareModel(ModelAndView model, HttpServletRequest request, NewsPageItem<NewsDto> item)
-            throws ServiceException {
+            throws NewsException {
         Locale locale = RequestContextUtils.getLocale(request);
         if (item.getNewsList().isEmpty()) {
             model.addObject("errorEmptyMessage",

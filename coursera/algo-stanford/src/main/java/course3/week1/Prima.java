@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Prima {
     private int vertexSize;
-    private int edgeSize;
 
     private int[] keys;
     private boolean[] usedInMst;
@@ -68,7 +67,7 @@ public class Prima {
     private void readInput() {
         try (Scanner scanner = new Scanner(new File("src/main/resources/course3/edges.txt"))) {
             vertexSize = scanner.nextInt();
-            edgeSize = scanner.nextInt();
+            int edgeSize = scanner.nextInt();
 
             graph = new int[vertexSize + 1][vertexSize + 1];
             keys = new int[vertexSize + 1];

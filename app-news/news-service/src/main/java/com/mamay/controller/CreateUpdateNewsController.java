@@ -3,8 +3,7 @@ package com.mamay.controller;
 import com.mamay.dto.NewsDto;
 import com.mamay.entity.AuthorEntity;
 import com.mamay.entity.NewsEntity;
-import com.mamay.exception.ControllerException;
-import com.mamay.exception.ServiceException;
+import com.mamay.exception.NewsException;
 import com.mamay.service.AuthorService;
 import com.mamay.service.NewsManagementService;
 import com.mamay.service.TagService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -57,16 +55,12 @@ public class CreateUpdateNewsController {
     }
 
     @GetMapping(value = "/create")
-    public ModelAndView showFormToCreate() throws ControllerException {
-        try {
-            ModelAndView model = new ModelAndView("news/create");
-            model.addObject("newsEntity", new NewsEntity());
-            model.addObject("tagList", tagService.loadAll());
-            model.addObject("authorList", authorService.loadActiveAuthors());
-            return model;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+    public ModelAndView showFormToCreate() {
+        ModelAndView model = new ModelAndView("news/create");
+        model.addObject("newsEntity", new NewsEntity());
+        model.addObject("tagList", tagService.loadAll());
+        model.addObject("authorList", authorService.loadActiveAuthors());
+        return model;
     }
 
     @PostMapping(value = "/create")
@@ -74,36 +68,27 @@ public class CreateUpdateNewsController {
             @ModelAttribute("newsEntity") NewsEntity newsEntity,
             @RequestParam(value = "tagId", required = false) List<Long> tagIdList,
             @RequestParam("authorId") Long authorId, RedirectAttributes ra,
-            HttpServletRequest request) throws ControllerException {
-        try {
-            Long newsId = newsManageService.create(newsEntity, tagIdList, authorId);
-            Locale locale = RequestContextUtils.getLocale(request);
-            ra.addFlashAttribute("successMessage",
-                    messageSource.getMessage("message.news.add", null, locale));
-            return "redirect:/news/" + newsId;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
-        }
+            HttpServletRequest request) {
+        Long newsId = newsManageService.create(newsEntity, tagIdList, authorId);
+        Locale locale = RequestContextUtils.getLocale(request);
+        ra.addFlashAttribute("successMessage",
+                messageSource.getMessage("message.news.add", null, locale));
+        return "redirect:/news/" + newsId;
     }
 
     @GetMapping(value = "/update/{newsId}")
-    public ModelAndView showFormToUpdate(@PathVariable("newsId") Long id)
-            throws ControllerException {
-        try {
-            ModelAndView model = new ModelAndView("news/create");
-            NewsDto newsObject = newsManageService.loadById(id);
-            model.addObject("newsObject", newsObject);
-            model.addObject("tagList", tagService.loadAll());
-            List<AuthorEntity> authorList = authorService.loadActiveAuthors();
-            AuthorEntity authorEntity = newsObject.getAuthorEntity();
-            if (authorEntity.getExpiredDate() != null) {
-                authorList.add(authorEntity);
-            }
-            model.addObject("authorList", authorList);
-            return model;
-        } catch (ServiceException e) {
-            throw new ControllerException(e);
+    public ModelAndView showFormToUpdate(@PathVariable("newsId") Long id) {
+        ModelAndView model = new ModelAndView("news/create");
+        NewsDto newsObject = newsManageService.loadById(id);
+        model.addObject("newsObject", newsObject);
+        model.addObject("tagList", tagService.loadAll());
+        List<AuthorEntity> authorList = authorService.loadActiveAuthors();
+        AuthorEntity authorEntity = newsObject.getAuthorEntity();
+        if (authorEntity.getExpiredDate() != null) {
+            authorList.add(authorEntity);
         }
+        model.addObject("authorList", authorList);
+        return model;
     }
 
     @PostMapping(value = "/update")
@@ -111,7 +96,7 @@ public class CreateUpdateNewsController {
             @ModelAttribute("newsEntity") NewsEntity newsEntity,
             @RequestParam(value = "tagId", required = false) List<Long> tagIdList,
             @RequestParam("authorId") Long authorId, RedirectAttributes ra,
-            HttpServletRequest request) throws ServiceException {
+            HttpServletRequest request) throws NewsException {
         newsManageService.update(newsEntity, tagIdList, authorId);
 
         Locale locale = RequestContextUtils.getLocale(request);

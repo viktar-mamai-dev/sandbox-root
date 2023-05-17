@@ -13,7 +13,7 @@ public class ClusteringSmall {
     // this array is used for balancing trees while merging 2 trees into 1
     private int[] size;
 
-    private ArrayList<Node> edges = new ArrayList<>();
+    private final ArrayList<Node> edges = new ArrayList<>();
 
     public int root(int node) {
         int i = node;

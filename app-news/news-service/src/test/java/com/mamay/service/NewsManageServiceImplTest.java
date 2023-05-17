@@ -2,8 +2,6 @@ package com.mamay.service;
 
 import com.mamay.TestHolder;
 import com.mamay.entity.NewsEntity;
-import com.mamay.exception.ServiceException;
-import org.apache.commons.lang.ArrayUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -29,13 +27,13 @@ public class NewsManageServiceImplTest {
     private NewsService newsService;
 
     @Test
-    public void createWithTagsAndAuthor() throws ServiceException {
+    public void createWithTagsAndAuthor() {
         NewsEntity actualEntity = TestHolder.generateNewsEntity();
         Mockito.doReturn(actualEntity.getId()).when(newsService).create(actualEntity);
-        List<Long> unmodifiableList = Arrays.asList(ArrayUtils.toObject(new long[]{7, 8, 9, 10, 11}));
+        List<Long> unmodifiableList = Arrays.asList(7L, 8L, 9L, 10L, 11L);
         List<Long> tagIdList = new ArrayList<Long>(unmodifiableList);
         tagIdList.add(null);
-        Long authorId = Long.valueOf(12);
+        Long authorId = 12L;
         Long id = newsManageService.create(actualEntity, tagIdList, authorId);
 
         Mockito.verify(authorService).loadById(authorId);
@@ -43,13 +41,13 @@ public class NewsManageServiceImplTest {
     }
 
     @Test
-    public void updateWithTagsAndAuthor() throws ServiceException {
+    public void updateWithTagsAndAuthor() {
         NewsEntity actualEntity = TestHolder.generateNewsEntity();
         actualEntity.setVersion(1);
-        List<Long> unmodifiableList = Arrays.asList(ArrayUtils.toObject(new long[]{7, 8, 9, 10, 11}));
+        List<Long> unmodifiableList = Arrays.asList(7L, 8L, 9L, 10L, 11L);
         List<Long> tagIdList = new ArrayList<Long>(unmodifiableList);
         tagIdList.add(null);
-        Long authorId = Long.valueOf(12);
+        Long authorId = 12L;
 
         newsManageService.update(actualEntity, tagIdList, authorId);
 

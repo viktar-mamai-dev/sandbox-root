@@ -13,12 +13,8 @@ public class App {
             context.register(JavaBeanConfig.class);
             context.refresh();
 
-            out.println("Java configuration demo");
-            Race race1 = context.getBean("race1", Race.class);
-            out.println(race1);
-
-            Race race2 = context.getBean("race2", Race.class);
-            out.println(race2);
+            out.println(context.getBean("race1", Race.class));
+            out.println(context.getBean("race2", Race.class));
         } catch (BeansException e) {
             out.println(e.getMessage());
         }

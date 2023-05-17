@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Sum2 {
 
     private final int n = 1_000_000;
-    private long[] arr = new long[n];
+    private final long[] arr = new long[n];
 
     public static void main(String[] args) {
         Sum2 main = new Sum2();

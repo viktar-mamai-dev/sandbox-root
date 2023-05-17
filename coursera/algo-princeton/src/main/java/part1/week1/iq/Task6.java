@@ -7,7 +7,15 @@ package part1.week1.iq;
  */
 public class Task6 {
 
-    public int eggDrop(int buildingHeight) {
-        return 0;
+    public int eggDrop(int buildingHeight, int eggCount) {
+        int[][] dp = new int[eggCount + 1][buildingHeight + 1];
+        int dropCount = 0; // Number of moves
+        while (dp[dropCount][buildingHeight] < eggCount) {
+            dropCount++;
+            for (int x = 1; x <= buildingHeight; x++) {
+                dp[dropCount][x] = 1 + dp[dropCount - 1][x - 1] + dp[dropCount - 1][x];
+            }
+        }
+        return dropCount;
     }
 }

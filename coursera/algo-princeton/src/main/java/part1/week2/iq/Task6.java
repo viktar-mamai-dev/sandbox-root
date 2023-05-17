@@ -13,7 +13,7 @@ import part1.week2.PebbleColor;
  * At most n calls to color(). At most n calls to swap(). Constant extra space.
  */
 public class Task6 {
-    private PebbleColor[] array;
+    private final PebbleColor[] array;
 
     public Task6(PebbleColor[] arr) {
         this.array = arr;

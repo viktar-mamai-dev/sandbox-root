@@ -7,7 +7,7 @@ import java.util.Stack;
  * also a return-the-maximum operation. Assume the elements are real numbers so that you can compare them
  * */
 public class Task2<T extends Comparable<T>> extends Stack<T>{
-    private Stack<T> maximumStack = new Stack<T>();
+    private final Stack<T> maximumStack = new Stack<T>();
 
     @Override
     public T push(T item) {

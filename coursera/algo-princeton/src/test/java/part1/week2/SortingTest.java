@@ -10,8 +10,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import part1.ArrayHelper;
 
-import java.util.Arrays;
-
 public class SortingTest {
 
     @Test
@@ -24,6 +22,6 @@ public class SortingTest {
         main.insertionSort(insertion);
         main.selectionSort(selection);
 
-        Assert.assertTrue(Arrays.equals(insertion, selection));
+        Assert.assertArrayEquals(insertion, selection);
     }
 }

@@ -73,7 +73,7 @@ public class BinarySearchTreeTest {
     public void testIterator() {
         Iterator<BinarySearchTree<Integer, String>.Node> iterator = tree.iterator();
         while (iterator.hasNext()) {
-            BinarySearchTree.Node node = iterator.next();
+            BinarySearchTree<Integer, String>.Node node = iterator.next();
             Assert.assertNotNull(node);
             System.out.println(node);
         }
@@ -83,12 +83,14 @@ public class BinarySearchTreeTest {
     public void testKeys() {
         List<Integer> keys = new ArrayList<>();
         tree.keys().forEach(keys::add);
-        Assert.assertTrue(CollectionUtils.isEqualCollection(Arrays.asList(10, 20, 30, 40, 50, 60, 70, 80, 90, 100), keys));
+        Assert.assertTrue(CollectionUtils.isEqualCollection(
+                Arrays.asList(10, 20, 30, 40, 50, 60, 70, 80, 90, 100), keys));
     }
 
     private BinarySearchTree<Integer, String> createTree() {
         List<Integer> keys = Arrays.asList(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10);
-        List<String> values = Arrays.asList("Italy", "Germany", "France", "Spain", "Portugal", "Russia", "Belgium", "Denmark", "Sweden", "Norway", "Finland");
+        List<String> values = Arrays.asList("Italy", "Germany", "France", "Spain", "Portugal",
+                "Russia", "Belgium", "Denmark", "Sweden", "Norway", "Finland");
         Collections.shuffle(keys);
         Collections.shuffle(values);
 

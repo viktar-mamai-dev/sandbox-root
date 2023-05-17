@@ -11,7 +11,7 @@ import part1.week1.QuickUnionFind;
  * return 9 for each of the four elements in the connected components
  */
 public class Task2 extends QuickUnionFind {
-    private int[] greatest;
+    private final int[] greatest;
 
     public Task2(int n) {
         super(n);
@@ -28,21 +28,18 @@ public class Task2 extends QuickUnionFind {
 
         if (root1 == root2) return;
 
-        if (size[root1] < size[root2]) {
-            id[root1] = root2;
-            size[root2] += size[root1];
-            // we set greatest to the common root
-            if (greatest[root1] > greatest[root2]) {
-                greatest[root2] = greatest[root1];
-            }
-        } else {
-            id[root2] = root1;
-            size[root1] += size[root2];
-            // if new subtree has root greater than supertree then change it
-            if (greatest[root2] > greatest[root1]) {
-                greatest[root1] = greatest[root2];
-            }
+        if (rank[root1] < rank[root2]) { // swap
+            int tmp = root1;
+            root1 = root2;
+            root2 = tmp;
         }
+        parent[root2] = root1;
+        rank[root1] += rank[root2];
+        // if new subtree has root greater than super-tree then change it
+        if (greatest[root2] > greatest[root1]) {
+            greatest[root1] = greatest[root2];
+        }
+
     }
 
     // greatest element in the subset is stored in the root of this subset

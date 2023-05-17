@@ -8,12 +8,4 @@ public class Goose extends Bird {
         other.floatWater();
         System.out.println(other.text);
     }
-
-    public void helpOtherGooseSwim() {
-        Bird other = new Goose();
-        other.floatWater(); // Bird is in another package. Checks are for reference type
-        System.out.println(other.text);
-
-        System.out.println(this.text);
-    }
 }

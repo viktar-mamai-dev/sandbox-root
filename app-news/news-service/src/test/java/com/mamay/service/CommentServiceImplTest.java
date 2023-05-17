@@ -3,8 +3,7 @@ package com.mamay.service;
 import com.mamay.TestHolder;
 import com.mamay.dao.CommentDao;
 import com.mamay.entity.CommentEntity;
-import com.mamay.exception.DaoException;
-import com.mamay.exception.ServiceException;
+import com.mamay.exception.NewsException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,21 +27,21 @@ public class CommentServiceImplTest {
     private CommentDao commentDao;
 
     @Test
-    public void loadAll() throws ServiceException, DaoException {
+    public void loadAll() {
         Mockito.doReturn(TestHolder.generateCommentList()).when(commentDao).loadAll();
         List<CommentEntity> actualList = commentService.loadAll();
         assertEquals(3, actualList.size());
     }
 
     @Test
-    public void loadById() throws ServiceException, DaoException {
-        Mockito.doReturn(null).when(commentDao).loadById(Long.valueOf(100));
-        CommentEntity entity = commentService.loadById(Long.valueOf(100));
+    public void loadById() {
+        Mockito.doReturn(null).when(commentDao).loadById(100L);
+        CommentEntity entity = commentService.loadById(100L);
         assertNull(entity);
     }
 
     @Test
-    public void create() throws ServiceException, DaoException {
+    public void create() {
         CommentEntity entity = TestHolder.generateComment();
         commentService.create(entity);
         entity = TestHolder.generateComment();
@@ -52,30 +51,30 @@ public class CommentServiceImplTest {
     }
 
     @Test
-    public void update() throws ServiceException, DaoException {
+    public void update() {
         CommentEntity entity = TestHolder.generateComment();
         commentService.update(entity);
         Mockito.verify(commentDao).update(entity);
     }
 
     @Test
-    public void delete() throws ServiceException, DaoException {
-        commentService.delete(Long.valueOf(2));
-        commentService.delete(Long.valueOf(6));
+    public void delete() {
+        commentService.delete(2L);
+        commentService.delete(6L);
 
         Mockito.verify(commentDao, Mockito.atLeast(2)).delete(Matchers.anyLong());
     }
 
-    @Test(expected = ServiceException.class)
-    public void deleteFail() throws ServiceException, DaoException {
-        Mockito.doThrow(DaoException.class).when(commentDao).delete(Matchers.anyLong());
-        commentService.delete(Long.valueOf(50));
-        commentService.delete(Long.valueOf(100));
+    @Test(expected = NewsException.class)
+    public void deleteFail() {
+        Mockito.doThrow(NewsException.class).when(commentDao).delete(Matchers.anyLong());
+        commentService.delete(50L);
+        commentService.delete(100L);
     }
 
-    @Test(expected = ServiceException.class)
-    public void loadByIdFail() throws ServiceException, DaoException {
-        Mockito.doThrow(DaoException.class).when(commentDao).loadById(Matchers.anyLong());
-        commentService.loadById(Long.valueOf(2));
+    @Test(expected = NewsException.class)
+    public void loadByIdFail() {
+        Mockito.doThrow(NewsException.class).when(commentDao).loadById(Matchers.anyLong());
+        commentService.loadById(2L);
     }
 }

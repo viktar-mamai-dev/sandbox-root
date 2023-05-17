@@ -7,15 +7,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ClusteringBig {
 
-    private int VERTICES;
     private int[] id;
     // this array is used for balancing trees while merging 2 trees into 1
     private int[] size;
 
-    private HashMap<Integer, ArrayList<Integer>> valueToIndexesMap = new HashMap<>();
+    private final HashMap<Integer, ArrayList<Integer>> valueToIndexesMap = new HashMap<>();
     private int BITS;
 
     public static void main(String[] args) {
@@ -60,7 +60,7 @@ public class ClusteringBig {
         }
         int clustersSize = 0;
 
-        List<Integer> abra = valueToIndexesMap.values().stream().map(list -> list.get(0)).toList();
+        List<Integer> abra = valueToIndexesMap.values().stream().map(list -> list.get(0)).collect(Collectors.toList());
 
         HashSet<Integer> set = new HashSet<>();
         for (int index1 : abra) {
@@ -87,7 +87,7 @@ public class ClusteringBig {
 
     private void readInputBig() {
         try (Scanner scanner = new Scanner(new File("src/main/resources/course3/clustering_big.txt"))) {
-            VERTICES = scanner.nextInt();
+            int VERTICES = scanner.nextInt();
             BITS = scanner.nextInt();
             scanner.nextLine();
             id = new int[VERTICES];

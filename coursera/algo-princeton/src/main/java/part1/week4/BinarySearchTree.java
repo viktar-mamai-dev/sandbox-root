@@ -1,5 +1,7 @@
 package part1.week4;
 
+import lombok.Getter;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -193,6 +195,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, V> {
         inorderTraversal(node.right, list);
     }
 
+    @Getter
     public class Node {
         private Key key;
         private V value;
@@ -204,26 +207,6 @@ public class BinarySearchTree<Key extends Comparable<Key>, V> {
         Node(Key key, V value) {
             this.key = key;
             this.value = value;
-        }
-
-        public Key getKey() {
-            return key;
-        }
-
-        public V getValue() {
-            return value;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        public Node getLeft() {
-            return left;
-        }
-
-        public Node getRight() {
-            return right;
         }
 
         public void setRight(Node right) {
