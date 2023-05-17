@@ -1,23 +1,24 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.core.singletons;
 
 public class DoubleCheckedLockingSingleton {
 
-    private static volatile DoubleCheckedLockingSingleton instance;
+  private static volatile DoubleCheckedLockingSingleton instance;
 
-    private DoubleCheckedLockingSingleton() {
+  private DoubleCheckedLockingSingleton() {}
 
-    }
-
-    public static DoubleCheckedLockingSingleton getInstance() {
-        DoubleCheckedLockingSingleton localInstance = instance;
+  public static DoubleCheckedLockingSingleton getInstance() {
+    DoubleCheckedLockingSingleton localInstance = instance;
+    if (localInstance == null) {
+      synchronized (DoubleCheckedLockingSingleton.class) {
+        localInstance = instance;
         if (localInstance == null) {
-            synchronized (DoubleCheckedLockingSingleton.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new DoubleCheckedLockingSingleton();
-                }
-            }
+          instance = localInstance = new DoubleCheckedLockingSingleton();
         }
-        return localInstance;
+      }
     }
+    return localInstance;
+  }
 }

@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task1.javaconfig;
 
 import lombok.Getter;
@@ -9,6 +12,6 @@ import lombok.ToString;
 @ToString
 public class Breed {
 
-    private String name;
-    private String originCountry;
+  private String name;
+  private String originCountry;
 }

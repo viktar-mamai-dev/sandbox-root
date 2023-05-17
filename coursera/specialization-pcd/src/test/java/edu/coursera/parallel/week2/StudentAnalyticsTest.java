@@ -1,139 +1,150 @@
 package edu.coursera.parallel.week2;
 
 import edu.coursera.TestExecutor;
-import edu.coursera.Util;
 import edu.coursera.TestResults;
-import junit.framework.TestCase;
-
+import edu.coursera.Util;
 import java.util.DoubleSummaryStatistics;
 import java.util.Random;
+import junit.framework.TestCase;
 
 public class StudentAnalyticsTest extends TestCase {
-    final static int REPEATS = 10;
-    private final static String[] firstNames = {"Sanjay", "Yunming", "John", "Vivek", "Shams", "Max"};
-    private final static String[] lastNames = {"Chatterjee", "Zhang", "Smith", "Sarkar", "Imam", "Grossman"};
+  static final int REPEATS = 10;
+  private static final String[] firstNames = {"Sanjay", "Yunming", "John", "Vivek", "Shams", "Max"};
+  private static final String[] lastNames = {
+    "Chatterjee", "Zhang", "Smith", "Sarkar", "Imam", "Grossman"
+  };
 
-    private static final double nCores = Util.getNCores();
+  private static final double nCores = Util.getNCores();
 
-    private static final StudentAnalytics analytics = new StudentAnalytics();
+  private static final StudentAnalytics analytics = new StudentAnalytics();
 
-    private Student[] generateStudentData() {
-        final int N_STUDENTS = 8000000;
-        final int N_CURRENT_STUDENTS = 600000;
+  private Student[] generateStudentData() {
+    final int N_STUDENTS = 8000000;
+    final int N_CURRENT_STUDENTS = 600000;
 
-        Student[] students = new Student[N_STUDENTS];
-        Random r = new Random(123);
+    Student[] students = new Student[N_STUDENTS];
+    Random r = new Random(123);
 
-        for (int s = 0; s < N_STUDENTS; s++) {
-            final String firstName = firstNames[r.nextInt(firstNames.length)];
-            final String lastName = lastNames[r.nextInt(lastNames.length)];
-            final double age = r.nextDouble() * 100.0;
-            final int grade = 1 + r.nextInt(100);
-            final boolean current = (s < N_CURRENT_STUDENTS);
+    for (int s = 0; s < N_STUDENTS; s++) {
+      final String firstName = firstNames[r.nextInt(firstNames.length)];
+      final String lastName = lastNames[r.nextInt(lastNames.length)];
+      final double age = r.nextDouble() * 100.0;
+      final int grade = 1 + r.nextInt(100);
+      final boolean current = (s < N_CURRENT_STUDENTS);
 
-            students[s] = new Student(firstName, lastName, age, grade, current);
-        }
-
-        return students;
+      students[s] = new Student(firstName, lastName, age, grade, current);
     }
 
-    private double averageAgeOfEnrolledStudentsHelper(final int repeats) {
-        final Student[] students = generateStudentData();
+    return students;
+  }
 
-        final TestExecutor testExecutor = new TestExecutor(repeats);
-        TestResults<Double> seq = testExecutor.execute(students, analytics::averageAgeOfEnrolledStudentsImperative);
+  private double averageAgeOfEnrolledStudentsHelper(final int repeats) {
+    final Student[] students = generateStudentData();
 
-        TestResults<Double> par = testExecutor.execute(students, analytics::averageAgeOfEnrolledStudentsParallelStream);
+    final TestExecutor testExecutor = new TestExecutor(repeats);
+    TestResults<Double> seq =
+        testExecutor.execute(students, analytics::averageAgeOfEnrolledStudentsImperative);
 
-        DoubleSummaryStatistics parStat = par.getResults().stream().mapToDouble(d -> d).summaryStatistics();
-        DoubleSummaryStatistics seqStat = seq.getResults().stream().mapToDouble(d -> d).summaryStatistics();
+    TestResults<Double> par =
+        testExecutor.execute(students, analytics::averageAgeOfEnrolledStudentsParallelStream);
 
-        final double eps = 1E-5;
-        assertTrue("Mismatch in calculated values", Math.abs(parStat.getMin() - seqStat.getMin()) < eps);
-        assertTrue("Mismatch in calculated values", Math.abs(parStat.getMax() - seqStat.getMax()) < eps);
-        assertTrue("Mismatch in calculated values", Math.abs(parStat.getAverage() - seqStat.getAverage()) < eps);
-        assertTrue("Mismatch in calculated values", Math.abs(parStat.getSum() - seqStat.getSum()) < 10 * eps);
+    DoubleSummaryStatistics parStat =
+        par.getResults().stream().mapToDouble(d -> d).summaryStatistics();
+    DoubleSummaryStatistics seqStat =
+        seq.getResults().stream().mapToDouble(d -> d).summaryStatistics();
 
-        return seq.getExecutionTime() / par.getExecutionTime();
-    }
+    final double eps = 1E-5;
+    assertTrue(
+        "Mismatch in calculated values", Math.abs(parStat.getMin() - seqStat.getMin()) < eps);
+    assertTrue(
+        "Mismatch in calculated values", Math.abs(parStat.getMax() - seqStat.getMax()) < eps);
+    assertTrue(
+        "Mismatch in calculated values",
+        Math.abs(parStat.getAverage() - seqStat.getAverage()) < eps);
+    assertTrue(
+        "Mismatch in calculated values", Math.abs(parStat.getSum() - seqStat.getSum()) < 10 * eps);
 
-    /*
-     * Test correctness of averageAgeOfEnrolledStudentsParallelStream.
-     */
-    public void testAverageAgeOfEnrolledStudents() {
-        averageAgeOfEnrolledStudentsHelper(1);
-    }
+    return seq.getExecutionTime() / par.getExecutionTime();
+  }
 
-    /*
-     * Test performance of averageAgeOfEnrolledStudentsParallelStream.
-     */
-    public void testAverageAgeOfEnrolledStudentsPerf() {
-        final double speedup = averageAgeOfEnrolledStudentsHelper(REPEATS);
-        String msg = "Expected parallel version to run at least 1.2x faster but speedup was " + speedup;
-        assertTrue(msg, speedup > 1.2);
-    }
+  /*
+   * Test correctness of averageAgeOfEnrolledStudentsParallelStream.
+   */
+  public void testAverageAgeOfEnrolledStudents() {
+    averageAgeOfEnrolledStudentsHelper(1);
+  }
 
-    private double mostCommonFirstNameOfInactiveStudentsHelper(final int repeats) {
-        final Student[] students = generateStudentData();
+  /*
+   * Test performance of averageAgeOfEnrolledStudentsParallelStream.
+   */
+  public void testAverageAgeOfEnrolledStudentsPerf() {
+    final double speedup = averageAgeOfEnrolledStudentsHelper(REPEATS);
+    String msg = "Expected parallel version to run at least 1.2x faster but speedup was " + speedup;
+    assertTrue(msg, speedup > 1.2);
+  }
 
-        final TestExecutor testExecutor = new TestExecutor(repeats);
-        TestResults<String> seq = testExecutor.execute(students,
-                analytics::mostCommonFirstNameOfInactiveStudentsImperative);
+  private double mostCommonFirstNameOfInactiveStudentsHelper(final int repeats) {
+    final Student[] students = generateStudentData();
 
-        TestResults<String> par = testExecutor.execute(students,
-                analytics::mostCommonFirstNameOfInactiveStudentsParallelStream);
+    final TestExecutor testExecutor = new TestExecutor(repeats);
+    TestResults<String> seq =
+        testExecutor.execute(students, analytics::mostCommonFirstNameOfInactiveStudentsImperative);
 
-        assertEquals("Mismatch in calculated values", par.getResults(), seq.getResults());
+    TestResults<String> par =
+        testExecutor.execute(
+            students, analytics::mostCommonFirstNameOfInactiveStudentsParallelStream);
 
-        return seq.getExecutionTime() / par.getExecutionTime();
-    }
+    assertEquals("Mismatch in calculated values", par.getResults(), seq.getResults());
 
-    /*
-     * Test correctness of mostCommonFirstNameOfInactiveStudentsParallelStream.
-     */
-    public void testMostCommonFirstNameOfInactiveStudents() {
-        mostCommonFirstNameOfInactiveStudentsHelper(1);
-    }
+    return seq.getExecutionTime() / par.getExecutionTime();
+  }
 
-    /*
-     * Test performance of mostCommonFirstNameOfInactiveStudentsParallelStream.
-     */
-    public void testMostCommonFirstNameOfInactiveStudentsPerf() {
-        final double speedup = mostCommonFirstNameOfInactiveStudentsHelper(REPEATS);
-        final double expectedSpeedup = nCores * 0.5;
-        String msg = "Expected speedup to be at least " + expectedSpeedup + " but was " + speedup;
-        assertTrue(msg, speedup >= expectedSpeedup);
+  /*
+   * Test correctness of mostCommonFirstNameOfInactiveStudentsParallelStream.
+   */
+  public void testMostCommonFirstNameOfInactiveStudents() {
+    mostCommonFirstNameOfInactiveStudentsHelper(1);
+  }
 
-    }
+  /*
+   * Test performance of mostCommonFirstNameOfInactiveStudentsParallelStream.
+   */
+  public void testMostCommonFirstNameOfInactiveStudentsPerf() {
+    final double speedup = mostCommonFirstNameOfInactiveStudentsHelper(REPEATS);
+    final double expectedSpeedup = nCores * 0.5;
+    String msg = "Expected speedup to be at least " + expectedSpeedup + " but was " + speedup;
+    assertTrue(msg, speedup >= expectedSpeedup);
+  }
 
-    private double countNumberOfFailedStudentsOlderThan20Helper(final int repeats) {
-        final Student[] students = generateStudentData();
+  private double countNumberOfFailedStudentsOlderThan20Helper(final int repeats) {
+    final Student[] students = generateStudentData();
 
-        final TestExecutor testExecutor = new TestExecutor(repeats);
-        TestResults<Integer> seq = testExecutor.execute(students,
-                analytics::countNumberOfFailedStudentsOlderThan20Imperative);
+    final TestExecutor testExecutor = new TestExecutor(repeats);
+    TestResults<Integer> seq =
+        testExecutor.execute(students, analytics::countNumberOfFailedStudentsOlderThan20Imperative);
 
-        TestResults<Integer> par = testExecutor.execute(students,
-                analytics::countNumberOfFailedStudentsOlderThan20ParallelStream);
+    TestResults<Integer> par =
+        testExecutor.execute(
+            students, analytics::countNumberOfFailedStudentsOlderThan20ParallelStream);
 
-        assertEquals("Mismatch in calculated values", seq.getResults(), par.getResults());
+    assertEquals("Mismatch in calculated values", seq.getResults(), par.getResults());
 
-        return seq.getExecutionTime() / par.getExecutionTime();
-    }
+    return seq.getExecutionTime() / par.getExecutionTime();
+  }
 
-    /*
-     * Test correctness of countNumberOfFailedStudentsOlderThan20ParallelStream.
-     */
-    public void testCountNumberOfFailedStudentsOlderThan20() {
-        countNumberOfFailedStudentsOlderThan20Helper(1);
-    }
+  /*
+   * Test correctness of countNumberOfFailedStudentsOlderThan20ParallelStream.
+   */
+  public void testCountNumberOfFailedStudentsOlderThan20() {
+    countNumberOfFailedStudentsOlderThan20Helper(1);
+  }
 
-    /*
-     * Test performance of countNumberOfFailedStudentsOlderThan20ParallelStream.
-     */
-    public void testCountNumberOfFailedStudentsOlderThan20Perf() {
-        final double speedup = countNumberOfFailedStudentsOlderThan20Helper(REPEATS);
-        String msg = "Expected parallel version to run at least 1.2x faster but speedup was " + speedup;
-        assertTrue(msg, speedup > 1.2);
-    }
+  /*
+   * Test performance of countNumberOfFailedStudentsOlderThan20ParallelStream.
+   */
+  public void testCountNumberOfFailedStudentsOlderThan20Perf() {
+    final double speedup = countNumberOfFailedStudentsOlderThan20Helper(REPEATS);
+    String msg = "Expected parallel version to run at least 1.2x faster but speedup was " + speedup;
+    assertTrue(msg, speedup > 1.2);
+  }
 }

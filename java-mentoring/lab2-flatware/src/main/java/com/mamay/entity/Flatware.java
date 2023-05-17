@@ -13,21 +13,21 @@ import lombok.ToString;
 @Setter
 @ToString
 public abstract class Flatware {
-	private String origin;
-	private boolean value; // optional
-	private FlatwareType flatware;
-	private Visual visual; // optional
+  private String origin;
+  private boolean value; // optional
+  private FlatwareType flatware;
+  private Visual visual; // optional
 
-	@Getter
-	@Setter
-	@ToString
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class Visual {
-		private int bladeLength;
-		private int bladeWidth;
-		private int prongLength;
-		private BladeType blade;
-		private HelveType helve;
-	}
+  @Getter
+  @Setter
+  @ToString
+  @NoArgsConstructor
+  @AllArgsConstructor
+  public static class Visual {
+    private int bladeLength;
+    private int bladeWidth;
+    private int prongLength;
+    private BladeType blade;
+    private HelveType helve;
+  }
 }

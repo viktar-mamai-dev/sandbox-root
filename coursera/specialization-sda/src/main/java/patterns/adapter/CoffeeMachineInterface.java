@@ -1,7 +1,7 @@
 package patterns.adapter;
 
 public interface CoffeeMachineInterface {
-    void chooseFirstSelection();
+  void chooseFirstSelection();
 
-    void chooseSecondSelection();
+  void chooseSecondSelection();
 }

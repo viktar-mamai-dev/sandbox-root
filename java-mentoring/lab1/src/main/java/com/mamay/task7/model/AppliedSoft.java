@@ -10,11 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(callSuper = true)
 public class AppliedSoft extends BasicSoft {
-    protected int releaseYear;
+  protected int releaseYear;
 
-    public AppliedSoft(String name, double price, double size, int releaseYear) {
-        super(name, price, size);
-        this.releaseYear = releaseYear;
-    }
-
+  public AppliedSoft(String name, double price, double size, int releaseYear) {
+    super(name, price, size);
+    this.releaseYear = releaseYear;
+  }
 }

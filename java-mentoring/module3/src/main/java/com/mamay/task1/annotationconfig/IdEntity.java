@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task1.annotationconfig;
 
 import lombok.Getter;
@@ -10,6 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 @ToString
 public class IdEntity {
 
-    @Value(value = "1")
-    private Long id;
+  @Value(value = "1")
+  private Long id;
 }

@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2023
+ */
 package book1.ch4;
 
 public class Koala {
-    static int counter = 10;
-    public static void main(String[] args) {
-        Koala k = null;
-        System.out.println(k.counter); // outputs 10 as counter is static
-    }
+  static int counter = 10;
+
+  public static void main(String[] args) {
+    Koala k = null;
+    System.out.println(k.counter); // outputs 10 as counter is static
+  }
 }

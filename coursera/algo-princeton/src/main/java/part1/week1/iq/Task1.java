@@ -12,32 +12,31 @@ import part1.week1.QuickUnionFind;
  * or better and use extra space proportional to n
  */
 public class Task1 extends QuickUnionFind {
-    private int components;
+  private int components;
 
-    public Task1(int n) {
-        super(n);
-        components = n;
+  public Task1(int n) {
+    super(n);
+    components = n;
+  }
+
+  @Override
+  public void union(int node1, int node2) {
+    int root1 = root(node1);
+    int root2 = root(node2);
+
+    if (root1 == root2) return;
+    components--;
+
+    if (rank[root1] < rank[root2]) {
+      parent[root1] = root2;
+      rank[root2] += rank[root1];
+    } else {
+      parent[root2] = root1;
+      rank[root1] += rank[root2];
     }
+  }
 
-    @Override
-    public void union(int node1, int node2) {
-        int root1 = root(node1);
-        int root2 = root(node2);
-
-        if (root1 == root2) return;
-        components--;
-
-        if (rank[root1] < rank[root2]) {
-            parent[root1] = root2;
-            rank[root2] += rank[root1];
-        }
-        else {
-            parent[root2] = root1;
-            rank[root1] += rank[root2];
-        }
-    }
-
-    public boolean allFriends() {
-        return components == Constants.ONE;
-    }
+  public boolean allFriends() {
+    return components == Constants.ONE;
+  }
 }

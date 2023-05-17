@@ -8,26 +8,26 @@ import java.util.Scanner;
 
 public class Groups {
 
-    private static int numSpecialEquivGroups(String[] A) {
-        // TODO
-        return 0;
+  private static int numSpecialEquivGroups(String[] A) {
+    // TODO
+    return 0;
+  }
+
+  private static final String INPUT_FILE = "input.txt";
+  private static final String OUTPUT_FILE = "output.txt";
+
+  public static void main(String[] args) throws IOException {
+    Scanner scanner = new Scanner(new File(INPUT_FILE));
+    int q = scanner.nextInt();
+    scanner.nextLine();
+
+    try (PrintWriter writer = new PrintWriter(new FileWriter(new File(OUTPUT_FILE)))) {
+      for (int qi = 0; qi < q; qi++) {
+        String A[] = scanner.nextLine().replaceAll("\\[|\\]", "").split(",");
+        System.out.println("Array size: " + A.length);
+        writer.println(numSpecialEquivGroups(A));
+      }
+      scanner.close();
     }
-
-    private static final String INPUT_FILE = "input.txt";
-    private static final String OUTPUT_FILE = "output.txt";
-
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(new File(INPUT_FILE));
-        int q = scanner.nextInt();
-        scanner.nextLine();
-
-        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(OUTPUT_FILE)))) {
-            for (int qi = 0; qi < q; qi++) {
-                String A[] = scanner.nextLine().replaceAll("\\[|\\]", "").split(",");
-                System.out.println("Array size: " + A.length);
-                writer.println(numSpecialEquivGroups(A));
-            }
-            scanner.close();
-        }
-    }
+  }
 }

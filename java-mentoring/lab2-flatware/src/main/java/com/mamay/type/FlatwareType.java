@@ -1,5 +1,10 @@
 package com.mamay.type;
 
 public enum FlatwareType {
-	FORK, SPOON, KNIFE, SCAPULA, SCISSORS, PINCERS
+  FORK,
+  SPOON,
+  KNIFE,
+  SCAPULA,
+  SCISSORS,
+  PINCERS
 }

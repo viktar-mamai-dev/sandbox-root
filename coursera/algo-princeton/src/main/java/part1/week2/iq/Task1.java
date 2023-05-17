@@ -6,22 +6,22 @@ import java.util.Stack;
  * Implement a queue with two stacks so that each queue operations takes a constant amortized number
  * of stack operations
  */
-public class Task1 <T> {
-    private final Stack<T> inboxStack = new Stack<T>();
-    private final Stack<T> outboxStack = new Stack<T>();
+public class Task1<T> {
+  private final Stack<T> inboxStack = new Stack<T>();
+  private final Stack<T> outboxStack = new Stack<T>();
 
-    public void enqueue(T item) {
-        inboxStack.push(item);
+  public void enqueue(T item) {
+    inboxStack.push(item);
+  }
+
+  public T dequeue() {
+    if (!outboxStack.isEmpty()) {
+      return outboxStack.pop();
     }
 
-    public T dequeue() {
-        if (!outboxStack.isEmpty()) {
-            return outboxStack.pop();
-        }
-
-        while (!inboxStack.isEmpty()) {
-            outboxStack.push(inboxStack.pop());
-        }
-        return outboxStack.pop();
+    while (!inboxStack.isEmpty()) {
+      outboxStack.push(inboxStack.pop());
     }
+    return outboxStack.pop();
+  }
 }

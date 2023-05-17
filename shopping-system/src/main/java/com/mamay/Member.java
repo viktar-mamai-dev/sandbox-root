@@ -10,10 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Member extends Customer {
-    private Account account;
+  private Account account;
 
-    // TODO
-    public OrderStatus placeOrder(Order order) {
-        return null;
-    }
+  // TODO
+  public OrderStatus placeOrder(Order order) {
+    return null;
+  }
 }

@@ -1,175 +1,177 @@
+/*
+ * Copyright (c) 2023
+ */
 package blinov.structural;
 
 interface IEmployee {
-	void openTask();
+  void openTask();
 
-	void reopenTask();
+  void reopenTask();
 
-	void resolveTask();
+  void resolveTask();
 }
 
 abstract class EmployeeDecorator implements IEmployee {
-	protected Employee employee;
+  protected Employee employee;
 
-	public EmployeeDecorator() {
-		super();
-	}
+  public EmployeeDecorator() {
+    super();
+  }
 
-	public EmployeeDecorator(Employee employee) {
-		this.employee = employee;
-	}
+  public EmployeeDecorator(Employee employee) {
+    this.employee = employee;
+  }
 
-	@Override
-	public void resolveTask() {
-		employee.resolveTask();
-	}
+  @Override
+  public void resolveTask() {
+    employee.resolveTask();
+  }
 
-	@Override
-	public void openTask() {
-		employee.openTask();
-	}
+  @Override
+  public void openTask() {
+    employee.openTask();
+  }
 
-	@Override
-	public void reopenTask() {
-		employee.reopenTask();
-	}
+  @Override
+  public void reopenTask() {
+    employee.reopenTask();
+  }
 }
 
 final class Employee implements IEmployee {
-	private String name;
+  private String name;
 
-	public Employee() {
-	}
+  public Employee() {}
 
-	public Employee(String name) {
-		this.name = name;
-	}
+  public Employee(String name) {
+    this.name = name;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	@Override
-	public void openTask() {
-		System.out.println(this.getName() + " open task");
-	}
+  @Override
+  public void openTask() {
+    System.out.println(this.getName() + " open task");
+  }
 
-	@Override
-	public void reopenTask() {
-		System.out.println(this.getName() + " reopen task");
-	}
+  @Override
+  public void reopenTask() {
+    System.out.println(this.getName() + " reopen task");
+  }
 
-	@Override
-	public void resolveTask() {
-		System.out.println(this.getName() + " resolve task");
-	}
+  @Override
+  public void resolveTask() {
+    System.out.println(this.getName() + " resolve task");
+  }
 }
 
 class DeveloperDecorator extends EmployeeDecorator {
-	public DeveloperDecorator(Employee employee) {
-		super(employee);
-	}
+  public DeveloperDecorator(Employee employee) {
+    super(employee);
+  }
 
-	@Override
-	public void openTask() {
-		super.openTask();
-		startProgress();
-	}
+  @Override
+  public void openTask() {
+    super.openTask();
+    startProgress();
+  }
 
-	@Override
-	public void reopenTask() {
-		super.reopenTask();
-		startProgress();
-	}
+  @Override
+  public void reopenTask() {
+    super.reopenTask();
+    startProgress();
+  }
 
-	@Override
-	public void resolveTask() {
-		super.resolveTask();
-		stopProgress();
-	}
+  @Override
+  public void resolveTask() {
+    super.resolveTask();
+    stopProgress();
+  }
 
-	public void startProgress() {
-		System.out.println(employee.getName() + " starting task");
-	}
+  public void startProgress() {
+    System.out.println(employee.getName() + " starting task");
+  }
 
-	public void stopProgress() {
-		System.out.println(employee.getName() + " stopping task");
-	}
+  public void stopProgress() {
+    System.out.println(employee.getName() + " stopping task");
+  }
 }
 
 class TesterDecorator extends EmployeeDecorator {
-	public TesterDecorator(Employee employee) {
-		super(employee);
-	}
+  public TesterDecorator(Employee employee) {
+    super(employee);
+  }
 
-	@Override
-	public void openTask() {
-		super.openTask();
-		testing();
-	}
+  @Override
+  public void openTask() {
+    super.openTask();
+    testing();
+  }
 
-	@Override
-	public void reopenTask() {
-		super.reopenTask();
-		testing();
-	}
+  @Override
+  public void reopenTask() {
+    super.reopenTask();
+    testing();
+  }
 
-	@Override
-	public void resolveTask() {
-		reporting();
-		super.resolveTask();
-	}
+  @Override
+  public void resolveTask() {
+    reporting();
+    super.resolveTask();
+  }
 
-	public void testing() {
-		System.out.println(employee.getName() + " testing task");
-	}
+  public void testing() {
+    System.out.println(employee.getName() + " testing task");
+  }
 
-	public void reporting() {
-		System.out.println(employee.getName() + " create report");
-	}
+  public void reporting() {
+    System.out.println(employee.getName() + " create report");
+  }
 }
 
 class TeamLeadDecorator extends EmployeeDecorator {
-	public TeamLeadDecorator(Employee employee) {
-		super(employee);
-	}
+  public TeamLeadDecorator(Employee employee) {
+    super(employee);
+  }
 
-	@Override
-	public void openTask() {
-		super.openTask();
-		assignTask();
-	}
+  @Override
+  public void openTask() {
+    super.openTask();
+    assignTask();
+  }
 
-	@Override
-	public void reopenTask() {
-		super.reopenTask();
-		changeEmployee();
-	}
+  @Override
+  public void reopenTask() {
+    super.reopenTask();
+    changeEmployee();
+  }
 
-	@Override
-	public void resolveTask() {
-		super.resolveTask();
-		closeTask();
-	}
+  @Override
+  public void resolveTask() {
+    super.resolveTask();
+    closeTask();
+  }
 
-	public void assignTask() {
-		System.out.println(employee.getName() + " is assigning task");
-	}
+  public void assignTask() {
+    System.out.println(employee.getName() + " is assigning task");
+  }
 
-	public void changeEmployee() {
-		System.out.println(employee.getName() + " is changing employee");
-	}
+  public void changeEmployee() {
+    System.out.println(employee.getName() + " is changing employee");
+  }
 
-	public void closeTask() {
-		System.out.println(employee.getName() + " is closing task");
-	}
+  public void closeTask() {
+    System.out.println(employee.getName() + " is closing task");
+  }
 }
 
 class RunnerDecorator {
-	public static void main(String[] args) {
-		IEmployee employee = new TesterDecorator(new Employee("Ivanov"));
-		employee.reopenTask();
-		employee = new TeamLeadDecorator(new Employee("Petrov"));
-		employee.openTask();
-	}
+  public static void main(String[] args) {
+    IEmployee employee = new TesterDecorator(new Employee("Ivanov"));
+    employee.reopenTask();
+    employee = new TeamLeadDecorator(new Employee("Petrov"));
+    employee.openTask();
+  }
 }

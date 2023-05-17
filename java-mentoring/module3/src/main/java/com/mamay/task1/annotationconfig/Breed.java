@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task1.annotationconfig;
 
 import lombok.Getter;
@@ -12,8 +15,9 @@ import org.springframework.stereotype.Component;
 @ToString
 public class Breed {
 
-    @Value(value = "Quarter")
-    private String name;
-    @Value(value = "USA")
-    private String originCountry;
+  @Value(value = "Quarter")
+  private String name;
+
+  @Value(value = "USA")
+  private String originCountry;
 }

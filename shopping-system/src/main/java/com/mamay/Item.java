@@ -10,11 +10,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Item {
-    private String productID;
-    private int quantity;
-    private double price;
+  private String productID;
+  private int quantity;
+  private double price;
 
-    public void updateQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public void updateQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 }

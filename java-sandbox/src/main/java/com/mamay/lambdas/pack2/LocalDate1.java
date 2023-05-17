@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.lambdas.pack2;
 
 import java.time.DayOfWeek;
@@ -10,22 +13,21 @@ import java.util.Locale;
 
 public class LocalDate1 {
 
-    public static void main(String[] args) {
-        LocalDate today = LocalDate.now();
-        LocalDate tomorrow = today.plus(1, ChronoUnit.DAYS);
-        LocalDate yesterday = tomorrow.minusDays(2);
+  public static void main(String[] args) {
+    LocalDate today = LocalDate.now();
+    LocalDate tomorrow = today.plus(1, ChronoUnit.DAYS);
+    LocalDate yesterday = tomorrow.minusDays(2);
 
-        System.out.println("Today: " + today + " Tomorrow " + tomorrow + " Yesterday: " + yesterday);
+    System.out.println("Today: " + today + " Tomorrow " + tomorrow + " Yesterday: " + yesterday);
 
-        LocalDate independenceDay = LocalDate.of(2014, Month.JULY, 4);
-        DayOfWeek dayOfWeek = independenceDay.getDayOfWeek();
-        System.out.println(dayOfWeek);    // FRIDAY
+    LocalDate independenceDay = LocalDate.of(2014, Month.JULY, 4);
+    DayOfWeek dayOfWeek = independenceDay.getDayOfWeek();
+    System.out.println(dayOfWeek); // FRIDAY
 
-        DateTimeFormatter germanFormatter = DateTimeFormatter
-                        .ofLocalizedDate(FormatStyle.MEDIUM)
-                        .withLocale(Locale.GERMAN);
+    DateTimeFormatter germanFormatter =
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
 
-        LocalDate xmas = LocalDate.parse("24.12.2014", germanFormatter);
-        System.out.println(xmas);   // 2014-12-24
-    }
+    LocalDate xmas = LocalDate.parse("24.12.2014", germanFormatter);
+    System.out.println(xmas); // 2014-12-24
+  }
 }

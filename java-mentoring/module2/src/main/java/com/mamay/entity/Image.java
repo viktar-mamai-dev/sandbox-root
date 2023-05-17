@@ -1,13 +1,15 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.entity;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -17,10 +19,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString
 public class Image {
 
-    private Long id;
-    private byte[] data;
+  private Long id;
+  private byte[] data;
 
-    public Image(byte[] data) {
-        this.data = data;
-    }
+  public Image(byte[] data) {
+    this.data = data;
+  }
 }

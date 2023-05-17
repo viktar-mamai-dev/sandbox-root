@@ -6,19 +6,15 @@ import org.junit.Test;
 
 public class Task4Test {
 
-    @Test
-    public void test1() {
-        Task4 main = new Task4();
-        Point2D[] a = {
-                new Point2D(2, 3), new Point2D(4, 3), new Point2D(2, 4), new Point2D(3, 3)
-        };
-        Point2D[] b = {
-                new Point2D(3, 2), new Point2D(4, 2), new Point2D(3, 3), new Point2D(4, 3)
-        };
-        Assert.assertEquals(2, main.intersectionCount(a, b));
+  @Test
+  public void test1() {
+    Task4 main = new Task4();
+    Point2D[] a = {new Point2D(2, 3), new Point2D(4, 3), new Point2D(2, 4), new Point2D(3, 3)};
+    Point2D[] b = {new Point2D(3, 2), new Point2D(4, 2), new Point2D(3, 3), new Point2D(4, 3)};
+    Assert.assertEquals(2, main.intersectionCount(a, b));
 
-        a = new Point2D[]{new Point2D(2, 2), new Point2D(3, 3), new Point2D(4, 4)};
-        b = new Point2D[]{new Point2D(2, 2), new Point2D(3, 3), new Point2D(4, 4)};
-        Assert.assertEquals(3, main.intersectionCount(a, b));
-    }
+    a = new Point2D[] {new Point2D(2, 2), new Point2D(3, 3), new Point2D(4, 4)};
+    b = new Point2D[] {new Point2D(2, 2), new Point2D(3, 3), new Point2D(4, 4)};
+    Assert.assertEquals(3, main.intersectionCount(a, b));
+  }
 }

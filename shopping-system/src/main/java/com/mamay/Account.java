@@ -1,38 +1,37 @@
 package com.mamay;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class Account {
-    private String userName;
-    private String password;
-    private AccountStatus status;
-    private String name;
-    private Address shippingAddress;
-    private String email;
-    private String phone;
+  private String userName;
+  private String password;
+  private AccountStatus status;
+  private String name;
+  private Address shippingAddress;
+  private String email;
+  private String phone;
 
-    private List<CreditCard> creditCards;
-    private List<ElectronicBankTransfer> bankAccounts;
+  private List<CreditCard> creditCards;
+  private List<ElectronicBankTransfer> bankAccounts;
 
-    // TODO
-    public boolean addProduct(Product product) {
-        return false;
-    }
+  // TODO
+  public boolean addProduct(Product product) {
+    return false;
+  }
 
-    public boolean addProductReview(ProductReview review) {
-        return false;
-    }
+  public boolean addProductReview(ProductReview review) {
+    return false;
+  }
 
-    public boolean resetPassword() {
-        return false;
-    }
+  public boolean resetPassword() {
+    return false;
+  }
 }

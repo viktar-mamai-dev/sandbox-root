@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class PrimaryFlatware extends Flatware {
 
-	private String id; // attribute - required
-	private int price; // element - required
+  private String id; // attribute - required
+  private int price; // element - required
 }

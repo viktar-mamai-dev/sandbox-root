@@ -9,49 +9,47 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Valid_20 {
-    public boolean isValid(String s) {
-        HashMap<Character, Character> map = new HashMap<>(3);
-        map.put('(', ')');
-        map.put('[', ']');
-        map.put('{', '}');
+  public boolean isValid(String s) {
+    HashMap<Character, Character> map = new HashMap<>(3);
+    map.put('(', ')');
+    map.put('[', ']');
+    map.put('{', '}');
 
-        ArrayDeque<Character> deque = new ArrayDeque<>();
-        for (char ch : s.toCharArray()) {
-            if (map.containsKey(ch)) {
-                deque.addLast(ch);
-            } else {
-                if (deque.isEmpty())
-                    return false;
+    ArrayDeque<Character> deque = new ArrayDeque<>();
+    for (char ch : s.toCharArray()) {
+      if (map.containsKey(ch)) {
+        deque.addLast(ch);
+      } else {
+        if (deque.isEmpty()) return false;
 
-                Character lastCh = deque.pollLast();
-                Character value = map.get(lastCh);
-                if (value == null || value != ch) {
-                    return false;
-                }
-            }
+        Character lastCh = deque.pollLast();
+        Character value = map.get(lastCh);
+        if (value == null || value != ch) {
+          return false;
         }
-
-        return deque.isEmpty();
-
+      }
     }
 
-    private static final String INPUT_FILE = "input.txt";
-    private static final String OUTPUT_FILE = "output.txt";
+    return deque.isEmpty();
+  }
 
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(new File(INPUT_FILE));
-        int q = scanner.nextInt();
-        scanner.nextLine();
+  private static final String INPUT_FILE = "input.txt";
+  private static final String OUTPUT_FILE = "output.txt";
 
-        Valid_20 main = new Valid_20();
+  public static void main(String[] args) throws IOException {
+    Scanner scanner = new Scanner(new File(INPUT_FILE));
+    int q = scanner.nextInt();
+    scanner.nextLine();
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(OUTPUT_FILE)))) {
-            for (int qi = 0; qi < q; qi++) {
-                String s = scanner.nextLine();
+    Valid_20 main = new Valid_20();
 
-                writer.println(main.isValid(s));
-            }
-            scanner.close();
-        }
+    try (PrintWriter writer = new PrintWriter(new FileWriter(new File(OUTPUT_FILE)))) {
+      for (int qi = 0; qi < q; qi++) {
+        String s = scanner.nextLine();
+
+        writer.println(main.isValid(s));
+      }
+      scanner.close();
     }
+  }
 }

@@ -1,7 +1,7 @@
 package com.mamay.filter;
 
 import com.mamay.dto.NewsSearchCriteria;
-
+import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,33 +11,30 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 public class SessionFilter implements Filter {
-    private String indexPath;
+  private String indexPath;
 
-    @Override
-    public void destroy() {
+  @Override
+  public void destroy() {}
+
+  @Override
+  public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+      throws IOException, ServletException {
+    HttpServletRequest request = (HttpServletRequest) req;
+    HttpServletResponse response = (HttpServletResponse) resp;
+
+    HttpSession session = request.getSession(true);
+    if (session.getAttribute("filteredItem") == null) {
+      session.setAttribute("filteredItem", new NewsSearchCriteria(null, null));
+      response.sendRedirect(request.getContextPath() + indexPath);
+      return;
     }
+    chain.doFilter(req, resp);
+  }
 
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException,
-            ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) resp;
-
-        HttpSession session = request.getSession(true);
-        if (session.getAttribute("filteredItem") == null) {
-            session.setAttribute("filteredItem", new NewsSearchCriteria(null, null));
-            response.sendRedirect(request.getContextPath() + indexPath);
-            return;
-        }
-        chain.doFilter(req, resp);
-    }
-
-    @Override
-    public void init(FilterConfig config) {
-        indexPath = config.getInitParameter("INDEX_PATH");
-    }
-
+  @Override
+  public void init(FilterConfig config) {
+    indexPath = config.getInitParameter("INDEX_PATH");
+  }
 }

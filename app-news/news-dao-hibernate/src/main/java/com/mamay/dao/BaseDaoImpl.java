@@ -5,10 +5,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BaseDaoImpl {
-    @Autowired
-    private SessionFactory sessionFactory;
+  @Autowired private SessionFactory sessionFactory;
 
-    protected Session getSession() {
-        return this.sessionFactory.getCurrentSession();
-    }
+  protected Session getSession() {
+    return this.sessionFactory.getCurrentSession();
+  }
 }

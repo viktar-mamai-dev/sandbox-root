@@ -1,5 +1,5 @@
 package patterns.observer;
 
 public interface Observer {
-    void update(String followerName);
+  void update(String followerName);
 }

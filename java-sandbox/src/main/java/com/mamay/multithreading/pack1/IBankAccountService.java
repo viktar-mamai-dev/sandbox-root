@@ -1,9 +1,12 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.multithreading.pack1;
 
 public interface IBankAccountService {
-    void deposit(long amount);
+  void deposit(long amount);
 
-    void withdraw(long amount);
+  void withdraw(long amount);
 
-    long getBalance();
+  long getBalance();
 }

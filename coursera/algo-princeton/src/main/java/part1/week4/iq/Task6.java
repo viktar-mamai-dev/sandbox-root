@@ -4,58 +4,58 @@ import lombok.Getter;
 
 public class Task6 {
 
-    public static class User {
-        private static Long nextId = 1L;
-        private Long id;
-        private String name;
+  public static class User {
+    private static Long nextId = 1L;
+    private Long id;
+    private String name;
 
-        public User(String name) {
-            this.name = name;
-            this.id = nextId++;
-        }
-
-        public String getName() {
-            return name;
-        }
+    public User(String name) {
+      this.name = name;
+      this.id = nextId++;
     }
 
-    public static class Website {
-        private static Long nextId = 1L;
-        private Long id;
-        private String url;
+    public String getName() {
+      return name;
+    }
+  }
 
-        public Website(String url) {
-            this.url = url;
-            this.id = nextId++;
-        }
+  public static class Website {
+    private static Long nextId = 1L;
+    private Long id;
+    private String url;
 
-        public String getUrl() {
-            return url;
-        }
+    public Website(String url) {
+      this.url = url;
+      this.id = nextId++;
     }
 
-    @Getter
-    public static class Visit implements Comparable<Visit> {
-        private static Long nextId = 1L;
-        private Long id;
-        private Long userId;
-        private Long websiteId;
-
-        public Visit(User user, Website webSite) {
-            this.id = nextId++;
-            this.userId = user.id;
-            this.websiteId = webSite.id;
-        }
-
-        @Override
-        public int compareTo(Visit that) {
-            if (!this.getUserId().equals(that.getUserId())) {
-                return Long.compare(this.getUserId(), that.getUserId());
-            }
-            if (!this.getWebsiteId().equals(that.getWebsiteId())) {
-                return Long.compare(this.getWebsiteId(), that.getWebsiteId());
-            }
-            return 0;
-        }
+    public String getUrl() {
+      return url;
     }
+  }
+
+  @Getter
+  public static class Visit implements Comparable<Visit> {
+    private static Long nextId = 1L;
+    private Long id;
+    private Long userId;
+    private Long websiteId;
+
+    public Visit(User user, Website webSite) {
+      this.id = nextId++;
+      this.userId = user.id;
+      this.websiteId = webSite.id;
+    }
+
+    @Override
+    public int compareTo(Visit that) {
+      if (!this.getUserId().equals(that.getUserId())) {
+        return Long.compare(this.getUserId(), that.getUserId());
+      }
+      if (!this.getWebsiteId().equals(that.getWebsiteId())) {
+        return Long.compare(this.getWebsiteId(), that.getWebsiteId());
+      }
+      return 0;
+    }
+  }
 }

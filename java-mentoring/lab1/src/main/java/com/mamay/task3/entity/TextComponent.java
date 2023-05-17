@@ -1,15 +1,15 @@
 package com.mamay.task3.entity;
 
 public interface TextComponent {
-    void operation();
+  void operation();
 
-    void addElement(TextComponent c);
+  void addElement(TextComponent c);
 
-    void removeElement(TextComponent c);
+  void removeElement(TextComponent c);
 
-    TextComponent getChild(int index);
+  TextComponent getChild(int index);
 
-    int size();
+  int size();
 
-    String getData();
+  String getData();
 }

@@ -10,16 +10,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Product {
-    private String productID;
-    private String name;
-    private String description;
-    private double price;
-    private ProductCategory category;
-    private int availableItemCount;
+  private String productID;
+  private String name;
+  private String description;
+  private double price;
+  private ProductCategory category;
+  private int availableItemCount;
 
-    private Account seller;
+  private Account seller;
 
-    public void updatePrice(double newPrice) {
-        this.price = newPrice;
-    }
+  public void updatePrice(double newPrice) {
+    this.price = newPrice;
+  }
 }

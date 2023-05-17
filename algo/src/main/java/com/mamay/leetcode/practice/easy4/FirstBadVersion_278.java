@@ -7,44 +7,44 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class FirstBadVersion_278 {
-    private static int badVersion;
+  private static int badVersion;
 
-    static boolean isBadVersion(int version) {
-        return version >= badVersion;
+  static boolean isBadVersion(int version) {
+    return version >= badVersion;
+  }
+
+  public static int firstBadVersion(int n) {
+    long left = 1, right = n;
+
+    long mid = (left + right) / 2;
+    while (left < right) {
+      if (isBadVersion((int) mid)) {
+        right = mid;
+      } else {
+        left = mid + 1;
+      }
+      mid = (left + right) / 2;
     }
+    return (int) right;
+  }
 
-    public static int firstBadVersion(int n) {
-        long left = 1, right = n;
+  private static final String INPUT_FILE = "input.txt";
+  private static final String OUTPUT_FILE = "output.txt";
 
-        long mid = (left + right) / 2;
-        while (left < right) {
-            if (isBadVersion((int) mid)) {
-                right = mid;
-            } else {
-                left = mid + 1;
-            }
-            mid = (left + right) / 2;
-        }
-        return (int) right;
+  public static void main(String[] args) throws IOException {
+    Scanner scanner = new Scanner(new File(INPUT_FILE));
+    int q = scanner.nextInt();
+    scanner.nextLine();
+
+    try (PrintWriter writer = new PrintWriter(new FileWriter(new File(OUTPUT_FILE)))) {
+      for (int qi = 0; qi < q; qi++) {
+
+        badVersion = scanner.nextInt();
+        int n = scanner.nextInt();
+
+        writer.println(firstBadVersion(n));
+      }
+      scanner.close();
     }
-
-    private static final String INPUT_FILE = "input.txt";
-    private static final String OUTPUT_FILE = "output.txt";
-
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(new File(INPUT_FILE));
-        int q = scanner.nextInt();
-        scanner.nextLine();
-
-        try (PrintWriter writer = new PrintWriter(new FileWriter(new File(OUTPUT_FILE)))) {
-            for (int qi = 0; qi < q; qi++) {
-
-                badVersion = scanner.nextInt();
-                int n = scanner.nextInt();
-
-                writer.println(firstBadVersion(n));
-            }
-            scanner.close();
-        }
-    }
+  }
 }
