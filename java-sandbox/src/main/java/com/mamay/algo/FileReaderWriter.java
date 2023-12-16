@@ -1,6 +1,6 @@
 package com.mamay.algo;
 
-import com.mamay.leetcode.AlgoRunner;
+import com.mamay.algo.leetcode.AlgoRunner;
 
 import java.io.File;
 import java.io.FileWriter;
