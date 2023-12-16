@@ -1,6 +1,6 @@
 package com.mamay.task6;
 
-import com.mamay.task6.exception.LogicException;
+import com.mamay.Lab1Exception;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -22,7 +22,7 @@ public class Train extends Thread {
       ride = true;
       log.debug("Train " + trainName + " rides in tunnel " + t.getName());
       t.riding();
-    } catch (LogicException e) {
+    } catch (Lab1Exception e) {
       log.error(e.getMessage());
       log.error("Train " + trainName + " got lost");
     } finally {

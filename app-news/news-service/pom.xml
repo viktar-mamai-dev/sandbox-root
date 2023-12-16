@@ -27,7 +27,7 @@
 
         <dependency>
             <groupId>by.mamay</groupId>
-            <artifactId>news-dao</artifactId>
+            <artifactId>news-dao-jdbc</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

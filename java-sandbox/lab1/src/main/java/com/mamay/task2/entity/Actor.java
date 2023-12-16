@@ -3,7 +3,7 @@
  */
 package com.mamay.task2.entity;
 
-import com.mamay.task2.exception.LogicalException;
+import com.mamay.Lab1Exception;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,23 +18,20 @@ public class Actor extends BaseEmployee {
 
   private String description;
 
-  public Actor(String name, Address address, int income) throws LogicalException {
+  public Actor(String name, Address address, int income) throws Lab1Exception {
     super(name, address);
     setIncome(income);
   }
 
-  public Actor(String name, Address address, int income, String description)
-      throws LogicalException {
+  public Actor(String name, Address address, int income, String description) throws Lab1Exception {
     super(name, address);
     setIncome(income);
     setDescription(description);
   }
 
-  public void setIncome(int income) throws LogicalException {
+  public void setIncome(int income) {
     if (income >= MINIMUM_INCOME && income <= MAXIMUM_INCOME) {
       super.setIncome(income);
-    } else {
-      throw new LogicalException("Incorrect income for actor " + super.getName());
     }
   }
 }

@@ -3,7 +3,7 @@
  */
 package com.mamay.task1.model;
 
-import com.mamay.task1.exception.AquaException;
+import com.mamay.Lab1Exception;
 import com.mamay.task1.util.AquaContainer;
 import com.mamay.task1.util.Generator;
 import java.util.HashSet;
@@ -99,11 +99,11 @@ public class Aquarium {
     log.debug(output);
   }
 
-  public void newComponent(Item item) throws AquaException {
+  public void newComponent(Item item) throws Lab1Exception {
     AquaContainer helper = new AquaContainer();
     Set<Item> possibleItems = helper.getPossibleComponents().keySet();
     if (!possibleItems.contains(item)) {
-      throw new AquaException("Error! Such component does not exist!");
+      throw new Lab1Exception("Error! Such component does not exist!");
     }
     for (Component c : components) {
       if (c.getName().equals(item)) {

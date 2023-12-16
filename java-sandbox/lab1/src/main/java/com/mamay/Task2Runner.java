@@ -3,7 +3,6 @@ package com.mamay;
 import com.mamay.task2.entity.BaseEmployee;
 import com.mamay.task2.entity.Person;
 import com.mamay.task2.entity.Project;
-import com.mamay.task2.exception.LogicalException;
 import com.mamay.task2.util.JsonReader;
 import com.mamay.task2.util.PrintReport;
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class Task2Runner {
 
       PrintReport.printTotalIncome(project);
 
-    } catch (IOException | ParseException | LogicalException e) {
+    } catch (IOException | ParseException | Lab1Exception e) {
       log.error(e.getMessage());
     }
   }

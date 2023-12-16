@@ -1,5 +1,6 @@
 package com.mamay.task2.util;
 
+import com.mamay.Lab1Exception;
 import com.mamay.task2.entity.Actor;
 import com.mamay.task2.entity.Address;
 import com.mamay.task2.entity.BaseEmployee;
@@ -7,7 +8,6 @@ import com.mamay.task2.entity.Director;
 import com.mamay.task2.entity.Person;
 import com.mamay.task2.entity.Worker;
 import com.mamay.task2.entity.WorkerType;
-import com.mamay.task2.exception.LogicalException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class JsonReader {
     }
   }
 
-  public List<BaseEmployee> initActors() throws IOException, ParseException, LogicalException {
+  public List<BaseEmployee> initActors() throws IOException, ParseException, Lab1Exception {
     List<BaseEmployee> actors = new ArrayList<BaseEmployee>();
     JSONObject object = (JSONObject) parser.parse(new FileReader(CINEMA_INPUT));
     JSONArray array = (JSONArray) object.get("actors");
@@ -65,7 +65,7 @@ public class JsonReader {
     return actors;
   }
 
-  public List<BaseEmployee> initDirectors() throws IOException, ParseException, LogicalException {
+  public List<BaseEmployee> initDirectors() throws IOException, ParseException, Lab1Exception {
     List<BaseEmployee> directors = new ArrayList<BaseEmployee>();
     JSONObject object = (JSONObject) parser.parse(new FileReader(CINEMA_INPUT));
     JSONArray array = (JSONArray) object.get("directors");
@@ -87,7 +87,7 @@ public class JsonReader {
     return directors;
   }
 
-  public List<BaseEmployee> initWorkers() throws IOException, ParseException, LogicalException {
+  public List<BaseEmployee> initWorkers() throws IOException, ParseException, Lab1Exception {
     List<BaseEmployee> workers = new ArrayList<BaseEmployee>();
     JSONObject object = (JSONObject) parser.parse(new FileReader(CINEMA_INPUT));
     JSONArray array = (JSONArray) object.get("workers");
@@ -105,7 +105,7 @@ public class JsonReader {
     return workers;
   }
 
-  public List<Person> initPersons() throws IOException, ParseException, LogicalException {
+  public List<Person> initPersons() throws IOException, ParseException, Lab1Exception {
     List<Person> persons = new ArrayList<Person>();
     JSONObject object = (JSONObject) parser.parse(new FileReader(PERSON_INPUT));
     JSONArray array = (JSONArray) object.get("persons");

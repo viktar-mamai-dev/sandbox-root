@@ -1,6 +1,6 @@
 package com.mamay.task6;
 
-import com.mamay.task6.exception.LogicException;
+import com.mamay.Lab1Exception;
 import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +14,11 @@ import lombok.Setter;
 public class Tunnel {
   private String name;
 
-  public void riding() throws LogicException {
+  public void riding() throws Lab1Exception {
     try {
       Thread.sleep(new Random().nextInt(2000));
     } catch (InterruptedException e) {
-      throw new LogicException(e);
+      throw new Lab1Exception(e);
     }
   }
 }

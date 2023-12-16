@@ -3,7 +3,6 @@
  */
 package com.mamay;
 
-import com.mamay.task1.exception.AquaException;
 import com.mamay.task1.model.Aquarium;
 import com.mamay.task1.model.Item;
 import com.mamay.task1.util.MessageLogger;
@@ -55,7 +54,7 @@ public class Task1Runner {
 
       aqua2.newComponent(Item.WATER);
 
-    } catch (AquaException e) {
+    } catch (Lab1Exception e) {
       log.error(e.getMessage());
     }
 

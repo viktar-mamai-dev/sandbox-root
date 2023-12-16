@@ -1,6 +1,6 @@
 package com.mamay.task6;
 
-import com.mamay.task6.exception.LogicException;
+import com.mamay.Lab1Exception;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -20,20 +20,20 @@ public class TrafficSystem {
     tunnels.add(t);
   }
 
-  public Tunnel getTunnel(long millis) throws LogicException {
+  public Tunnel getTunnel(long millis) throws Lab1Exception {
     try {
       if (semaphore.tryAcquire(new Random().nextInt(1000), TimeUnit.MILLISECONDS)) {
         Tunnel t = tunnels.poll();
         if (t != null) {
           return t;
         } else {
-          throw new LogicException("List of tunnels is empty");
+          throw new Lab1Exception("List of tunnels is empty");
         }
       }
     } catch (InterruptedException e) {
-      throw new LogicException(e);
+      throw new Lab1Exception(e);
     }
-    throw new LogicException("Time is over");
+    throw new Lab1Exception("Time is over");
   }
 
   public void release(Tunnel t) {

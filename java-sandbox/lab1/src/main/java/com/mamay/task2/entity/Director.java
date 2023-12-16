@@ -3,7 +3,7 @@
  */
 package com.mamay.task2.entity;
 
-import com.mamay.task2.exception.LogicalException;
+import com.mamay.Lab1Exception;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,17 +20,16 @@ public class Director extends BaseEmployee {
 
   private Set<String> films;
 
-  public Director(String name, Address address, int income) throws LogicalException {
+  public Director(String name, Address address, int income) throws Lab1Exception {
     super(name, address);
     setIncome(income);
     this.films = new HashSet<String>();
   }
 
-  public void setIncome(int income) throws LogicalException {
+  @Override
+  public void setIncome(int income) {
     if (income >= MINIMUM_INCOME && income <= MAXIMUM_INCOME) {
       super.setIncome(income);
-    } else {
-      throw new LogicalException("Incorrect income for director " + super.getName());
     }
   }
 
