@@ -14,7 +14,10 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "tag")
-@NamedQueries({@NamedQuery(name = "Tag.loadByIdList", query = "SELECT t FROM TagEntity t WHERE t.id in :tagIdList")})
+@NamedQueries({
+        @NamedQuery(name = "Tag.loadByIdList",
+                query = "SELECT t FROM TagEntity t WHERE t.id in :tagIdList")
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,9 +31,11 @@ public class TagEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "tag_seq_generator")
     @SequenceGenerator(name = "tag_seq_generator", sequenceName = "TAG_SEQ")
     private Long id;
+
     @Column(name = "tag_name", length = 30, nullable = false)
     @EqualsAndHashCode.Include
     private String name;
+
     @Version
     @Column(name = "version")
     private int version;

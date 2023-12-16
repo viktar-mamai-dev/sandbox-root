@@ -1,7 +1,5 @@
 package com.mamay.filter;
 
-import com.mamay.dto.NewsSearchCriteria;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -28,7 +26,7 @@ public class SessionFilter implements Filter {
 
         HttpSession session = request.getSession(true);
         if (session.getAttribute("filteredItem") == null) {
-            session.setAttribute("filteredItem", new NewsSearchCriteria(null, null));
+            session.setAttribute("filteredItem", "testFilterData");
             response.sendRedirect(request.getContextPath() + indexPath);
             return;
         }

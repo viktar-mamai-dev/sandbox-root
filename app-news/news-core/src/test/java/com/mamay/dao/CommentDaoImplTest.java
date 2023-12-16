@@ -4,7 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mamay.TestHolder;
 import com.mamay.entity.CommentEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,25 +28,25 @@ public class CommentDaoImplTest {
     private CommentDao commentDao;
 
     @Test
-    public void loadAll() throws DaoException {
+    public void loadAll() throws NewsException {
         List<CommentEntity> commentList = commentDao.loadAll();
         assertEquals(20, commentList.size());
     }
 
     @Test
-    public void loadByNewsId() throws DaoException {
+    public void loadByNewsId() throws NewsException {
         List<CommentEntity> commentList = commentDao.loadByNewsId(Long.valueOf(11));
         assertEquals(3, commentList.size());
     }
 
     @Test
-    public void loadById() throws DaoException {
+    public void loadById() throws NewsException {
         CommentEntity actualEntity = commentDao.loadById(Long.valueOf(5));
         assertNotNull(actualEntity);
     }
 
     @Test
-    public void create() throws DaoException {
+    public void create() throws NewsException {
         CommentEntity entity = TestHolder.generateComment();
         Long id = commentDao.create(entity);
         assertNotNull(id);
@@ -58,7 +58,7 @@ public class CommentDaoImplTest {
     }
 
     @Test
-    public void update() throws DaoException {
+    public void update() throws NewsException {
         CommentEntity entity = TestHolder.generateComment();
         entity.setId(11L);
         commentDao.update(entity);
@@ -67,7 +67,7 @@ public class CommentDaoImplTest {
     }
 
     @Test
-    public void delete() throws DaoException {
+    public void delete() throws NewsException {
         commentDao.delete(Long.valueOf(11));
         commentDao.delete(Long.valueOf(14));
         List<CommentEntity> commentList = commentDao.loadAll();

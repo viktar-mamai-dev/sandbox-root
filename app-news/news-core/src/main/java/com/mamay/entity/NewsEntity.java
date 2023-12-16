@@ -29,20 +29,19 @@ public class NewsEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "news_seq_generator")
     @SequenceGenerator(name = "news_seq_generator", sequenceName = "NEWS__SEQ")
     private Long id;
-    @Column(name = "short_text")
-    @EqualsAndHashCode.Include
-    private String shortText;
-    @Column(name = "full_text")
-    private String fullText;
+
     @Column(name = "title")
     @EqualsAndHashCode.Include
     private String title;
+
     @Column(name = "creation_date", updatable = false)
     @Temporal(value = TemporalType.DATE)
     private LocalDateTime creationDate;
+
     @Column(name = "modification_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private LocalDateTime modificationDate;
+
     @Version
     @Column(name = "version")
     private int version;
@@ -51,10 +50,12 @@ public class NewsEntity implements Serializable {
     @JoinTable(name = "news_tag", joinColumns = {@JoinColumn(name = "news_id")},
             inverseJoinColumns = {@JoinColumn(name = "tag_id")})
     private List<TagEntity> tags;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "news_author", joinColumns = {@JoinColumn(name = "news_id")},
             inverseJoinColumns = {@JoinColumn(name = "author_id")})
     private AuthorEntity author;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "news")
     @OrderBy(value = "creationDate desc")
     private List<CommentEntity> comments;

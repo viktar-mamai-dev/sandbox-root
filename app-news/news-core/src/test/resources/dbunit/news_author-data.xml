@@ -10,15 +10,4 @@
 	<news_author news_id="8" author_id="4" />
 	<news_author news_id="9" author_id="10" />
 	<news_author news_id="10" author_id="7" />
-
-	<news_author news_id="11" author_id="10" />
-	<news_author news_id="12" author_id="11" />
-	<news_author news_id="13" author_id="11" />
-	<news_author news_id="14" author_id="11" />
-	<news_author news_id="15" author_id="13" />
-	<news_author news_id="16" author_id="16" />
-	<news_author news_id="17" author_id="13" />
-	<news_author news_id="18" author_id="18" />
-	<news_author news_id="19" author_id="7" />
-	<news_author news_id="20" author_id="18" />
 </dataset>

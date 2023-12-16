@@ -56,8 +56,6 @@ public class TestHolder {
         NewsEntity entity = new NewsEntity();
         entity.setId((long) generateRandomNumber(1, 100));
         entity.setTitle(generateRandomString(5, 15));
-        entity.setShortText(generateRandomString(15, 20));
-        entity.setFullText(generateRandomString(30, 40));
         return entity;
     }
 

@@ -3,7 +3,7 @@ package com.mamay.dao.impl;
 import com.mamay.constant.SchemaSQL;
 import com.mamay.dao.CommentDao;
 import com.mamay.entity.CommentEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import com.mamay.util.DatabaseUtil;
 import com.mamay.util.ResultSetCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class CommentDaoImpl implements CommentDao {
     private DataSource dataSource;
 
     @Override
-    public List<CommentEntity> loadAll() throws DaoException {
+    public List<CommentEntity> loadAll() throws NewsException {
         Connection connection = null;
         Statement statement = null;
         ResultSet rs = null;
@@ -52,14 +52,14 @@ public class CommentDaoImpl implements CommentDao {
             }
             return commentList;
         } catch (SQLException e) {
-            throw new DaoException("Unable to load all comments", e);
+            throw new NewsException("Unable to load all comments", e);
         } finally {
             DatabaseUtil.close(dataSource, connection, statement, rs);
         }
     }
 
     @Override
-    public List<CommentEntity> loadByNewsId(Long newsId) throws DaoException {
+    public List<CommentEntity> loadByNewsId(Long newsId) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -75,14 +75,14 @@ public class CommentDaoImpl implements CommentDao {
             }
             return commentList;
         } catch (SQLException e) {
-            throw new DaoException("Unable to load comment by id: " + newsId, e);
+            throw new NewsException("Unable to load comment by id: " + newsId, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps, rs);
         }
     }
 
     @Override
-    public CommentEntity loadById(Long id) throws DaoException {
+    public CommentEntity loadById(Long id) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -97,14 +97,14 @@ public class CommentDaoImpl implements CommentDao {
             }
             return commentEntity;
         } catch (SQLException e) {
-            throw new DaoException("Unable to load comment by id" + id, e);
+            throw new NewsException("Unable to load comment by id" + id, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps, rs);
         }
     }
 
     @Override
-    public Long create(CommentEntity entity) throws DaoException {
+    public Long create(CommentEntity entity) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -119,14 +119,14 @@ public class CommentDaoImpl implements CommentDao {
             Long lastIndex = rs.getLong(1);
             return lastIndex;
         } catch (SQLException e) {
-            throw new DaoException("Unable to create comment: " + entity, e);
+            throw new NewsException("Unable to create comment: " + entity, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps, rs);
         }
     }
 
     @Override
-    public void update(CommentEntity entity) throws DaoException {
+    public void update(CommentEntity entity) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -137,14 +137,14 @@ public class CommentDaoImpl implements CommentDao {
             ps.setLong(3, entity.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Unable to update comment: " + entity, e);
+            throw new NewsException("Unable to update comment: " + entity, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps);
         }
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(Long id) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -153,7 +153,7 @@ public class CommentDaoImpl implements CommentDao {
             ps.setLong(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Unable to delete comment by id: " + id, e);
+            throw new NewsException("Unable to delete comment by id: " + id, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps);
         }

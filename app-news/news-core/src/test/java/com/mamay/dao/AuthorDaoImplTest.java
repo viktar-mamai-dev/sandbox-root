@@ -4,7 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mamay.TestHolder;
 import com.mamay.entity.AuthorEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,31 +30,31 @@ public class AuthorDaoImplTest {
     private AuthorDao authorDao;
 
     @Test
-    public void loadAll() throws DaoException {
+    public void loadAll() throws NewsException {
         List<AuthorEntity> authorList = authorDao.loadAll();
         assertEquals(20, authorList.size());
     }
 
     @Test
-    public void loadActiveAuthors() throws DaoException {
+    public void loadActiveAuthors() throws NewsException {
         List<AuthorEntity> authorList = authorDao.loadActiveAuthors();
         assertEquals(20, authorList.size());
     }
 
     @Test
-    public void loadByNewsId() throws DaoException {
+    public void loadByNewsId() throws NewsException {
         AuthorEntity actualEntity = authorDao.loadByNewsId(100L);
         assertNull(actualEntity);
     }
 
     @Test
-    public void loadById() throws DaoException {
+    public void loadById() throws NewsException {
         AuthorEntity entity = authorDao.loadById(100L);
         assertNull(entity);
     }
 
     @Test
-    public void create() throws DaoException {
+    public void create() throws NewsException {
         AuthorEntity entity = TestHolder.generateAuthor();
         authorDao.create(entity);
         entity = TestHolder.generateAuthor();
@@ -64,7 +64,7 @@ public class AuthorDaoImplTest {
     }
 
     @Test
-    public void update() throws DaoException {
+    public void update() throws NewsException {
         AuthorEntity entity = TestHolder.generateAuthor();
         authorDao.update(entity);
         AuthorEntity actualEntity = authorDao.loadById(6L);
@@ -72,7 +72,7 @@ public class AuthorDaoImplTest {
     }
 
     @Test
-    public void delete() throws DaoException {
+    public void delete() throws NewsException {
         Long id = 6L;
         authorDao.delete(id);
 
@@ -81,7 +81,7 @@ public class AuthorDaoImplTest {
     }
 
     @Test
-    public void makeExpired() throws DaoException {
+    public void makeExpired() throws NewsException {
         Long id = 6L;
         authorDao.makeExpired(id);
 

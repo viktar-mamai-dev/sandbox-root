@@ -2,7 +2,7 @@ package com.mamay.dao.jpaimpl;
 
 import com.mamay.dao.CommentDao;
 import com.mamay.entity.CommentEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,29 +16,29 @@ public class CommentDaoImpl implements CommentDao {
     private EntityManager entityManager;
 
     @Override
-    public List<CommentEntity> loadAll() throws DaoException {
+    public List<CommentEntity> loadAll() throws NewsException {
         return entityManager.createQuery("from CommentEntity c", CommentEntity.class).getResultList();
     }
 
     @Override
-    public CommentEntity loadById(Long id) throws DaoException {
+    public CommentEntity loadById(Long id) throws NewsException {
         return entityManager.find(CommentEntity.class, id);
     }
 
     @Override
-    public Long create(CommentEntity entity) throws DaoException {
+    public Long create(CommentEntity entity) throws NewsException {
         entityManager.persist(entity);
         entityManager.flush();
         return entity.getId();
     }
 
     @Override
-    public void update(CommentEntity entity) throws DaoException {
+    public void update(CommentEntity entity) throws NewsException {
         entityManager.merge(entity);
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(Long id) throws NewsException {
         CommentEntity entity = loadById(id);
         if (entity != null) {
             entityManager.remove(entity);
@@ -46,7 +46,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public List<CommentEntity> loadByNewsId(Long newsId) throws DaoException {
+    public List<CommentEntity> loadByNewsId(Long newsId) throws NewsException {
         return null;
     }
 }

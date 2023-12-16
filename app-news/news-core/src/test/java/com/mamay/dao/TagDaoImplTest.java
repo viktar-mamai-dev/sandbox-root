@@ -4,7 +4,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mamay.TestHolder;
 import com.mamay.entity.TagEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,26 +30,26 @@ public class TagDaoImplTest {
     private TagDao tagDao;
 
     @Test
-    public void loadAll() throws DaoException {
+    public void loadAll() throws NewsException {
         List<TagEntity> tagList = tagDao.loadAll();
         assertEquals(20, tagList.size());
     }
 
     @Test
-    public void loadByNewsId() throws DaoException {
+    public void loadByNewsId() throws NewsException {
         List<TagEntity> tagList = tagDao.loadByNewsId(Long.valueOf(3));
         assertEquals(3, tagList.size());
     }
 
     @Test
-    public void loadById() throws DaoException {
+    public void loadById() throws NewsException {
         TagEntity actualEntity = tagDao.loadById(Long.valueOf(7));
         assertNotNull(actualEntity);
         assertEquals(Long.valueOf(7), actualEntity.getId());
     }
 
     @Test
-    public void create() throws DaoException {
+    public void create() throws NewsException {
         TagEntity entity = TestHolder.generateTag();
         tagDao.create(entity);
         List<TagEntity> actualList = tagDao.loadAll();
@@ -57,7 +57,7 @@ public class TagDaoImplTest {
     }
 
     @Test
-    public void update() throws DaoException {
+    public void update() throws NewsException {
         TagEntity entity = TestHolder.generateTag();
         entity.setId(7L);
         tagDao.update(entity);
@@ -66,7 +66,7 @@ public class TagDaoImplTest {
     }
 
     @Test
-    public void delete() throws DaoException {
+    public void delete() throws NewsException {
         tagDao.delete(Long.valueOf(100));
         List<TagEntity> actualList = tagDao.loadAll();
         assertEquals(20, actualList.size());

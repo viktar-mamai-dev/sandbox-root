@@ -1,6 +1,6 @@
 package com.mamay.dao;
 
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 
 import java.util.List;
 
@@ -15,33 +15,33 @@ public interface CommonDao<K, T> {
 
     /**
      * @return full list of entities at appropriate table in db
-     * @throws DaoException when there is connection error
+     * @throws NewsException when there is connection error
      */
-    List<T> loadAll() throws DaoException;
+    List<T> loadAll() throws NewsException;
 
     /**
      * @param id - unique entity identifier
      * @return - entity from table if id exists
-     * @throws DaoException when entity is not exist
+     * @throws NewsException when entity is not exist
      */
-    T loadById(K id) throws DaoException;
+    T loadById(K id) throws NewsException;
 
     /**
      * @param entity - to be created
      * @return entity id
-     * @throws DaoException when entity was not found
+     * @throws NewsException when entity was not found
      */
-    K create(T entity) throws DaoException;
+    K create(T entity) throws NewsException;
 
     /**
      * @param entity - to be updated
-     * @throws DaoException when entity was not found
+     * @throws NewsException when entity was not found
      */
-    void update(T entity) throws DaoException;
+    void update(T entity) throws NewsException;
 
     /**
      * @param id - unique entity identifier
-     * @throws DaoException when no id found
+     * @throws NewsException when no id found
      */
-    void delete(K id) throws DaoException;
+    void delete(K id) throws NewsException;
 }

@@ -2,7 +2,7 @@ package com.mamay.dao.jpaimpl;
 
 import com.mamay.dao.AuthorDao;
 import com.mamay.entity.AuthorEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -18,30 +18,30 @@ public class AuthorDaoImpl implements AuthorDao {
     private EntityManager entityManager;
 
     @Override
-    public List<AuthorEntity> loadAll() throws DaoException {
+    public List<AuthorEntity> loadAll() throws NewsException {
         TypedQuery<AuthorEntity> query = entityManager.createQuery("from AuthorEntity a order by a.name DESC", AuthorEntity.class);
         return query.getResultList();
     }
 
     @Override
-    public AuthorEntity loadById(Long id) throws DaoException {
+    public AuthorEntity loadById(Long id) throws NewsException {
         return entityManager.find(AuthorEntity.class, id);
     }
 
     @Override
-    public Long create(AuthorEntity entity) throws DaoException {
+    public Long create(AuthorEntity entity) throws NewsException {
         entityManager.persist(entity);
         entityManager.flush();
         return entity.getId();
     }
 
     @Override
-    public void update(AuthorEntity entity) throws DaoException {
+    public void update(AuthorEntity entity) throws NewsException {
         entityManager.merge(entity);
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(Long id) throws NewsException {
         AuthorEntity entity = loadById(id);
         if (entity != null) {
             entityManager.remove(entity);
@@ -49,19 +49,19 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public AuthorEntity loadByNewsId(Long newsId) throws DaoException {
+    public AuthorEntity loadByNewsId(Long newsId) throws NewsException {
         return null;
     }
 
     @Override
-    public void makeExpired(Long authorId) throws DaoException {
+    public void makeExpired(Long authorId) throws NewsException {
         AuthorEntity author = entityManager.find(AuthorEntity.class, authorId);
         author.setExpiredDate(LocalDateTime.now());
         entityManager.merge(author);
     }
 
     @Override
-    public List<AuthorEntity> loadActiveAuthors() throws DaoException {
+    public List<AuthorEntity> loadActiveAuthors() throws NewsException {
         TypedQuery<AuthorEntity> query = entityManager.createNamedQuery("Author.loadActiveAuthors", AuthorEntity.class);
         return query.getResultList();
     }

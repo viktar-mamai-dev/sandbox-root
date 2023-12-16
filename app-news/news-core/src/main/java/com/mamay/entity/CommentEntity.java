@@ -29,12 +29,15 @@ public class CommentEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "comment_seq_generator")
     @SequenceGenerator(name = "comment_seq_generator", sequenceName = "COMMENT_SEQ")
     private Long id;
+
     @Column(name = "comment_text", length = 100, nullable = false)
     @EqualsAndHashCode.Include
     private String text;
+
     @Column(name = "creation_date", nullable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
+
     @ManyToOne
     @JoinColumn(name = "news_id")
     private NewsEntity news;

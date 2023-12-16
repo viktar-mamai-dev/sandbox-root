@@ -2,7 +2,7 @@ package com.mamay.dao.hibernateimpl;
 
 import com.mamay.dao.CommentDao;
 import com.mamay.entity.CommentEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public List<CommentEntity> loadByNewsId(Long newsId) throws DaoException {
+    public List<CommentEntity> loadByNewsId(Long newsId) throws NewsException {
         return null;
     }
 }

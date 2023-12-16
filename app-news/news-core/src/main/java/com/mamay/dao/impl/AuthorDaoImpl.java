@@ -3,7 +3,7 @@ package com.mamay.dao.impl;
 import com.mamay.constant.SchemaSQL;
 import com.mamay.dao.AuthorDao;
 import com.mamay.entity.AuthorEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import com.mamay.util.DatabaseUtil;
 import com.mamay.util.ResultSetCreator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +34,7 @@ public class AuthorDaoImpl implements AuthorDao {
     private DataSource dataSource;
 
     @Override
-    public List<AuthorEntity> loadAll() throws DaoException {
+    public List<AuthorEntity> loadAll() throws NewsException {
         try (Connection connection = DataSourceUtils.getConnection(dataSource);
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(SQL_LOAD_ALL)) {
@@ -49,12 +45,12 @@ public class AuthorDaoImpl implements AuthorDao {
             }
             return authorList;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new NewsException(e);
         }
     }
 
     @Override
-    public List<AuthorEntity> loadActiveAuthors() throws DaoException {
+    public List<AuthorEntity> loadActiveAuthors() throws NewsException {
         try (Connection connection = DataSourceUtils.getConnection(dataSource);
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(SQL_LOAD_ACTIVE)) {
@@ -65,12 +61,12 @@ public class AuthorDaoImpl implements AuthorDao {
             }
             return authorList;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new NewsException(e);
         }
     }
 
     @Override
-    public AuthorEntity loadByNewsId(Long newsId) throws DaoException {
+    public AuthorEntity loadByNewsId(Long newsId) throws NewsException {
         try (Connection connection = DataSourceUtils.getConnection(dataSource);
              PreparedStatement statement = connection.prepareStatement(SQL_LOAD_BY_NEWS_ID)) {
             statement.setLong(1, newsId);
@@ -81,13 +77,13 @@ public class AuthorDaoImpl implements AuthorDao {
             }
             return entity;
         } catch (SQLException e) {
-            throw new DaoException("Unable to load author by news id: "
+            throw new NewsException("Unable to load author by news id: "
                     + newsId, e);
         }
     }
 
     @Override
-    public AuthorEntity loadById(Long id) throws DaoException {
+    public AuthorEntity loadById(Long id) throws NewsException {
         try (Connection connection = DataSourceUtils.getConnection(dataSource);
              PreparedStatement statement = connection.prepareStatement(SQL_LOAD_BY_ID)) {
             statement.setLong(1, id);
@@ -98,24 +94,24 @@ public class AuthorDaoImpl implements AuthorDao {
             }
             return authorEntity;
         } catch (SQLException e) {
-            throw new DaoException("Unable to load author by id: " + id, e);
+            throw new NewsException("Unable to load author by id: " + id, e);
         }
     }
 
     @Override
-    public void delete(Long id) throws DaoException {
+    public void delete(Long id) throws NewsException {
         try (Connection connection = DataSourceUtils.getConnection(dataSource);
              PreparedStatement statement = connection.prepareStatement(SQL_DELETE)) {
             statement.setLong(1, id);
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Unable to delete author by id: " + id, e);
+            throw new NewsException("Unable to delete author by id: " + id, e);
         }
     }
 
     @Override
-    public Long create(AuthorEntity entity) throws DaoException {
+    public Long create(AuthorEntity entity) throws NewsException {
         try (Connection connection = DataSourceUtils.getConnection(dataSource);
              PreparedStatement statement = connection.prepareStatement(SQL_INSERT,
                      new String[]{SchemaSQL.AUTHOR_ID})) {
@@ -125,12 +121,12 @@ public class AuthorDaoImpl implements AuthorDao {
             rs.next();
             return rs.getLong(1);
         } catch (SQLException e) {
-            throw new DaoException("Unable to create author: " + entity, e);
+            throw new NewsException("Unable to create author: " + entity, e);
         }
     }
 
     @Override
-    public void update(AuthorEntity entity) throws DaoException {
+    public void update(AuthorEntity entity) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -140,14 +136,14 @@ public class AuthorDaoImpl implements AuthorDao {
             ps.setLong(2, entity.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Unable to update author: " + entity, e);
+            throw new NewsException("Unable to update author: " + entity, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps);
         }
     }
 
     @Override
-    public void makeExpired(Long authorId) throws DaoException {
+    public void makeExpired(Long authorId) throws NewsException {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -156,7 +152,7 @@ public class AuthorDaoImpl implements AuthorDao {
             ps.setLong(1, authorId);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("Unable to make expired author with id: " + authorId, e);
+            throw new NewsException("Unable to make expired author with id: " + authorId, e);
         } finally {
             DatabaseUtil.close(dataSource, connection, ps);
         }

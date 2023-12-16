@@ -2,7 +2,7 @@ package com.mamay.dao.hibernateimpl;
 
 import com.mamay.dao.TagDao;
 import com.mamay.entity.TagEntity;
-import com.mamay.exception.DaoException;
+import com.mamay.exception.NewsException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public List<TagEntity> loadByNewsId(Long newsId) throws DaoException {
+    public List<TagEntity> loadByNewsId(Long newsId) throws NewsException {
         return null;
     }
 }

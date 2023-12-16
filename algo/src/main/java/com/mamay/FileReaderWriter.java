@@ -1,6 +1,6 @@
 package com.mamay;
 
-import com.mamay.leetcode.practice.easy2.AddBinary_67;
+import com.mamay.leetcode.AlgoRunner;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,10 +27,10 @@ public class FileReaderWriter {
     public static void main(String[] args) throws IOException {
         ClassLoader classLoader = FileReaderWriter.class.getClassLoader();
         URL inputResource = classLoader.getResource(INPUT_FILE);
-        URL outputResopurce = classLoader.getResource(OUTPUT_FILE);
+        URL outputResource = classLoader.getResource(OUTPUT_FILE);
 
         try (Scanner scanner = new Scanner(new File(inputResource.getPath()));
-             PrintWriter writer = new PrintWriter(new FileWriter(outputResopurce.getPath()))) {
+             PrintWriter writer = new PrintWriter(new FileWriter(outputResource.getPath()))) {
 
             /* Step 1. Implement your file read here*/
             int[] integerArray = readIntegerArray(scanner);
@@ -53,8 +53,7 @@ public class FileReaderWriter {
 */
             /* Step 2. Implement yor algorithm logix here */
 
-            AddBinary_67 addBinary_67 = new AddBinary_67();
-            addBinary_67.addBinary("12", "45");
+            AlgoRunner algoRunner = new AlgoRunner();
 
             /* Step 3. Implement your file write here */
 

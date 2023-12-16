@@ -1,13 +1,15 @@
 package com.mamay.service;
 
+import com.mamay.dao.AuthorDao;
+import com.mamay.dao.CommentDao;
+import com.mamay.dao.NewsDao;
+import com.mamay.dao.TagDao;
 import com.mamay.dto.NewsDto;
-import com.mamay.dto.NewsPageItem;
-import com.mamay.dto.NewsSearchCriteria;
 import com.mamay.entity.AuthorEntity;
 import com.mamay.entity.CommentEntity;
 import com.mamay.entity.NewsEntity;
 import com.mamay.entity.TagEntity;
-import com.mamay.exception.ServiceException;
+import com.mamay.exception.NewsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,56 +23,50 @@ public class NewsManagementService {
     @Autowired
     private NewsService newsService;
     @Autowired
-    private TagService tagService;
+    private NewsDao newsDao;
     @Autowired
-    private AuthorService authorService;
+    private TagDao tagDao;
     @Autowired
-    private CommentService commentService;
+    private AuthorDao authorDao;
+    @Autowired
+    private CommentDao commentDao;
 
     @Transactional
-    public List<NewsDto> loadAll() throws ServiceException {
-        List<NewsEntity> newsList = newsService.loadAll();
+    public List<NewsDto> loadAll() {
+        List<NewsEntity> newsList = newsDao.loadAll();
         return toDtoList(newsList);
     }
 
     @Transactional
-    public NewsDto loadById(Long newsId) throws ServiceException {
-        NewsEntity newsEntity = newsService.loadById(newsId);
+    public NewsDto loadById(Long newsId) {
+        NewsEntity newsEntity = newsDao.loadById(newsId);
         if (newsEntity == null) {
-            throw new ServiceException("News with such id does not exist");
+            throw new NewsException("News with such id does not exist");
         }
         return toDto(newsEntity);
     }
 
     @Transactional
-    public NewsPageItem<NewsDto> loadByFilter(NewsSearchCriteria filteredItem, Integer pageNumber,
-                                              int newsPerPage) throws ServiceException {
-        NewsPageItem<NewsEntity> item = newsService.loadByFilter(filteredItem, pageNumber, newsPerPage);
-        return new NewsPageItem<NewsDto>(toDtoList(item.getNewsList()),
-                item.getPageNumber(), item.getPageCount());
-    }
-
-    @Transactional
-    public Long create(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) throws ServiceException {
-        Long newsId = newsService.create(newsEntity);
-        newsService.attachAuthor(newsId, authorId);
+    public Long create(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) {
+        Long newsId = newsDao.create(newsEntity);
+        newsDao.attachAuthor(newsId, authorId);
         newsService.attachTags(newsId, tagIdList);
         return newsId;
     }
 
     @Transactional
-    public Long update(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) throws ServiceException {
-        newsService.update(newsEntity);
+    public Long update(NewsEntity newsEntity, List<Long> tagIdList, Long authorId) {
+        newsDao.update(newsEntity);
         Long newsId = newsEntity.getId();
-        newsService.updateAuthor(newsId, authorId);
-        newsService.detachTags(newsId);
+        newsDao.updateAuthor(newsId, authorId);
+        newsDao.detachTags(newsId);
         if (tagIdList != null) {
             newsService.attachTags(newsId, tagIdList);
         }
         return newsId;
     }
 
-    private List<NewsDto> toDtoList(List<NewsEntity> newsList) throws ServiceException {
+    private List<NewsDto> toDtoList(List<NewsEntity> newsList) {
         List<NewsDto> list = new ArrayList<>();
         for (NewsEntity entity : newsList) {
             list.add(toDto(entity));
@@ -78,11 +74,11 @@ public class NewsManagementService {
         return list;
     }
 
-    private NewsDto toDto(NewsEntity entity) throws ServiceException {
+    private NewsDto toDto(NewsEntity entity) {
         Long newsId = entity.getId();
-        List<TagEntity> tagList = tagService.loadByNewsId(newsId);
-        AuthorEntity author = authorService.loadByNewsId(newsId);
-        List<CommentEntity> commentList = commentService.loadByNewsId(newsId);
+        List<TagEntity> tagList = tagDao.loadByNewsId(newsId);
+        AuthorEntity author = authorDao.loadByNewsId(newsId);
+        List<CommentEntity> commentList = commentDao.loadByNewsId(newsId);
         return new NewsDto(entity, tagList, author, commentList);
     }
 }

@@ -2,8 +2,7 @@ package com.mamay.dao.hibernateimpl;
 
 import com.mamay.dao.AuthorDao;
 import com.mamay.entity.AuthorEntity;
-import com.mamay.exception.DaoException;
-import org.hibernate.Query;
+import com.mamay.exception.NewsException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +63,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public AuthorEntity loadByNewsId(Long newsId) throws DaoException {
+    public AuthorEntity loadByNewsId(Long newsId) throws NewsException {
         return null;
     }
 
