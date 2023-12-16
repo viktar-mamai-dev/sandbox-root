@@ -10,11 +10,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>patterns</module>
         <module>java-sandbox</module>
-        <module>oracle-certification</module>
         <module>java-mentoring</module>
-        <module>algo</module>
         <module>coursera</module>
         <module>shopping-system</module>
         <module>app-news</module>

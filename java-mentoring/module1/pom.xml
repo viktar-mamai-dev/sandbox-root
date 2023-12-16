@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>module4</artifactId>
+    <artifactId>module1</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
