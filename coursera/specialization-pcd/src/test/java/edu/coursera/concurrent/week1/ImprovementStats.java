@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ImprovementStats {
-    private final double addImprovement, containsImprovement, removeImprovement;
+  private final double addImprovement, containsImprovement, removeImprovement;
 }

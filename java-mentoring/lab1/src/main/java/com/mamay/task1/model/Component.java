@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task1.model;
 
 import lombok.AllArgsConstructor;
@@ -6,10 +9,6 @@ import lombok.Setter;
 
 @AllArgsConstructor
 public class Component {
-	@Getter
-	@Setter
-	private int cost;
-	@Getter
-	private Item name;
-
+  @Getter @Setter private int cost;
+  @Getter private Item name;
 }

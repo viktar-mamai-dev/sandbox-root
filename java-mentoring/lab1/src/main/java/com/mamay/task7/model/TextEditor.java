@@ -11,10 +11,10 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class TextEditor extends AppliedSoft {
 
-	protected boolean openCode;
+  protected boolean openCode;
 
-	public TextEditor(String name, double price, double size, int releaseYear, boolean openCode) {
-		super(name, price, size, releaseYear);
-		this.openCode = openCode;
-	}
+  public TextEditor(String name, double price, double size, int releaseYear, boolean openCode) {
+    super(name, price, size, releaseYear);
+    this.openCode = openCode;
+  }
 }

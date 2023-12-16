@@ -10,8 +10,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ProductReview {
-    private int rating;
-    private String review;
+  private int rating;
+  private String review;
 
-    private Member reviewer;
+  private Member reviewer;
 }

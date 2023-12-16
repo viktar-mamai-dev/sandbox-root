@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ElectronicBankTransfer {
-    private String bankName;
-    private String routingNumber;
-    private String accountNumber;
+  private String bankName;
+  private String routingNumber;
+  private String accountNumber;
 }

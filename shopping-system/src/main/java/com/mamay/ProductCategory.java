@@ -10,6 +10,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class ProductCategory {
-    private String name;
-    private String description;
+  private String name;
+  private String description;
 }

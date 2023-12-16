@@ -6,14 +6,14 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class FreeCourse extends BaseCourse {
-    private boolean select;
+  private boolean select;
 
-    public FreeCourse(int id, String name, int mark, boolean select) {
-        super(id, name, mark);
-        this.select = select;
-    }
+  public FreeCourse(int id, String name, int mark, boolean select) {
+    super(id, name, mark);
+    this.select = select;
+  }
 
-    public FreeCourse(int id) {
-        super(id);
-    }
+  public FreeCourse(int id) {
+    super(id);
+  }
 }

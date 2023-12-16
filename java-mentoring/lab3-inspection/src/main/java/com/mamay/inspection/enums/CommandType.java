@@ -27,132 +27,132 @@ import com.mamay.inspection.command.user.RegisterCommand;
 
 public enum CommandType {
 
-	// user commands
-	LOGIN {
-		{
-			this.command = new LoginCommand();
-		}
-	},
-	LOGOUT {
-		{
-			this.command = new LogoutCommand();
-		}
-	},
-	REGISTER {
-		{
-			this.command = new RegisterCommand();
-		}
-	},
+  // user commands
+  LOGIN {
+    {
+      this.command = new LoginCommand();
+    }
+  },
+  LOGOUT {
+    {
+      this.command = new LogoutCommand();
+    }
+  },
+  REGISTER {
+    {
+      this.command = new RegisterCommand();
+    }
+  },
 
-	// magazine commands
-	SHOW_MAG_LIST {
-		{
-			this.command = new ShowMagListCommand();
-		}
-	},
-	SHOW_MAG_ITEM {
-		{
-			this.command = new ShowMagItemCommand();
-		}
-	},
-	ADD_MAGAZINE {
-		{
-			this.command = new AddMagazineCommand();
-		}
-	},
-	UPDATE_MAGAZINE {
-		{
-			this.command = new UpdateMagazineCommand();
-		}
-	},
-	DELETE_MAGAZINE {
-		{
-			this.command = new DeleteMagazineCommand();
-		}
-	},
-	SELECT_MAGAZINE {
-		{
-			this.command = new SelectMagazineCommand();
-		}
-	},
-	NEW_MAGAZINE {
-		{
-			this.command = new NewMagazineCommand();
-		}
-	},
+  // magazine commands
+  SHOW_MAG_LIST {
+    {
+      this.command = new ShowMagListCommand();
+    }
+  },
+  SHOW_MAG_ITEM {
+    {
+      this.command = new ShowMagItemCommand();
+    }
+  },
+  ADD_MAGAZINE {
+    {
+      this.command = new AddMagazineCommand();
+    }
+  },
+  UPDATE_MAGAZINE {
+    {
+      this.command = new UpdateMagazineCommand();
+    }
+  },
+  DELETE_MAGAZINE {
+    {
+      this.command = new DeleteMagazineCommand();
+    }
+  },
+  SELECT_MAGAZINE {
+    {
+      this.command = new SelectMagazineCommand();
+    }
+  },
+  NEW_MAGAZINE {
+    {
+      this.command = new NewMagazineCommand();
+    }
+  },
 
-	// subscription commands
-	ADD_SUBSCRIPTION {
-		{
-			this.command = new AddSubscriptionCommand();
-		}
-	},
-	UPDATE_SUBSCRIPTION {
-		{
-			this.command = new UpdateSubscriptionCommand();
-		}
-	},
-	DELETE_SUBSCRIPTION {
-		{
-			this.command = new DeleteSubscriptionCommand();
-		}
-	},
-	SELECT_SUBSCRIPTION {
-		{
-			this.command = new SelectSubscriptionCommand();
-		}
-	},
-	NEW_SUBSCRIPTION {
-		{
-			this.command = new NewSubscriptionCommand();
-		}
-	},
+  // subscription commands
+  ADD_SUBSCRIPTION {
+    {
+      this.command = new AddSubscriptionCommand();
+    }
+  },
+  UPDATE_SUBSCRIPTION {
+    {
+      this.command = new UpdateSubscriptionCommand();
+    }
+  },
+  DELETE_SUBSCRIPTION {
+    {
+      this.command = new DeleteSubscriptionCommand();
+    }
+  },
+  SELECT_SUBSCRIPTION {
+    {
+      this.command = new SelectSubscriptionCommand();
+    }
+  },
+  NEW_SUBSCRIPTION {
+    {
+      this.command = new NewSubscriptionCommand();
+    }
+  },
 
-	// reservation commands
-	SHOW_RES_LIST {
-		{
-			this.command = new ShowResListCommand();
-		}
-	},
-	SHOW_USER_ITEM {
-		{
-			this.command = new ShowUserItemCommand();
-		}
-	},
-	ADD_RESERVATION {
-		{
-			this.command = new AddReservationCommand();
-		}
-	},
-	DELETE_RESERVATION {
-		{
-			this.command = new DeleteReservationCommand();
-		}
-	},
-	UPDATE_RESERVATION {
-		{
-			this.command = new UpdateReservationCommand();
-		}
-	},
-	NEW_RESERVATION {
-		{
-			this.command = new NewReservationCommand();
-		}
-	},
+  // reservation commands
+  SHOW_RES_LIST {
+    {
+      this.command = new ShowResListCommand();
+    }
+  },
+  SHOW_USER_ITEM {
+    {
+      this.command = new ShowUserItemCommand();
+    }
+  },
+  ADD_RESERVATION {
+    {
+      this.command = new AddReservationCommand();
+    }
+  },
+  DELETE_RESERVATION {
+    {
+      this.command = new DeleteReservationCommand();
+    }
+  },
+  UPDATE_RESERVATION {
+    {
+      this.command = new UpdateReservationCommand();
+    }
+  },
+  NEW_RESERVATION {
+    {
+      this.command = new NewReservationCommand();
+    }
+  },
 
-	REDIRECTION {
-		{
-			this.command = new RedirectionCommand();
-		}
-	},
-	CHANGE_LOCALE {
-		{
-			this.command = new ChangeLocaleCommand();
-		}
-	};
-	ActionCommand command;
+  REDIRECTION {
+    {
+      this.command = new RedirectionCommand();
+    }
+  },
+  CHANGE_LOCALE {
+    {
+      this.command = new ChangeLocaleCommand();
+    }
+  };
+  ActionCommand command;
 
-	public ActionCommand getCurrentCommand() {
-		return command;
-	}
+  public ActionCommand getCurrentCommand() {
+    return command;
+  }
 }

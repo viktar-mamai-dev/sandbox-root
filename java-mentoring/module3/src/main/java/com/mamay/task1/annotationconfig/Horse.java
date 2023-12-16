@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task1.annotationconfig;
 
 import lombok.Getter;
@@ -13,10 +16,9 @@ import org.springframework.stereotype.Component;
 @ToString
 public class Horse extends IdEntity {
 
-    @Value(value = "Thunder")
-    private String name;
-    @Autowired
-    private Rider rider;
-    @Autowired
-    private Breed breed;
+  @Value(value = "Thunder")
+  private String name;
+
+  @Autowired private Rider rider;
+  @Autowired private Breed breed;
 }

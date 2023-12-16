@@ -12,7 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class BasicSoft {
-    protected String name;
-    protected double price;
-    protected double size;
+  protected String name;
+  protected double price;
+  protected double size;
 }

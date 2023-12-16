@@ -11,26 +11,26 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class Task3Runner {
-    private static final String INPUT_FILE = "task3/input.txt";
+  private static final String INPUT_FILE = "task3/input.txt";
 
-    private final static TestService action = new TestService();
-    private final static TextParser parser = new TextParser();
+  private static final TestService action = new TestService();
+  private static final TextParser parser = new TextParser();
 
-    private final static TextReader reader = new TextReader();
+  private static final TextReader reader = new TextReader();
 
-    public static void main(String[] args) {
-        CharSequence sequence;
-        try {
-            sequence = reader.readFromFile(INPUT_FILE);
-            TextComposite rootComponent = parser.parseToTextfile(sequence);
+  public static void main(String[] args) {
+    CharSequence sequence;
+    try {
+      sequence = reader.readFromFile(INPUT_FILE);
+      TextComposite rootComponent = parser.parseToTextfile(sequence);
 
-            TextComponent uniqueWords = action.findUniqueWords(rootComponent);
-            TextComponent sortedSentences = action.sortSentences(rootComponent);
+      TextComponent uniqueWords = action.findUniqueWords(rootComponent);
+      TextComponent sortedSentences = action.sortSentences(rootComponent);
 
-            PrintReport.printComponent(uniqueWords);
-            PrintReport.printComponent(sortedSentences);
-        } catch (LogicException e) {
-            log.error(e.getMessage());
-        }
+      PrintReport.printComponent(uniqueWords);
+      PrintReport.printComponent(sortedSentences);
+    } catch (LogicException e) {
+      log.error(e.getMessage());
     }
+  }
 }

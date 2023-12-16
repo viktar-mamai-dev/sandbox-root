@@ -10,8 +10,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class CreditCard {
-    private String nameOnCard;
-    private String cardNumber;
-    private int code;
-    private Address billingAddress;
+  private String nameOnCard;
+  private String cardNumber;
+  private int code;
+  private Address billingAddress;
 }

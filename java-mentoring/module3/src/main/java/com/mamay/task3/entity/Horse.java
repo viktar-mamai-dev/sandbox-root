@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task3.entity;
 
 import lombok.EqualsAndHashCode;
@@ -11,8 +14,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = true)
 public class Horse extends IdEntity {
 
-    @EqualsAndHashCode.Include
-    private String name;
-    private Rider rider;
-    private Breed breed;
+  @EqualsAndHashCode.Include private String name;
+  private Rider rider;
+  private Breed breed;
 }

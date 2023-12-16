@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.mamay.dao.hibernateimpl"/>
+
+    <context:property-placeholder location="classpath:jdbcTest.properties, classpath:hibernateTest.properties"/>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${oracle.driver}"/>
+        <property name="url" value="${oracle.url}"/>
+        <property name="username" value="${oracle.username}"/>
+        <property name="password" value="${oracle.password}"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- <property name="annotatedClasses"> <list> <value>AuthorEntity</value>
+            <value>TagEntity</value> <value>CommentEntity</value>
+            <value>NewsEntity</value> </list> </property> -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.batch_size}</prop>
+            </props>
+        </property>
+
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:hibernate_mappings.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager"/>
+
+    <bean id="dataTypeFactory" class="org.dbunit.ext.oracle.OracleDataTypeFactory"/>
+
+    <bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
+        <property name="datatypeFactory" ref="dataTypeFactory"/>
+    </bean>
+
+    <bean id="dbUnitDatabaseConnection"
+          class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
+        <property name="databaseConfig" ref="dbUnitDatabaseConfig"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+</beans>

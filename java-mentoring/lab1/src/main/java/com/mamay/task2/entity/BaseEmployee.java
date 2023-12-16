@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task2.entity;
 
 import lombok.Getter;
@@ -10,15 +13,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public abstract class BaseEmployee extends Person {
-	private int income;
+  private int income;
 
-	public BaseEmployee(String name, Address address) {
-		super(name, address);
-	}
+  public BaseEmployee(String name, Address address) {
+    super(name, address);
+  }
 
-	public BaseEmployee(String name, Address address, int income) {
-		super(name, address);
-		this.income = income;
-	}
-
+  public BaseEmployee(String name, Address address, int income) {
+    super(name, address);
+    this.income = income;
+  }
 }

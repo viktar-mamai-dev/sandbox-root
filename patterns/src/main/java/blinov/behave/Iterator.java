@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package blinov.behave;
 
 import static java.lang.System.out;
@@ -6,95 +9,95 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 interface CustomIterator<T> {
-	void first();
+  void first();
 
-	void next();
+  void next();
 
-	boolean isDone();
+  boolean isDone();
 
-	T currentItem();
+  T currentItem();
 }
 
 class ExamsIterator implements CustomIterator<String> {
-	private StudentSession session;
+  private StudentSession session;
 
-	private String current;
-	private java.util.Iterator<String> iterator;
-	private boolean done;
+  private String current;
+  private java.util.Iterator<String> iterator;
+  private boolean done;
 
-	public ExamsIterator(StudentSession session) {
-		this.session = session;
-	}
+  public ExamsIterator(StudentSession session) {
+    this.session = session;
+  }
 
-	public String currentItem() {
-		return new StringBuilder(current).reverse().toString();
-	}
+  public String currentItem() {
+    return new StringBuilder(current).reverse().toString();
+  }
 
-	public void first() {
-		iterator = session.getExams().keySet().iterator();
-		next();
-	}
+  public void first() {
+    iterator = session.getExams().keySet().iterator();
+    next();
+  }
 
-	public boolean isDone() {
-		return done;
-	}
+  public boolean isDone() {
+    return done;
+  }
 
-	public void next() {
-		if (iterator.hasNext()) {
-			current = iterator.next();
-		} else {
-			done = true;
-		}
-	}
+  public void next() {
+    if (iterator.hasNext()) {
+      current = iterator.next();
+    } else {
+      done = true;
+    }
+  }
 }
 
 interface Aggregate {
-	CustomIterator<String> createIterator();
+  CustomIterator<String> createIterator();
 }
 
 class StudentSession implements Aggregate, Iterable<String> {
-	private HashMap<String, Integer> exams = new HashMap<String, Integer>();
+  private HashMap<String, Integer> exams = new HashMap<String, Integer>();
 
-	public CustomIterator<String> createIterator() {
-		CustomIterator<String> iterator = new ExamsIterator(this);
-		iterator.first();
-		return iterator;
-	}
+  public CustomIterator<String> createIterator() {
+    CustomIterator<String> iterator = new ExamsIterator(this);
+    iterator.first();
+    return iterator;
+  }
 
-	public void addExam(String name, Integer mark) {
-		exams.put(name, mark);
-	}
+  public void addExam(String name, Integer mark) {
+    exams.put(name, mark);
+  }
 
-	public Integer getMark(String name) {
-		return exams.get(name);
-	}
+  public Integer getMark(String name) {
+    return exams.get(name);
+  }
 
-	public HashMap<String, Integer> getExams() {
-		return exams;
-	}
+  public HashMap<String, Integer> getExams() {
+    return exams;
+  }
 
-	@Override
-	public Iterator<String> iterator() {
-		return exams.keySet().iterator();
-	}
+  @Override
+  public Iterator<String> iterator() {
+    return exams.keySet().iterator();
+  }
 }
 
 class IteratorExample {
-	public static void main(String[] args) {
-		StudentSession session = new StudentSession();
-		session.addExam("mathematics", 9);
-		session.addExam("russian", 10);
-		session.addExam("philosophy", 8);
-		System.out.println("The list of exams: ");
-		CustomIterator<String> iterator = session.createIterator();
-		while (!iterator.isDone()) {
-			out.println(iterator.currentItem());
-			iterator.next();
-		}
+  public static void main(String[] args) {
+    StudentSession session = new StudentSession();
+    session.addExam("mathematics", 9);
+    session.addExam("russian", 10);
+    session.addExam("philosophy", 8);
+    System.out.println("The list of exams: ");
+    CustomIterator<String> iterator = session.createIterator();
+    while (!iterator.isDone()) {
+      out.println(iterator.currentItem());
+      iterator.next();
+    }
 
-		// ����� ��������� ���� ��������!!!
-		for (String str : session) {
-			out.println(str);
-		}
-	}
+    // ����� ��������� ���� ��������!!!
+    for (String str : session) {
+      out.println(str);
+    }
+  }
 }

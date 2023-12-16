@@ -1,7 +1,5 @@
 package part1.week3.iq;
 
-import edu.princeton.cs.algs4.In;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -13,40 +11,36 @@ import java.util.Random;
  */
 public class Task3 {
 
-    private void randomShuffle(List<Integer> list, List<Integer> aux, int low, int mid, int high) {
-        int i = low;
-        int j = mid + 1;
-        for (int k = low; k <= high; k++) {
-            if (i > mid) {
-                aux.set(k, list.get(j++));
-            }
-            else if (j > high) {
-                aux.set(k, list.get(i++));
-            }
-            else if (new Random().nextBoolean()) { // choose either from left subarray or from the right
-                aux.set(k, list.get(j++));
-            }
-            else {
-                aux.set(k, list.get(i++));
-            }
-        }
+  private void randomShuffle(List<Integer> list, List<Integer> aux, int low, int mid, int high) {
+    int i = low;
+    int j = mid + 1;
+    for (int k = low; k <= high; k++) {
+      if (i > mid) {
+        aux.set(k, list.get(j++));
+      } else if (j > high) {
+        aux.set(k, list.get(i++));
+      } else if (new Random().nextBoolean()) { // choose either from left subarray or from the right
+        aux.set(k, list.get(j++));
+      } else {
+        aux.set(k, list.get(i++));
+      }
+    }
+  }
+
+  private void shuffleLinkedList(List<Integer> list, List<Integer> aux, int low, int high) {
+    if (low >= high) {
+      return;
     }
 
-    private void shuffleLinkedList(List<Integer> list, List<Integer> aux, int low, int high) {
-        if (low >= high) {
-            return;
-        }
+    int mid = (low + high) / 2;
+    shuffleLinkedList(aux, list, low, mid);
+    shuffleLinkedList(aux, list, mid + 1, high);
+    randomShuffle(list, aux, low, mid, high);
+  }
 
-        int mid = (low + high) / 2;
-        shuffleLinkedList(aux, list, low, mid);
-        shuffleLinkedList(aux, list, mid + 1, high);
-        randomShuffle(list, aux, low, mid, high);
-    }
-
-
-    public List<Integer> shuffleLinkedList(List<Integer> list) {
-        List<Integer> shufflesList = new LinkedList<>(list);
-        shuffleLinkedList(list, new LinkedList<>(list), 0, list.size() - 1);
-        return shufflesList;
-    }
+  public List<Integer> shuffleLinkedList(List<Integer> list) {
+    List<Integer> shufflesList = new LinkedList<>(list);
+    shuffleLinkedList(list, new LinkedList<>(list), 0, list.size() - 1);
+    return shufflesList;
+  }
 }

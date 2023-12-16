@@ -10,6 +10,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Payment {
-    private PaymentStatus paymentStatus;
-    private Double amount;
+  private PaymentStatus paymentStatus;
+  private Double amount;
 }

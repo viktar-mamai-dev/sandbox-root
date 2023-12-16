@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task2.entity;
 
 import lombok.AllArgsConstructor;
@@ -12,6 +15,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person {
-    private String name;
-    private Address address;
+  private String name;
+  private Address address;
 }

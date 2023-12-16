@@ -10,11 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(callSuper = true)
 public class Browser extends AppliedSoft {
-    private String engine;
+  private String engine;
 
-    public Browser(String name, double price, double size, int releaseYear, String currentCore) {
-        super(name, price, size, releaseYear);
-        this.engine = currentCore;
-    }
-
+  public Browser(String name, double price, double size, int releaseYear, String currentCore) {
+    super(name, price, size, releaseYear);
+    this.engine = currentCore;
+  }
 }

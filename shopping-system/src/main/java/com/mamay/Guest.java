@@ -10,8 +10,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Guest extends Customer {
-    // TODO
-    public boolean registerAccount() {
-        return false;
-    }
+  // TODO
+  public boolean registerAccount() {
+    return false;
+  }
 }

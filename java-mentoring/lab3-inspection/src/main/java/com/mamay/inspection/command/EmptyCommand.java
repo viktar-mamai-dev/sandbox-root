@@ -1,12 +1,11 @@
 package com.mamay.inspection.command;
 
+import com.mamay.inspection.manager.ConfigManager;
 import javax.servlet.http.HttpServletRequest;
 
-import com.mamay.inspection.manager.ConfigManager;
-
 public class EmptyCommand implements ActionCommand {
-	@Override
-	public String execute(HttpServletRequest request) {
-		return ConfigManager.getProperty("page.index");
-	}
+  @Override
+  public String execute(HttpServletRequest request) {
+    return ConfigManager.getProperty("page.index");
+  }
 }

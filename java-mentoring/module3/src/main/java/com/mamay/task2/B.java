@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2023
+ */
 package com.mamay.task2;
 
 import lombok.Getter;
@@ -9,10 +12,9 @@ import lombok.ToString;
 @ToString
 public class B {
 
-    private A a;
+  private A a;
 
-    public B(A a) {
-        this.a = a;
-    }
-
+  public B(A a) {
+    this.a = a;
+  }
 }
