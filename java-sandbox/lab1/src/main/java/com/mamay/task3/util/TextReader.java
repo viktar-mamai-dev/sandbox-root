@@ -1,6 +1,6 @@
 package com.mamay.task3.util;
 
-import com.mamay.task3.exception.LogicException;
+import com.mamay.Lab1Exception;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class TextReader {
 
-  public CharSequence readFromFile(String filename) throws LogicException {
+  public CharSequence readFromFile(String filename) throws Lab1Exception {
     File file = returnFile(filename);
     if (file.exists()) {
       CharBuffer cbuf = null;
@@ -30,7 +30,7 @@ public class TextReader {
       }
       return cbuf;
     } else {
-      throw new LogicException("Such file does not exist!");
+      throw new Lab1Exception("Such file does not exist!");
     }
   }
 

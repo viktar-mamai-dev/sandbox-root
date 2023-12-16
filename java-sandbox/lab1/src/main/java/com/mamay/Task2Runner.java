@@ -1,4 +1,4 @@
-package com.mamay.task2.main;
+package com.mamay;
 
 import com.mamay.task2.entity.BaseEmployee;
 import com.mamay.task2.entity.Person;

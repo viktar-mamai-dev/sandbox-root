@@ -1,16 +1,15 @@
 package com.mamay.inspection.dbhelper;
 
+import static org.junit.Assert.assertNull;
+
 import com.mamay.inspection.exception.DAOException;
 import com.mamay.inspection.manager.DatabaseManager;
+import java.util.LinkedList;
+import java.util.stream.IntStream;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.LinkedList;
-import java.util.stream.IntStream;
-
-import static org.junit.Assert.assertNull;
 
 public class ConnectionPoolTest {
   private static ConnectionPool pool;

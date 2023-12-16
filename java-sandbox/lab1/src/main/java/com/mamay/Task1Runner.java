@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2023
  */
-package com.mamay.task1.main;
+package com.mamay;
 
 import com.mamay.task1.exception.AquaException;
 import com.mamay.task1.model.Aquarium;

@@ -1,9 +1,11 @@
-package com.mamay.task8.service;
+package com.mamay;
 
 import com.mamay.task8.entity.AbstractCourse;
 import com.mamay.task8.entity.CourseType;
 import com.mamay.task8.entity.Student;
-import com.mamay.task8.factory.CourseFactory;
+import com.mamay.task8.service.CourseFactory;
+import com.mamay.task8.service.CourseService;
+import com.mamay.task8.service.StudentReport;
 import java.util.LinkedList;
 
 /** Created by admin on 9/24/2014. */

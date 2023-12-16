@@ -3,21 +3,19 @@ package com.mamay.singletons;
 import java.io.Serializable;
 
 public class IncorectSingleton implements Serializable, Cloneable {
-    private static IncorectSingleton instance;
+  private static IncorectSingleton instance;
 
-    private IncorectSingleton() {
+  private IncorectSingleton() {}
 
+  public static IncorectSingleton getInstance() {
+    if (instance == null) {
+      instance = new IncorectSingleton();
     }
+    return instance;
+  }
 
-    public static IncorectSingleton getInstance() {
-        if (instance == null) {
-            instance = new IncorectSingleton();
-        }
-        return instance;
-    }
-
-    @Override
-    public IncorectSingleton clone() throws CloneNotSupportedException {
-        return (IncorectSingleton) super.clone();
-    }
+  @Override
+  public IncorectSingleton clone() throws CloneNotSupportedException {
+    return (IncorectSingleton) super.clone();
+  }
 }

@@ -2,13 +2,12 @@ package com.mamay.dao;
 
 import com.mamay.entity.NewsEntity;
 import com.mamay.util.QueryHelper;
-import org.springframework.stereotype.Repository;
-
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class NewsDaoImpl implements NewsDao {

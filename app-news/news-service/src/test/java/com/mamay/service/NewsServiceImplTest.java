@@ -9,11 +9,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class NewsServiceImplTest {
 
-    @InjectMocks
-    private static NewsService newsService;
+  @InjectMocks private static NewsService newsService;
 
-    @Mock
-    private NewsDao newsDao;
+  @Mock private NewsDao newsDao;
 
-    // TODO attachTags
+  // TODO attachTags
 }

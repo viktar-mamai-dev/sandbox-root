@@ -1,5 +1,8 @@
-package com.mamay.task5;
+package com.mamay;
 
+import com.mamay.task5.AudioChannel;
+import com.mamay.task5.ChannelPool;
+import com.mamay.task5.Client;
 import java.util.LinkedList;
 
 public class Task5Runner {

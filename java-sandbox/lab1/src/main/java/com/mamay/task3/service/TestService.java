@@ -1,10 +1,10 @@
 package com.mamay.task3.service;
 
+import com.mamay.Lab1Exception;
 import com.mamay.task3.comparator.HashMapValueComparator;
 import com.mamay.task3.entity.TextComponent;
 import com.mamay.task3.entity.TextComposite;
 import com.mamay.task3.entity.TextLeaf;
-import com.mamay.task3.exception.LogicException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeMap;
@@ -66,7 +66,7 @@ public class TestService {
     return sortedMap.keySet();
   }
 
-  public TextComponent findUniqueWords(TextComponent c) throws LogicException {
+  public TextComponent findUniqueWords(TextComponent c) throws Lab1Exception {
     TextComponent onlyParagraphs = findParagraphs(c);
     TextComponent firstSenWords = firstSentence(onlyParagraphs.getChild(0).getChild(0));
 
@@ -109,7 +109,7 @@ public class TestService {
     return result;
   }
 
-  private TextComponent findParagraphs(TextComponent c) throws LogicException {
+  private TextComponent findParagraphs(TextComponent c) throws Lab1Exception {
     TextComponent paragraphs = new TextComposite();
     for (int i = 0; i < c.size(); i++) {
       TextComponent paragraph = c.getChild(i);
@@ -120,7 +120,7 @@ public class TestService {
     if (paragraphs.size() != 0) {
       return paragraphs;
     } else {
-      throw new LogicException("Such text does not contain any paragraphs!");
+      throw new Lab1Exception("Such text does not contain any paragraphs!");
     }
   }
 

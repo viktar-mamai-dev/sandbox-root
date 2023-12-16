@@ -1,5 +1,6 @@
 package com.mamay.task5;
 
+import com.mamay.Lab1Exception;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -14,15 +15,15 @@ public class ChannelPool {
     resources.addAll(source);
   }
 
-  public AudioChannel getResource(long maxWaitMillis) throws ResourceException {
+  public AudioChannel getResource(long maxWaitMillis) throws Lab1Exception {
     try {
       if (semaphore.tryAcquire(maxWaitMillis, TimeUnit.MILLISECONDS)) {
         return resources.poll();
       }
     } catch (InterruptedException e) {
-      throw new ResourceException(e);
+      throw new Lab1Exception(e);
     }
-    throw new ResourceException("Semaphore issue");
+    throw new Lab1Exception("Semaphore issue");
   }
 
   public void returnResource(AudioChannel res) {

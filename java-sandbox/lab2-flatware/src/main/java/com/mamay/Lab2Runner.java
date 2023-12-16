@@ -1,4 +1,4 @@
-package com.mamay.main;
+package com.mamay;
 
 import com.mamay.builder.AbstractFlatwareBuilder;
 import com.mamay.entity.Flatware;

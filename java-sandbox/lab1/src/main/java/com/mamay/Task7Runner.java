@@ -1,5 +1,7 @@
-package com.mamay.task7.main;
+package com.mamay;
 
+import com.mamay.task7.main.Parser;
+import com.mamay.task7.main.SoftService;
 import com.mamay.task7.model.BasicSoft;
 import java.io.IOException;
 import java.util.List;

@@ -1,16 +1,14 @@
 package com.mamay.singletons;
 
 public class LazySingleton {
-    private static LazySingleton instance;
+  private static LazySingleton instance;
 
-    private LazySingleton() {
+  private LazySingleton() {}
 
+  public static LazySingleton getInstance() {
+    if (instance == null) {
+      instance = new LazySingleton();
     }
-
-    public static LazySingleton getInstance() {
-        if (instance == null) {
-            instance = new LazySingleton();
-        }
-        return instance;
-    }
+    return instance;
+  }
 }
