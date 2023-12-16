@@ -1,21 +1,14 @@
 package com.mamay.task8.entity;
 
-import com.mamay.task8.exception.LogicException;
-import com.mamay.task8.exception.TechnicalException;
-import java.util.ArrayList;
+import com.mamay.Lab1Exception;
+
 import java.util.List;
 
 /** Created by admin on 9/22/2014. */
 public class Student {
   private int id;
   private double weight;
-  private List<AbstractCourse> courses; // = new ArrayList<>();
-
-  public Student(int id, double weight, ArrayList<AbstractCourse> courses) {
-    this.id = id;
-    this.weight = weight;
-    this.courses = courses;
-  }
+  private final List<AbstractCourse> courses;
 
   public Student(int id, double weight, List<AbstractCourse> courses) {
     this.id = id;
@@ -39,19 +32,19 @@ public class Student {
     return id;
   }
 
-  public void setId(int id) throws LogicException {
+  public void setId(int id) throws Lab1Exception {
     if (id > 0) {
       this.id = id;
     } else {
-      throw new LogicException("incorrect id");
+      throw new Lab1Exception("incorrect id");
     }
   }
 
-  public void stringToId(String strId) throws TechnicalException {
+  public void stringToId(String strId) throws Lab1Exception {
     try {
       id = Integer.parseInt(strId);
     } catch (NumberFormatException e) {
-      throw new TechnicalException(e);
+      throw new Lab1Exception(e);
     }
   }
 

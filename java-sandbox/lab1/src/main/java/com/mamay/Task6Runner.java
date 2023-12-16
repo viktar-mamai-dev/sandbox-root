@@ -1,8 +1,8 @@
-package com.mamay.task6.main;
+package com.mamay;
 
-import com.mamay.task6.entity.TrafficSystem;
-import com.mamay.task6.entity.Train;
-import com.mamay.task6.entity.Tunnel;
+import com.mamay.task6.TrafficSystem;
+import com.mamay.task6.Train;
+import com.mamay.task6.Tunnel;
 import java.util.LinkedList;
 import java.util.Random;
 

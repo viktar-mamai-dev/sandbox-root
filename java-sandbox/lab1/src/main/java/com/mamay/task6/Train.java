@@ -1,4 +1,4 @@
-package com.mamay.task6.entity;
+package com.mamay.task6;
 
 import com.mamay.task6.exception.LogicException;
 import lombok.extern.log4j.Log4j2;

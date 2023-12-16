@@ -1,8 +1,8 @@
-package com.mamay.task3.main;
+package com.mamay;
 
 import com.mamay.task3.entity.TextComponent;
 import com.mamay.task3.entity.TextComposite;
-import com.mamay.task3.exception.LogicException;
+import com.mamay.Lab1Exception;
 import com.mamay.task3.parser.TextParser;
 import com.mamay.task3.service.TestService;
 import com.mamay.task3.util.PrintReport;
@@ -29,7 +29,7 @@ public class Task3Runner {
 
       PrintReport.printComponent(uniqueWords);
       PrintReport.printComponent(sortedSentences);
-    } catch (LogicException e) {
+    } catch (Lab1Exception e) {
       log.error(e.getMessage());
     }
   }

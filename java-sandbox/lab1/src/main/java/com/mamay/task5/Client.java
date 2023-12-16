@@ -1,11 +1,12 @@
 package com.mamay.task5;
 
+import com.mamay.Lab1Exception;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class Client extends Thread {
   private boolean reading = false;
-  private ChannelPool pool;
+  private final ChannelPool pool;
 
   public Client(ChannelPool pool) {
     this.pool = pool;
@@ -18,7 +19,7 @@ public class Client extends Thread {
       reading = true;
       log.debug("Channel Client #" + this.getId() + " took channel #" + channel.getChannelId());
       channel.using();
-    } catch (ResourceException e) {
+    } catch (Lab1Exception e) {
       log.debug("Client #" + this.getId() + " lost ->" + e.getMessage());
     } finally {
       if (channel != null) {

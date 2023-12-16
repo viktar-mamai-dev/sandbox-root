@@ -1,4 +1,4 @@
-package com.mamay.task8.factory;
+package com.mamay.task8.service;
 
 import com.mamay.task8.entity.AbstractCourse;
 import com.mamay.task8.entity.BaseCourse;

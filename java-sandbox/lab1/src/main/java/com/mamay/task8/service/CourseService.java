@@ -2,7 +2,6 @@ package com.mamay.task8.service;
 
 import com.mamay.task8.entity.CourseType;
 import com.mamay.task8.entity.Student;
-import com.mamay.task8.factory.CourseFactory;
 
 /** Created by admin on 9/24/2014. */
 public class CourseService {
