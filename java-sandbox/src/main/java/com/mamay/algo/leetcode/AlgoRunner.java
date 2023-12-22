@@ -1,21 +1,285 @@
 package com.mamay.algo.leetcode;
 
+import com.mamay.multithreading.jmp2022.task3.DataQueue;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class AlgoRunner {
-  /* add your code here */
+    /* add your code here */
 
-  private int gcd(int a, int b) {
-    if (a == b) return a;
-    if (a < b) {
-      int tmp = a;
-      a = b;
-      b = tmp;
+    public int countSymmetricIntegers(int low, int high) {
+        return (int) IntStream.rangeClosed(low, high)
+                .filter(this::isSymmetric)
+                .count();
     }
 
-    while (b != 0) {
-      int tmp = b;
-      b = a % b;
-      a = tmp;
+    private boolean isSymmetric(int num) {
+        String numStr = String.valueOf(num);
+        int n = numStr.length();
+
+        if (n % 2 != 0) {
+            return false; // Odd-length numbers are never symmetric
+        }
+
+        int sum1 = getSum(0, n / 2, numStr);
+        int sum2 = getSum(n / 2, n, numStr);
+        return sum1 == sum2;
     }
-    return a;
-  }
+
+    private int getSum(int start, int end, String numStr) {
+        return IntStream.range(start, end)
+                .map(i -> Character.getNumericValue(numStr.charAt(i)))
+                .sum();
+    }
+
+    public boolean checkStrings(String s1, String s2) {
+        int len = s1.length();
+        Map<Integer, Long> evenMap1 = toCountingMap(collectToStream(s1, isEven()));
+        Map<Integer, Long> evenMap2 = toCountingMap(collectToStream(s2, isEven()));
+        Map<Integer, Long> oddMap1 = toCountingMap(collectToStream(s1, isEven().negate()));
+        Map<Integer, Long> oddMap2 = toCountingMap(collectToStream(s1, isEven().negate()));
+        return evenMap1.equals(evenMap2) && oddMap1.equals(oddMap2);
+    }
+
+    private Stream<Integer> collectToStream(String str, Predicate<Integer> p) {
+        return IntStream.range(0, str.length()).boxed().filter(isEven()).map(i -> str.charAt(i) - 'a');
+    }
+
+    private Map<Integer, Long> toCountingMap(Stream<Integer> stream) {
+        return stream.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    private Predicate<Integer> isEven() {
+        return x -> x % 2 == 0;
+    }
+
+    private long minDistanceGrid = Long.MAX_VALUE;
+
+    public int minimumMoves(int[][] grid) {
+        Map<Integer, Integer> emptyMap = new HashMap<>();
+        Map<Integer, Integer> fullMap = new HashMap<>();
+        for (int i = 0; i < 3; i++) {
+            for (int i2 = 0; i2 < 3; i2++) {
+                if (grid[i][i2] == 1) continue;
+                int i3 = toIdx(i, i2);
+                if (grid[i][i2] == 0) {
+                    emptyMap.put(i3, 1);
+                } else {
+                    fullMap.put(i3, grid[i][i2]);
+                }
+            }
+        }
+        if (emptyMap.isEmpty()) {
+            return 0;
+        }
+        calcMinDistanceRec(emptyMap, fullMap, 0l);
+        return (int) minDistanceGrid;
+    }
+
+    private void calcMinDistanceRec(Map<Integer, Integer> emptyMap,
+                                    Map<Integer, Integer> fullMap,
+                                    long currentDistance) {
+        Set<Integer> keys1 = emptyMap.keySet();
+        Set<Integer> keys2 = fullMap.keySet();
+        if (emptyMap.isEmpty()) {
+            minDistanceGrid = Math.min(minDistanceGrid, currentDistance);
+        }
+        for (int key1 : keys1) {
+            int value1 = emptyMap.get(key1);
+            if (value1 == 0) {
+                continue;
+            }
+            dec(emptyMap, key1);
+            for (int key2 : keys2) {
+                int value2 = emptyMap.get(key2);
+                if (value2 == 0) {
+                    continue;
+                }
+                dec(fullMap, key2);
+                long distance = Math.abs(key1 % 3 - key2 % 3) + Math.abs(key1 / 3 - key2 / 3);
+                calcMinDistanceRec(emptyMap, fullMap, currentDistance + distance);
+                inc(fullMap, key2);
+            }
+            inc(emptyMap, key1);
+        }
+    }
+
+    private void dec(Map<Integer, Integer> map, int key) {
+        int value = map.get(key) - 1;
+        if (value == 0) map.remove(key);
+        else map.put(key, value);
+    }
+
+    private void inc(Map<Integer, Integer> map, int key) {
+        int value = map.getOrDefault(key, 0) + 1;
+        map.put(key, value);
+    }
+
+    private int toIdx(int i, int i2) {
+        return i * 3 + i2;
+    }
+
+
+    public long maxSum(List<Integer> nums, int m, int k) {
+        int len = nums.size();
+        Map<Integer, Integer> map = new HashMap<>();
+        long sum = 0;
+        for (int i = 0; i < m; i++) {
+            Integer key = nums.get(i);
+            int value = map.getOrDefault(key, 0) + 1;
+            map.put(key, value);
+            sum += key;
+        }
+        long max = 0;
+        if (map.size() >= k) {
+            max = sum;
+        }
+        for (int i = m; i < len; i++) {
+            int key = nums.get(i - m);
+            sum -= key;
+            int value = map.get(key) - 1;
+            if (value == 0) {
+                map.remove(key);
+            } else {
+                map.put(key, value);
+            }
+            key = nums.get(i);
+            sum += key;
+            value = map.getOrDefault(key, 0) + 1;
+            map.put(key, value);
+            if (map.size() > k) {
+                max = sum;
+            }
+        }
+        return max;
+    }
+
+    private int gcd(int a, int b) {
+        if (a == b) return a;
+        if (a < b) {
+            int tmp = a;
+            a = b;
+            b = tmp;
+        }
+
+        while (b != 0) {
+            int tmp = b;
+            b = a % b;
+            a = tmp;
+        }
+        return a;
+    }
+
+    public int minLengthAfterRemovals(List<Integer> nums) {
+        int len = nums.size();
+        SetPair[] setPairs = new SetPair[len];
+        for (int i = 0; i < len; i++) {
+            setPairs[i] = new SetPair();
+        }
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (nums.get(j) > nums.get(i)) {
+                    setPairs[i].addOut(j);
+                    setPairs[j].addIn(i);
+                }
+            }
+        }
+
+        Map<Boolean, List<Integer>> map = IntStream.range(0, len).boxed()
+                .collect(Collectors.partitioningBy(i -> setPairs[i].getOutcomingVerts().isEmpty()));
+        LinkedList<Integer> endingVerts = new LinkedList<>(map.get(true));
+        Set<Integer> notEndingVerts = new HashSet<>(map.get(false));
+        int pairCount = 0;
+        while (!endingVerts.isEmpty() && !notEndingVerts.isEmpty()) {
+            int v1 = endingVerts.pollFirst();
+            if (!setPairs[v1].getIncomingVerts().isEmpty()) {
+                int v2 = setPairs[v1].getIncomingVerts().pollFirst();
+                setPairs[v2].getOutcomingVerts().remove(v1);
+                if (setPairs[v2].getOutcomingVerts().isEmpty()) {
+                    notEndingVerts.remove(v2);
+                    endingVerts.addLast(v2);
+                }
+                pairCount++;
+            }
+        }
+        return len - 2 * pairCount;
+    }
+
+    private int countSetBits(int n) {
+        int count = 0;
+        while (n > 0) {
+            count += n & 1;
+            n >>= 1;
+        }
+        return count;
+    }
+
+    public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
+        return IntStream.range(0, nums.size()).filter(i -> k == countSetBits(i))
+                .map(nums::get).sum();
+    }
+
+    public String maximumOddBinaryNumber(String s) {
+        int len = s.length();
+        int oneCount = (int) IntStream.range(0, len).filter(i -> s.charAt(i) == '1').count();
+        if (oneCount == 0) {
+            return s;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append('1');
+        builder.append("0".repeat(len - oneCount));
+        oneCount--;
+        builder.append("1".repeat(oneCount));
+        return builder.toString();
+    }
+
+    public int minOperations(List<Integer> nums, int k) {
+        int len = nums.size();
+        HashSet<Integer> set = new HashSet<>();
+        for (int i = len - 1; i >= 0; i--) {
+            int num = nums.get(i);
+            if (num > k) {
+                continue;
+            }
+            set.add(num);
+            if (set.size() == k) {
+                return len - i;
+            }
+        }
+        return -1; // never happen
+    }
+}
+
+class SetPair {
+    private final LinkedList<Integer> incomingVerts = new LinkedList<>();
+    private final Set<Integer> outcomingVerts = new HashSet<>();
+
+    public void addIn(Integer incomingVert) {
+        incomingVerts.add(incomingVert);
+    }
+
+    public void addOut(Integer outcomingVert) {
+        outcomingVerts.add(outcomingVert);
+    }
+
+    public boolean removeIn(Integer incomingVert) {
+        return incomingVerts.remove(incomingVert);
+    }
+
+    public boolean removeOut(Integer outcomingVert) {
+        return outcomingVerts.add(outcomingVert);
+    }
+
+    public LinkedList<Integer> getIncomingVerts() {
+        return incomingVerts;
+    }
+
+    public Set<Integer> getOutcomingVerts() {
+        return outcomingVerts;
+    }
 }
