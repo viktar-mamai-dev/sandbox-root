@@ -253,6 +253,27 @@ public class AlgoRunner {
         }
         return -1; // never happen
     }
+
+    public long maximumSumOfHeights(List<Integer> maxHeights) {
+        int len = maxHeights.size();
+        return IntStream.range(0, len).mapToLong(i -> maximumSumOfHeights(maxHeights, i))
+                .max().getAsLong();
+    }
+
+    private long maximumSumOfHeights(List<Integer> maxHeights, int idx) {
+        int prevMax = maxHeights.get(idx);
+        long sum = prevMax;
+        for (int i = idx - 1; i >= 0; i--) {
+            prevMax = Math.min(prevMax, maxHeights.get(i));
+            sum += prevMax;
+        }
+        prevMax = maxHeights.get(idx);
+        for (int i = idx + 1; i < maxHeights.size(); i++) {
+            prevMax = Math.min(prevMax, maxHeights.get(i));
+            sum += prevMax;
+        }
+        return sum;
+    }
 }
 
 class SetPair {
