@@ -1,7 +1,5 @@
 package com.mamay.algo.leetcode;
 
-import com.mamay.multithreading.jmp2022.task3.DataQueue;
-
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -52,6 +50,29 @@ public class AlgoRunner {
 
     private Map<Integer, Long> toCountingMap(Stream<Integer> stream) {
         return stream.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    public int minOperations(int[] nums) {
+        Map<Integer, Long> map = toCountingMap(Arrays.stream(nums).boxed());
+        Set<Long> set = new HashSet<>(map.values());
+        if (set.contains(1L)) {
+            return -1;
+        }
+        int sum = 0;
+        for (Long value : set) {
+            sum += splitCount3(value);
+        }
+        return sum;
+    }
+
+    private long splitCount3(long value) {
+        if (value % 3 == 0) {
+            return value / 3;
+        }
+        if (value % 2 == 0) {
+            return value / 3 + 1;
+        }
+        return (value - 4) / 3 + 2;
     }
 
     private Predicate<Integer> isEven() {
@@ -273,6 +294,37 @@ public class AlgoRunner {
             sum += prevMax;
         }
         return sum;
+    }
+
+    public int[] minEdgeReversals(int n, int[][] edges) {
+        int[] res = new int[n];
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        Arrays.fill(res, 0);
+        List<List<Integer>> graph = new ArrayList<>();
+        Collections.fill(graph, new ArrayList<>());
+        for (int[] edge : edges) {
+            res[edge[1]] = 1;
+            graph.get(edge[0]).add(edge[1]);
+        }
+        int startVert = findStartVert(res);
+        arrayDeque.addLast(startVert);
+        int level = 0;
+        while (!arrayDeque.isEmpty()) {
+            int size = arrayDeque.size();
+            for (int i = 0; i < size; i++) {
+                int nextVert = arrayDeque.pollFirst();
+                res[nextVert] = level;
+                for (int w : graph.get(nextVert)) {
+                    arrayDeque.addLast(w);
+                }
+            }
+            ++level;
+        }
+        return res;
+    }
+
+    private int findStartVert(int[] res) {
+        return IntStream.range(0, res.length).filter(i -> res[i] == 0).findFirst().orElseThrow();
     }
 }
 
