@@ -96,6 +96,11 @@ public class AlgoRunner {
         return max;
     }
 
+    public int differenceOfSums(int n, int m) {
+        return IntStream.rangeClosed(1, n).filter(i -> i % m != 0).sum()
+                - IntStream.rangeClosed(1, n).filter(i -> i % m == 0).sum();
+    }
+
     private long splitCount3(long value) {
         if (value % 3 == 0) {
             return value / 3;
