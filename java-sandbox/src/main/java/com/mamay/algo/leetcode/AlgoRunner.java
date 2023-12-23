@@ -65,6 +65,19 @@ public class AlgoRunner {
         return sum;
     }
 
+    public long maximumTripletValue(int[] nums) {
+        int len = nums.length;
+        long max = 0;
+        for (int i1 = 0; i1 < len - 2; i1++) {
+            for (int i2 = i1 + 1; i2 < len - 1; i2++) {
+                for (int i3 = i2 + 1; i3 < len; i3++) {
+                    max = Math.max(max, ((long) nums[i1] - nums[i2]) * nums[i3]);
+                }
+            }
+        }
+        return max;
+    }
+
     private long splitCount3(long value) {
         if (value % 3 == 0) {
             return value / 3;
