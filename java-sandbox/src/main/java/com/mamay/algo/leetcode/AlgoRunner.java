@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.Comparator.*;
+
 public class AlgoRunner {
     /* add your code here */
 
@@ -74,6 +76,22 @@ public class AlgoRunner {
                     max = Math.max(max, ((long) nums[i1] - nums[i2]) * nums[i3]);
                 }
             }
+        }
+        return max;
+    }
+
+    public int minProcessingTime(List<Integer> processorTime, List<Integer> tasks) {
+        PriorityQueue<Integer> processorQueue = new PriorityQueue<>();
+        processorQueue.addAll(processorTime);
+        PriorityQueue<Integer> taskQueue = new PriorityQueue<>(reverseOrder());
+        taskQueue.addAll(tasks);
+        int max = 0;
+        while (!processorQueue.isEmpty()) {
+            int time = processorQueue.poll() + taskQueue.poll();
+            for (int i = 0; i < 3; i++) {
+                taskQueue.poll();
+            }
+            max = Math.max(max, time);
         }
         return max;
     }
