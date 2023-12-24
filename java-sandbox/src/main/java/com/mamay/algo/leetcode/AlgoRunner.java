@@ -121,6 +121,18 @@ public class AlgoRunner {
         return resList;
     }
 
+    public List<String> getWordsInLongestSubsequence(int n, String[] words, int[] groups) {
+        List<Integer> list = new ArrayList<>();
+        int prev = -1;
+        for (int i = 0; i < groups.length; i++) {
+            if (groups[i] != prev) {
+                list.add(i);
+                prev = groups[i];
+            }
+        }
+        return list.stream().map(i -> words[i]).collect(Collectors.toList());
+    }
+
     private long splitCount3(long value) {
         if (value % 3 == 0) {
             return value / 3;
