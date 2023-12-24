@@ -101,6 +101,26 @@ public class AlgoRunner {
                 - IntStream.rangeClosed(1, n).filter(i -> i % m == 0).sum();
     }
 
+    public List<Integer> lastVisitedIntegers(List<String> words) {
+        LinkedList<String> list = new LinkedList<>();
+        LinkedList<Integer> resList = new LinkedList<>();
+        int currentIdx = -1;
+        for (String word : words) {
+            if ("prev".equals(word)) {
+                if (currentIdx >= 0) {
+                    resList.add(Integer.parseInt(list.get(currentIdx)));
+                } else {
+                    resList.add(-1);
+                }
+                currentIdx--;
+            } else {
+                list.add(word);
+                currentIdx = list.size() - 1;
+            }
+        }
+        return resList;
+    }
+
     private long splitCount3(long value) {
         if (value % 3 == 0) {
             return value / 3;
