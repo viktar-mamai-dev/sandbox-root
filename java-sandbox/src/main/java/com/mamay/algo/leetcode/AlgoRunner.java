@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.Comparator.*;
+import static java.util.Comparator.reverseOrder;
 
 public class AlgoRunner {
     /* add your code here */
@@ -119,6 +119,19 @@ public class AlgoRunner {
             }
         }
         return resList;
+    }
+
+    public int[] findIndices(int[] nums, int indexDifference, int valueDifference) {
+        int n = nums.length;
+        for (int i = 0; i < n - indexDifference; i++) {
+            for (int j = i + indexDifference; j < n; j++) {
+                if (Math.abs(nums[i] - nums[j]) >= valueDifference) {
+                    return new int[]{i, j};
+                }
+            }
+
+        }
+        return new int[]{-1, -1};
     }
 
     public List<String> getWordsInLongestSubsequence(int n, String[] words, int[] groups) {
