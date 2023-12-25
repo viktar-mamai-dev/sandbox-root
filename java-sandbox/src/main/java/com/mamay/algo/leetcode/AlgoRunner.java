@@ -154,7 +154,22 @@ public class AlgoRunner {
     }
 
     public int minChanges(String s) {
-
+        char lastCh = '*';
+        int count = 0, res = 0;
+        for (char ch : s.toCharArray()) {
+            if (ch == lastCh) {
+                count++;
+            } else {
+                if (count % 2 == 1) {
+                    res++;
+                    count = 0;
+                } else {
+                    count = 1;
+                }
+                lastCh = ch;
+            }
+        }
+        return res;
     }
 
     public List<String> getWordsInLongestSubsequence(int n, String[] words, int[] groups) {
