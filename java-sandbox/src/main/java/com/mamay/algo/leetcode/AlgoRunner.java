@@ -134,6 +134,29 @@ public class AlgoRunner {
         return new int[]{-1, -1};
     }
 
+    public int minimumSum(int[] nums) {
+        int len = nums.length;
+        int max = -1;
+        for (int i1 = 0; i1 < len - 2; i1++) {
+            for (int i2 = i1 + 1; i2 < len - 1; i2++) {
+                if (nums[i1] >= nums[i2]) continue;
+                for (int i3 = i2 + 1; i3 < len; i3++) {
+                    if (nums[i2] > nums[i3]) {
+                        int sum = nums[i1] + nums[i2] +nums[i3];
+                        if (max == -1 || sum > max) {
+                            max = sum;
+                        }
+                    }
+                }
+            }
+        }
+        return max;
+    }
+
+    public int minChanges(String s) {
+
+    }
+
     public List<String> getWordsInLongestSubsequence(int n, String[] words, int[] groups) {
         List<Integer> list = new ArrayList<>();
         int prev = -1;
