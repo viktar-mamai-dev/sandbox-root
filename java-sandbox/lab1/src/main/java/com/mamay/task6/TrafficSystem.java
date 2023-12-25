@@ -8,8 +8,8 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class TrafficSystem {
-  private Queue<Tunnel> tunnels = new LinkedList<Tunnel>();
-  private Semaphore semaphore;
+  private final Queue<Tunnel> tunnels = new LinkedList<Tunnel>();
+  private final Semaphore semaphore;
 
   public TrafficSystem(Queue<Tunnel> t) {
     tunnels.addAll(t);

@@ -18,12 +18,12 @@ public class Actor extends BaseEmployee {
 
   private String description;
 
-  public Actor(String name, Address address, int income) throws Lab1Exception {
+  public Actor(String name, Address address, int income) {
     super(name, address);
     setIncome(income);
   }
 
-  public Actor(String name, Address address, int income, String description) throws Lab1Exception {
+  public Actor(String name, Address address, int income, String description) {
     super(name, address);
     setIncome(income);
     setDescription(description);

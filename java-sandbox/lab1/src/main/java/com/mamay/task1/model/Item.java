@@ -3,8 +3,12 @@
  */
 package com.mamay.task1.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public enum Item {
   FISH("fish", 40),
   TURTLE("turtle", 50),
@@ -18,14 +22,7 @@ public enum Item {
   @Getter private String name;
   @Getter private int cost;
 
-  Item() {}
-
   Item(String name) {
     this.name = name;
-  }
-
-  Item(String name, int cost) {
-    this.name = name;
-    this.cost = cost;
   }
 }

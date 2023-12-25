@@ -20,10 +20,10 @@ public class Director extends BaseEmployee {
 
   private Set<String> films;
 
-  public Director(String name, Address address, int income) throws Lab1Exception {
+  public Director(String name, Address address, int income) {
     super(name, address);
     setIncome(income);
-    this.films = new HashSet<String>();
+    this.films = new HashSet<>();
   }
 
   @Override

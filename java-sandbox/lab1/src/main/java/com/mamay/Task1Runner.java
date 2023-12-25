@@ -20,39 +20,21 @@ public class Task1Runner {
     Aquarium aqua2 = new Aquarium(578, "Rectangular Aquarium ", Item.FISH, 3);
 
     try {
-      aqua1.newComponent(Item.SAND);
-      aqua1.newComponent(Item.SHELL);
-      aqua1.newComponent(Item.TURTLE);
-      aqua1.print();
-      log.debug("printing Info about aqua1");
+      aqua1.addComponent(Item.SAND);
+      aqua1.addComponent(Item.SHELL);
+      aqua1.addComponent(Item.TURTLE);
+      log.debug("printing Info about aqua1\n" + aqua1);
 
-      log.debug(
-          "Customer id: "
-              + aqua1.getCustomerId()
-              + " Count of orders: "
-              + aqua1.getCountOfOrders()
-              + " Name: "
-              + aqua1.getName());
+      aqua2.addComponent(Item.FISH);
+      aqua2.addComponent(Item.CASTLE);
+      aqua2.addComponent(Item.ALGA);
+      aqua2.addComponent(Item.TOOLS);
+      log.debug("printing Info about aqua2\n" + aqua2);
 
-      aqua2.newComponent(Item.FISH);
-      aqua2.newComponent(Item.CASTLE);
-      aqua2.newComponent(Item.ALGA);
-      aqua2.newComponent(Item.TOOLS);
-      aqua2.print();
-
-      log.debug(
-          "Customer id: "
-              + aqua2.getCustomerId()
-              + " Count of orders: "
-              + aqua2.getCountOfOrders()
-              + " Name: "
-              + aqua2.getName());
-
-      aqua2.newComponent(Item.TOOLS);
-
+      aqua2.addComponent(Item.TOOLS);
       log.debug("Orders in aqua2: " + aqua2.getCountOfOrders());
 
-      aqua2.newComponent(Item.WATER);
+      aqua2.addComponent(Item.WATER);
 
     } catch (Lab1Exception e) {
       log.error(e.getMessage());

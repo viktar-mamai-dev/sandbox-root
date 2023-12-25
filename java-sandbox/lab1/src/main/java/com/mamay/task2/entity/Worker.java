@@ -17,7 +17,7 @@ public class Worker extends BaseEmployee {
 
   private WorkerType type;
 
-  public Worker(String name, Address address, int income, WorkerType type) throws Lab1Exception {
+  public Worker(String name, Address address, int income, WorkerType type) {
     super(name, address);
     setType(type);
     setIncome(income);

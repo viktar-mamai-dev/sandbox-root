@@ -1,8 +1,11 @@
 package com.mamay.algo.leetcode;
 
+import org.apache.logging.log4j.util.StringBuilders;
+
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -170,6 +173,27 @@ public class AlgoRunner {
             }
         }
         return res;
+    }
+
+    public int findKOr(int[] nums, int k) {
+        final List<String> strList = Arrays.stream(nums).boxed()
+                .map(Integer::toBinaryString)
+                .map(StringBuilder::new)
+                .map(StringBuilder::reverse)
+                .map(StringBuilder::toString)
+                .collect(Collectors.toList());
+        int maxLen = strList.stream().mapToInt(String::length).max().getAsInt();
+        String res = IntStream.range(0, maxLen)
+                .map(idx -> getNumOfSetBits(idx, strList))
+                .mapToObj(x -> x >= k ? "1" : "0")
+                .reduce("", (x1, x2) -> x2 + x1);
+        return Integer.parseInt(res, 2);
+    }
+
+    private int getNumOfSetBits(final int idx, List<String> strList) {
+        return (int) strList.stream().filter(str -> str.length() > idx)
+                .filter(str -> str.charAt(idx) == '1')
+                .count();
     }
 
     public List<String> getWordsInLongestSubsequence(int n, String[] words, int[] groups) {

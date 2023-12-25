@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class HashMapValueComparator implements Comparator<TextComponent> {
 
-  Map<TextComponent, Integer> map;
+  private final Map<TextComponent, Integer> map;
 
   public HashMapValueComparator(Map<TextComponent, Integer> base) {
     this.map = base;

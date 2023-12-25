@@ -12,8 +12,4 @@ public class FreeCourse extends BaseCourse {
     super(id, name, mark);
     this.select = select;
   }
-
-  public FreeCourse(int id) {
-    super(id);
-  }
 }

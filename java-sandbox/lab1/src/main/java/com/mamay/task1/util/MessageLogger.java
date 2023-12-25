@@ -26,11 +26,10 @@ public class MessageLogger {
           .append("\n");
     }
     builder.append("_______________\n");
-    builder.append("Total ").append(aqua.getTotalCost()).append(" $").append("\n");
+    builder.append("Total cost ").append(aqua.getTotalCost()).append(" $").append("\n");
     builder.append("Count ").append(aqua.getCountOfOrders()).append("\n");
     builder.append("_______________\n");
-    builder
-        .append("Total sum ")
+    builder.append("Total sum ")
         .append(aqua.getTotalCost() * aqua.getCountOfOrders())
         .append(" $")
         .append("\n");

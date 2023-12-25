@@ -37,7 +37,7 @@ public class JsonReader {
   private File returnFile(String fileName) {
     URL resource = getClass().getClassLoader().getResource(fileName);
     if (resource == null) {
-      throw new IllegalArgumentException("File not found");
+      throw new IllegalArgumentException("File not found " + fileName);
     } else {
       return new File(resource.getFile());
     }

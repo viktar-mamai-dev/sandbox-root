@@ -6,8 +6,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class Train extends Thread {
   private boolean ride = false;
-  private TrafficSystem system;
-  private String trainName;
+  private final TrafficSystem system;
+  private final String trainName;
 
   public Train(TrafficSystem s, String n) {
     system = s;

@@ -13,8 +13,4 @@ public class BaseCourse extends AbstractCourse {
     super(id, name);
     this.mark = mark;
   }
-
-  public BaseCourse(int id) {
-    super(id);
-  }
 }

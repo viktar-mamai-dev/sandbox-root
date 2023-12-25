@@ -6,38 +6,36 @@ package com.mamay.task1.util;
 import com.mamay.task1.model.Aquarium;
 import com.mamay.task1.model.Component;
 import com.mamay.task1.model.Item;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AquaContainer {
-  private final Map<Item, Component> possibleComponents;
+  private final List<Component> componentList = List.of(
+          new Component(10, Item.FISH),
+          new Component(30, Item.TURTLE),
+          new Component(10, Item.CASTLE),
+          new Component(3, Item.ALGA),
+          new Component(2, Item.SHELL),
+          new Component(3, Item.SAND),
+          new Component(40, Item.TOOLS)
+  );
 
-  public AquaContainer() {
-    possibleComponents = new HashMap<Item, Component>();
-    possibleComponents.put(Item.FISH, new Component(10, Item.FISH));
-    possibleComponents.put(Item.TURTLE, new Component(30, Item.TURTLE));
-    possibleComponents.put(Item.CASTLE, new Component(10, Item.CASTLE));
-    possibleComponents.put(Item.ALGA, new Component(3, Item.ALGA));
-    possibleComponents.put(Item.SHELL, new Component(2, Item.SHELL));
-    possibleComponents.put(Item.SAND, new Component(3, Item.SAND));
-    possibleComponents.put(Item.TOOLS, new Component(40, Item.TOOLS));
-  }
-
-  public Map<Item, Component> getPossibleComponents() {
-    return possibleComponents;
-  }
-
-  public Component getPossibleComponent(Item name) {
-    return possibleComponents.get(name);
+  public Optional<Component> getPossibleComponent(Item name) {
+    return componentList.stream()
+            .filter(component -> component.getName().equals(name))
+            .findAny();
   }
 
   public Set<Item> getComponentNames() {
-    return this.possibleComponents.keySet();
+    return this.componentList.stream()
+            .map(Component::getName).collect(Collectors.toSet());
   }
 
   public boolean isFullAquarium(Aquarium aqua) {
     Set<Item> names = this.getComponentNames();
-    return aqua.getComponents().stream().map(Component::getName).anyMatch(names::contains);
+    return aqua.getComponents().stream()
+            .map(Component::getName)
+            .allMatch(names::contains);
   }
 }
