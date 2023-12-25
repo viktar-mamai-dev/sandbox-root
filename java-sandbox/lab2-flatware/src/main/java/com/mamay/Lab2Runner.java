@@ -1,14 +1,12 @@
 package com.mamay;
 
 import com.mamay.builder.AbstractFlatwareBuilder;
-import com.mamay.entity.Flatware;
 import com.mamay.exception.LogicalException;
 import com.mamay.factory.FlatwareBuilderFactory;
 import com.mamay.type.ParserType;
-import com.mamay.utility.PrintReport;
-import java.net.URL;
-import java.util.Set;
 import lombok.extern.log4j.Log4j2;
+
+import java.net.URL;
 
 @Log4j2
 public class Lab2Runner {
@@ -30,8 +28,7 @@ public class Lab2Runner {
   private static void builderRunAndGet(ParserType type) throws LogicalException {
     AbstractFlatwareBuilder builder = factory.createFlatwareBuilder(type);
     builder.buildFlatwares(returnFile(INPUT_FILE));
-    Set<Flatware> flatSet = builder.getFlatwares();
-    PrintReport.printFlatware(flatSet);
+    builder.getFlatwares().forEach(log::debug);
   }
 
   private static String returnFile(String fileName) {
