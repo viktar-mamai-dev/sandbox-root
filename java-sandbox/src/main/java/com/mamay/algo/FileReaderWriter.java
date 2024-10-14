@@ -3,11 +3,10 @@ package com.mamay.algo;
 import static java.lang.System.out;
 
 import com.mamay.algo.leetcode.AlgoRunner;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,22 +15,28 @@ import java.util.Scanner;
 public class FileReaderWriter {
 
   /* Specify input and output files here */
-  private static final String INPUT_FILE = "input.txt";
-  private static final String OUTPUT_FILE = "output.txt";
+  private static final Path RESOURCE_PATH = Path.of("java-sandbox", "src", "main", "resources");
+  private static final Path INPUT_PATH = RESOURCE_PATH.resolve("input.txt");
+  private static final Path OUTPUT_PATH = RESOURCE_PATH.resolve("output.txt");
 
-  private static final String REGEX_DELETE = "[\\[\\]]";
+  private static final String REGEX_DELETE = "[\\[\\]\"]";
   private static final String REGEX_SPLIT = "[, ]+";
-  private static final String REGEX_ONELINE_SPLIT = "](\\s)+,\\s+\\[";
+  private static final String REGEX_ONELINE_SPLIT = "]\\s*,\\s*\\[";
 
   public static void main(String[] args) throws IOException {
-    ClassLoader classLoader = FileReaderWriter.class.getClassLoader();
-    URL inputResource = classLoader.getResource(INPUT_FILE);
-    URL outputResource = classLoader.getResource(OUTPUT_FILE);
-
-    try (Scanner scanner = new Scanner(new File(inputResource.getPath()));
-        PrintWriter writer = new PrintWriter(new FileWriter(outputResource.getPath()))) {
+    try (Scanner scanner = new Scanner(INPUT_PATH.toFile());
+        PrintWriter writer = new PrintWriter(new FileWriter(OUTPUT_PATH.toFile()))) {
+      int attempts = scanner.nextInt();
+      for (int i = 0; i < attempts; i++) {
+        AlgoRunner algoRunner = new AlgoRunner();
+        scanner.nextLine();
+        int[] array = readIntegerArray(scanner);
+        int k = scanner.nextInt();
+        // writer.println(algoRunner.min(k, array)); todo
+      }
 
       /* Step 1. Implement your file read here*/
+      /*
       int[] integerArray = readIntegerArray(scanner);
       out.println(Arrays.toString(integerArray));
       String[] stringArray = readStringArray(scanner);
@@ -45,12 +50,13 @@ public class FileReaderWriter {
 
       int[][] intMatrix = readMatrix(scanner);
       cout(intMatrix);
+      */
       /* comment above code */
       /*
                   int q = scanner.nextInt();
                   scanner.nextLine();
       */
-      /* Step 2. Implement yor algorithm logix here */
+      /* Step 2. Implement yor algorithm logic here */
 
       AlgoRunner algoRunner = new AlgoRunner();
 
@@ -58,6 +64,15 @@ public class FileReaderWriter {
 
       writer.println("FILE writing");
     }
+  }
+
+  private static char[] convertToCharArray(String[] readStringArray) {
+    int len = readStringArray.length;
+    char[] arr = new char[len];
+    for (int i = 0; i < len; i++) {
+      arr[i] = readStringArray[i].charAt(0);
+    }
+    return arr;
   }
 
   private static String[] readStringArray(Scanner scanner) {

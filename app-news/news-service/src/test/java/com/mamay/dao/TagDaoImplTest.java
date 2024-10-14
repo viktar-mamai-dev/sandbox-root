@@ -1,24 +1,19 @@
 package com.mamay.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.mamay.TestHolder;
 import com.mamay.entity.TagEntity;
 import com.mamay.exception.NewsException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContextTest.xml")
-@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
+@ExtendWith(SpringExtension.class)
 public class TagDaoImplTest {
 
   @Autowired private TagDao tagDao;
@@ -26,7 +21,7 @@ public class TagDaoImplTest {
   @Test
   public void loadAll() throws NewsException {
     List<TagEntity> tagList = tagDao.loadAll();
-    assertEquals(20, tagList.size());
+    Assertions.assertEquals(20, tagList.size());
   }
 
   @Test
@@ -67,6 +62,6 @@ public class TagDaoImplTest {
   }
 
   private void assertEntityEquals(TagEntity expected, TagEntity actual) {
-    Assert.assertEquals(expected.getName(), actual.getName());
+    Assertions.assertEquals(expected.getName(), actual.getName());
   }
 }

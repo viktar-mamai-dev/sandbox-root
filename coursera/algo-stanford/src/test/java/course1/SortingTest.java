@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SortingTest {
 
@@ -66,7 +66,7 @@ public class SortingTest {
       main.quickSort(arr);
 
       System.out.println("Compares count: " + main.comparesCount);
-      Assert.assertEquals(expectedCounts[i], main.comparesCount);
+      Assertions.assertEquals(expectedCounts[i], main.comparesCount);
     }
 
     ArrayHelper<Integer> helper = new ArrayHelper<Integer>();

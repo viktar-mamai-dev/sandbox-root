@@ -1,501 +1,242 @@
 package com.mamay.algo.leetcode;
 
-import org.apache.logging.log4j.util.StringBuilders;
-
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.Comparator.reverseOrder;
-
 public class AlgoRunner {
-    /* add your code here */
+  /* add your code here */
 
-    public int countSymmetricIntegers(int low, int high) {
-        return (int) IntStream.rangeClosed(low, high)
-                .filter(this::isSymmetric)
-                .count();
+  private <T> Map<T, Long> toCountingMap(Stream<T> stream) {
+    return stream.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+  }
+
+  private int min(int... lens) {
+    long min = Integer.MAX_VALUE;
+    for (int len : lens) {
+      min = Math.min(min, len);
+    }
+    return (int) min;
+  }
+
+  private void swap(long[] arr1, long[] arr2) {
+    int size = arr1.length;
+    long[] temp = new long[size];
+    System.arraycopy(arr1, 0, temp, 0, size);
+    System.arraycopy(arr2, 0, arr1, 0, size);
+    System.arraycopy(temp, 0, arr2, 0, size);
+  }
+
+  private void dec(Map<Integer, Integer> map, int key) {
+    int value = map.get(key) - 1;
+    if (value == 0) map.remove(key);
+    else map.put(key, value);
+  }
+
+  private void inc(Map<Integer, Integer> map, int key) {
+    int value = map.getOrDefault(key, 0) + 1;
+    map.put(key, value);
+  }
+
+  private int toIdx(int i1, int i2, int columnCount) {
+    return i1 * columnCount + i2;
+  }
+
+  private int gcd(int a, int b) {
+    if (a == b) return a;
+    if (a < b) {
+      int tmp = a;
+      a = b;
+      b = tmp;
     }
 
-    private boolean isSymmetric(int num) {
-        String numStr = String.valueOf(num);
-        int n = numStr.length();
-
-        if (n % 2 != 0) {
-            return false; // Odd-length numbers are never symmetric
-        }
-
-        int sum1 = getSum(0, n / 2, numStr);
-        int sum2 = getSum(n / 2, n, numStr);
-        return sum1 == sum2;
+    while (b != 0) {
+      int tmp = b;
+      b = a % b;
+      a = tmp;
     }
+    return a;
+  }
 
-    private int getSum(int start, int end, String numStr) {
-        return IntStream.range(start, end)
-                .map(i -> Character.getNumericValue(numStr.charAt(i)))
-                .sum();
+  private boolean isPrime(int x) {
+    if (x == 1) return false;
+    if (x == 2 || x == 3) return true;
+    if (x % 2 == 0) return false;
+    for (int y = 3; y <= Math.sqrt(x); y += 2) {
+      if (x % y == 0) return false;
     }
-
-    public boolean checkStrings(String s1, String s2) {
-        int len = s1.length();
-        Map<Integer, Long> evenMap1 = toCountingMap(collectToStream(s1, isEven()));
-        Map<Integer, Long> evenMap2 = toCountingMap(collectToStream(s2, isEven()));
-        Map<Integer, Long> oddMap1 = toCountingMap(collectToStream(s1, isEven().negate()));
-        Map<Integer, Long> oddMap2 = toCountingMap(collectToStream(s1, isEven().negate()));
-        return evenMap1.equals(evenMap2) && oddMap1.equals(oddMap2);
-    }
-
-    private Stream<Integer> collectToStream(String str, Predicate<Integer> p) {
-        return IntStream.range(0, str.length()).boxed().filter(isEven()).map(i -> str.charAt(i) - 'a');
-    }
-
-    private Map<Integer, Long> toCountingMap(Stream<Integer> stream) {
-        return stream.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-    }
-
-    public int minOperations(int[] nums) {
-        Map<Integer, Long> map = toCountingMap(Arrays.stream(nums).boxed());
-        Set<Long> set = new HashSet<>(map.values());
-        if (set.contains(1L)) {
-            return -1;
-        }
-        int sum = 0;
-        for (Long value : set) {
-            sum += splitCount3(value);
-        }
-        return sum;
-    }
-
-    public long maximumTripletValue(int[] nums) {
-        int len = nums.length;
-        long max = 0;
-        for (int i1 = 0; i1 < len - 2; i1++) {
-            for (int i2 = i1 + 1; i2 < len - 1; i2++) {
-                for (int i3 = i2 + 1; i3 < len; i3++) {
-                    max = Math.max(max, ((long) nums[i1] - nums[i2]) * nums[i3]);
-                }
-            }
-        }
-        return max;
-    }
-
-    public int minProcessingTime(List<Integer> processorTime, List<Integer> tasks) {
-        PriorityQueue<Integer> processorQueue = new PriorityQueue<>();
-        processorQueue.addAll(processorTime);
-        PriorityQueue<Integer> taskQueue = new PriorityQueue<>(reverseOrder());
-        taskQueue.addAll(tasks);
-        int max = 0;
-        while (!processorQueue.isEmpty()) {
-            int time = processorQueue.poll() + taskQueue.poll();
-            for (int i = 0; i < 3; i++) {
-                taskQueue.poll();
-            }
-            max = Math.max(max, time);
-        }
-        return max;
-    }
-
-    public int differenceOfSums(int n, int m) {
-        return IntStream.rangeClosed(1, n).filter(i -> i % m != 0).sum()
-                - IntStream.rangeClosed(1, n).filter(i -> i % m == 0).sum();
-    }
-
-    public List<Integer> lastVisitedIntegers(List<String> words) {
-        LinkedList<String> list = new LinkedList<>();
-        LinkedList<Integer> resList = new LinkedList<>();
-        int currentIdx = -1;
-        for (String word : words) {
-            if ("prev".equals(word)) {
-                if (currentIdx >= 0) {
-                    resList.add(Integer.parseInt(list.get(currentIdx)));
-                } else {
-                    resList.add(-1);
-                }
-                currentIdx--;
-            } else {
-                list.add(word);
-                currentIdx = list.size() - 1;
-            }
-        }
-        return resList;
-    }
-
-    public int[] findIndices(int[] nums, int indexDifference, int valueDifference) {
-        int n = nums.length;
-        for (int i = 0; i < n - indexDifference; i++) {
-            for (int j = i + indexDifference; j < n; j++) {
-                if (Math.abs(nums[i] - nums[j]) >= valueDifference) {
-                    return new int[]{i, j};
-                }
-            }
-
-        }
-        return new int[]{-1, -1};
-    }
-
-    public int minimumSum(int[] nums) {
-        int len = nums.length;
-        int max = -1;
-        for (int i1 = 0; i1 < len - 2; i1++) {
-            for (int i2 = i1 + 1; i2 < len - 1; i2++) {
-                if (nums[i1] >= nums[i2]) continue;
-                for (int i3 = i2 + 1; i3 < len; i3++) {
-                    if (nums[i2] > nums[i3]) {
-                        int sum = nums[i1] + nums[i2] +nums[i3];
-                        if (max == -1 || sum > max) {
-                            max = sum;
-                        }
-                    }
-                }
-            }
-        }
-        return max;
-    }
-
-    public int minChanges(String s) {
-        char lastCh = '*';
-        int count = 0, res = 0;
-        for (char ch : s.toCharArray()) {
-            if (ch == lastCh) {
-                count++;
-            } else {
-                if (count % 2 == 1) {
-                    res++;
-                    count = 0;
-                } else {
-                    count = 1;
-                }
-                lastCh = ch;
-            }
-        }
-        return res;
-    }
-
-    public int findKOr(int[] nums, int k) {
-        final List<String> strList = Arrays.stream(nums).boxed()
-                .map(Integer::toBinaryString)
-                .map(StringBuilder::new)
-                .map(StringBuilder::reverse)
-                .map(StringBuilder::toString)
-                .collect(Collectors.toList());
-        int maxLen = strList.stream().mapToInt(String::length).max().getAsInt();
-        String res = IntStream.range(0, maxLen)
-                .map(idx -> getNumOfSetBits(idx, strList))
-                .mapToObj(x -> x >= k ? "1" : "0")
-                .reduce("", (x1, x2) -> x2 + x1);
-        return Integer.parseInt(res, 2);
-    }
-
-    private int getNumOfSetBits(final int idx, List<String> strList) {
-        return (int) strList.stream().filter(str -> str.length() > idx)
-                .filter(str -> str.charAt(idx) == '1')
-                .count();
-    }
-
-    public List<String> getWordsInLongestSubsequence(int n, String[] words, int[] groups) {
-        List<Integer> list = new ArrayList<>();
-        int prev = -1;
-        for (int i = 0; i < groups.length; i++) {
-            if (groups[i] != prev) {
-                list.add(i);
-                prev = groups[i];
-            }
-        }
-        return list.stream().map(i -> words[i]).collect(Collectors.toList());
-    }
-
-    private long splitCount3(long value) {
-        if (value % 3 == 0) {
-            return value / 3;
-        }
-        if (value % 2 == 0) {
-            return value / 3 + 1;
-        }
-        return (value - 4) / 3 + 2;
-    }
-
-    private Predicate<Integer> isEven() {
-        return x -> x % 2 == 0;
-    }
-
-    private long minDistanceGrid = Long.MAX_VALUE;
-
-    public int minimumMoves(int[][] grid) {
-        Map<Integer, Integer> emptyMap = new HashMap<>();
-        Map<Integer, Integer> fullMap = new HashMap<>();
-        for (int i = 0; i < 3; i++) {
-            for (int i2 = 0; i2 < 3; i2++) {
-                if (grid[i][i2] == 1) continue;
-                int i3 = toIdx(i, i2);
-                if (grid[i][i2] == 0) {
-                    emptyMap.put(i3, 1);
-                } else {
-                    fullMap.put(i3, grid[i][i2]);
-                }
-            }
-        }
-        if (emptyMap.isEmpty()) {
-            return 0;
-        }
-        calcMinDistanceRec(emptyMap, fullMap, 0l);
-        return (int) minDistanceGrid;
-    }
-
-    private void calcMinDistanceRec(Map<Integer, Integer> emptyMap,
-                                    Map<Integer, Integer> fullMap,
-                                    long currentDistance) {
-        Set<Integer> keys1 = emptyMap.keySet();
-        Set<Integer> keys2 = fullMap.keySet();
-        if (emptyMap.isEmpty()) {
-            minDistanceGrid = Math.min(minDistanceGrid, currentDistance);
-        }
-        for (int key1 : keys1) {
-            int value1 = emptyMap.get(key1);
-            if (value1 == 0) {
-                continue;
-            }
-            dec(emptyMap, key1);
-            for (int key2 : keys2) {
-                int value2 = emptyMap.get(key2);
-                if (value2 == 0) {
-                    continue;
-                }
-                dec(fullMap, key2);
-                long distance = Math.abs(key1 % 3 - key2 % 3) + Math.abs(key1 / 3 - key2 / 3);
-                calcMinDistanceRec(emptyMap, fullMap, currentDistance + distance);
-                inc(fullMap, key2);
-            }
-            inc(emptyMap, key1);
-        }
-    }
-
-    private void dec(Map<Integer, Integer> map, int key) {
-        int value = map.get(key) - 1;
-        if (value == 0) map.remove(key);
-        else map.put(key, value);
-    }
-
-    private void inc(Map<Integer, Integer> map, int key) {
-        int value = map.getOrDefault(key, 0) + 1;
-        map.put(key, value);
-    }
-
-    private int toIdx(int i, int i2) {
-        return i * 3 + i2;
-    }
-
-
-    public long maxSum(List<Integer> nums, int m, int k) {
-        int len = nums.size();
-        Map<Integer, Integer> map = new HashMap<>();
-        long sum = 0;
-        for (int i = 0; i < m; i++) {
-            Integer key = nums.get(i);
-            int value = map.getOrDefault(key, 0) + 1;
-            map.put(key, value);
-            sum += key;
-        }
-        long max = 0;
-        if (map.size() >= k) {
-            max = sum;
-        }
-        for (int i = m; i < len; i++) {
-            int key = nums.get(i - m);
-            sum -= key;
-            int value = map.get(key) - 1;
-            if (value == 0) {
-                map.remove(key);
-            } else {
-                map.put(key, value);
-            }
-            key = nums.get(i);
-            sum += key;
-            value = map.getOrDefault(key, 0) + 1;
-            map.put(key, value);
-            if (map.size() > k) {
-                max = sum;
-            }
-        }
-        return max;
-    }
-
-    private int gcd(int a, int b) {
-        if (a == b) return a;
-        if (a < b) {
-            int tmp = a;
-            a = b;
-            b = tmp;
-        }
-
-        while (b != 0) {
-            int tmp = b;
-            b = a % b;
-            a = tmp;
-        }
-        return a;
-    }
-
-    public int minLengthAfterRemovals(List<Integer> nums) {
-        int len = nums.size();
-        SetPair[] setPairs = new SetPair[len];
-        for (int i = 0; i < len; i++) {
-            setPairs[i] = new SetPair();
-        }
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                if (nums.get(j) > nums.get(i)) {
-                    setPairs[i].addOut(j);
-                    setPairs[j].addIn(i);
-                }
-            }
-        }
-
-        Map<Boolean, List<Integer>> map = IntStream.range(0, len).boxed()
-                .collect(Collectors.partitioningBy(i -> setPairs[i].getOutcomingVerts().isEmpty()));
-        LinkedList<Integer> endingVerts = new LinkedList<>(map.get(true));
-        Set<Integer> notEndingVerts = new HashSet<>(map.get(false));
-        int pairCount = 0;
-        while (!endingVerts.isEmpty() && !notEndingVerts.isEmpty()) {
-            int v1 = endingVerts.pollFirst();
-            if (!setPairs[v1].getIncomingVerts().isEmpty()) {
-                int v2 = setPairs[v1].getIncomingVerts().pollFirst();
-                setPairs[v2].getOutcomingVerts().remove(v1);
-                if (setPairs[v2].getOutcomingVerts().isEmpty()) {
-                    notEndingVerts.remove(v2);
-                    endingVerts.addLast(v2);
-                }
-                pairCount++;
-            }
-        }
-        return len - 2 * pairCount;
-    }
-
-    private int countSetBits(int n) {
-        int count = 0;
-        while (n > 0) {
-            count += n & 1;
-            n >>= 1;
-        }
-        return count;
-    }
-
-    public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
-        return IntStream.range(0, nums.size()).filter(i -> k == countSetBits(i))
-                .map(nums::get).sum();
-    }
-
-    public String maximumOddBinaryNumber(String s) {
-        int len = s.length();
-        int oneCount = (int) IntStream.range(0, len).filter(i -> s.charAt(i) == '1').count();
-        if (oneCount == 0) {
-            return s;
-        }
-        StringBuilder builder = new StringBuilder();
-        builder.append('1');
-        builder.append("0".repeat(len - oneCount));
-        oneCount--;
-        builder.append("1".repeat(oneCount));
-        return builder.toString();
-    }
-
-    public int minOperations(List<Integer> nums, int k) {
-        int len = nums.size();
-        HashSet<Integer> set = new HashSet<>();
-        for (int i = len - 1; i >= 0; i--) {
-            int num = nums.get(i);
-            if (num > k) {
-                continue;
-            }
-            set.add(num);
-            if (set.size() == k) {
-                return len - i;
-            }
-        }
-        return -1; // never happen
-    }
-
-    public long maximumSumOfHeights(List<Integer> maxHeights) {
-        int len = maxHeights.size();
-        return IntStream.range(0, len).mapToLong(i -> maximumSumOfHeights(maxHeights, i))
-                .max().getAsLong();
-    }
-
-    private long maximumSumOfHeights(List<Integer> maxHeights, int idx) {
-        int prevMax = maxHeights.get(idx);
-        long sum = prevMax;
-        for (int i = idx - 1; i >= 0; i--) {
-            prevMax = Math.min(prevMax, maxHeights.get(i));
-            sum += prevMax;
-        }
-        prevMax = maxHeights.get(idx);
-        for (int i = idx + 1; i < maxHeights.size(); i++) {
-            prevMax = Math.min(prevMax, maxHeights.get(i));
-            sum += prevMax;
-        }
-        return sum;
-    }
-
-    public int[] minEdgeReversals(int n, int[][] edges) {
-        int[] res = new int[n];
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        Arrays.fill(res, 0);
-        List<List<Integer>> graph = new ArrayList<>();
-        Collections.fill(graph, new ArrayList<>());
-        for (int[] edge : edges) {
-            res[edge[1]] = 1;
-            graph.get(edge[0]).add(edge[1]);
-        }
-        int startVert = findStartVert(res);
-        arrayDeque.addLast(startVert);
-        int level = 0;
-        while (!arrayDeque.isEmpty()) {
-            int size = arrayDeque.size();
-            for (int i = 0; i < size; i++) {
-                int nextVert = arrayDeque.pollFirst();
-                res[nextVert] = level;
-                for (int w : graph.get(nextVert)) {
-                    arrayDeque.addLast(w);
-                }
-            }
-            ++level;
-        }
-        return res;
-    }
-
-    private int findStartVert(int[] res) {
-        return IntStream.range(0, res.length).filter(i -> res[i] == 0).findFirst().orElseThrow();
-    }
+    return true;
+  }
 }
 
-class SetPair {
-    private final LinkedList<Integer> incomingVerts = new LinkedList<>();
-    private final Set<Integer> outcomingVerts = new HashSet<>();
+class neighborSum {
 
-    public void addIn(Integer incomingVert) {
-        incomingVerts.add(incomingVert);
-    }
+  private final int[][] grid;
+  private final HashMap<Integer, int[]> map = new HashMap<>();
 
-    public void addOut(Integer outcomingVert) {
-        outcomingVerts.add(outcomingVert);
+  public neighborSum(int[][] grid) {
+    this.grid = grid;
+    for (int i = 0; i < grid.length; i++) {
+      for (int k = 0; k < grid[0].length; k++) {
+        map.put(grid[i][k], new int[] {i, k});
+      }
     }
+  }
 
-    public boolean removeIn(Integer incomingVert) {
-        return incomingVerts.remove(incomingVert);
-    }
+  public int adjacentSum(int value) {
+    int[] indexes = map.get(value);
+    int i = indexes[0], k = indexes[1];
+    return getValue(i - 1, k) + getValue(i + 1, k) + getValue(i, k - 1) + getValue(i, k + 1);
+  }
 
-    public boolean removeOut(Integer outcomingVert) {
-        return outcomingVerts.add(outcomingVert);
-    }
+  public int diagonalSum(int value) {
+    int[] indexes = map.get(value);
+    int i = indexes[0], k = indexes[1];
+    return getValue(i - 1, k - 1)
+        + getValue(i + 1, k + 1)
+        + getValue(i + 1, k - 1)
+        + getValue(i - 1, k + 1);
+  }
 
-    public LinkedList<Integer> getIncomingVerts() {
-        return incomingVerts;
+  private int getValue(int rowIdx, int colIdx) {
+    if (rowIdx < 0 || rowIdx >= grid.length || colIdx < 0 || colIdx >= grid[0].length) {
+      return 0;
     }
+    return grid[rowIdx][colIdx];
+  }
 
-    public Set<Integer> getOutcomingVerts() {
-        return outcomingVerts;
+  public long minNumberOfSeconds(int mountainHeight, int[] workerTimes) {
+    PriorityQueue<long[]> queue =
+        new PriorityQueue<>(Comparator.comparingLong((long[] a) -> a[0] * a[1]));
+    for (int workerTime : workerTimes) {
+      queue.add(new long[] {workerTime, 1});
     }
+    long res = 0l;
+    for (int i = 0; i < mountainHeight; i++) {
+      long[] min = queue.poll();
+      res += min[1] * min[0];
+      min[1]++;
+      queue.add(min);
+    }
+    long max = Integer.MIN_VALUE;
+    while (!queue.isEmpty()) {
+      long[] min = queue.poll();
+      max = Math.max(max, min[0] * (min[1] - 1));
+    }
+    return max - 1;
+  }
+
+  public List<Integer> stableMountains(int[] height, int threshold) {
+    int len = height.length;
+    return IntStream.range(1, len).filter(i -> height[i - 1] > threshold).boxed().toList();
+  }
+
+  public boolean reportSpam(String[] message, String[] bannedWords) {
+    Set<String> bannedSet = Arrays.stream(bannedWords).collect(Collectors.toSet());
+    long count = Arrays.stream(message).filter(bannedSet::contains).count();
+    return count >= 2;
+  }
+
+  public long maxScore(int[] a, int[] b) {
+    int len = b.length;
+    long[][] dp = new long[len][4];
+    dp[0][0] = Long.valueOf(a[0]) * b[0];
+    for (int i = 1; i < len; i++) {
+      dp[i][0] = Math.max(dp[i - 1][0], Long.valueOf(a[0]) * b[i]);
+    }
+    for (int i = 1; i < 4; i++) {
+      dp[i][i] = dp[i - 1][i - 1] + Long.valueOf(a[i]) * b[i];
+      for (int k = i + 1; k < len; k++) {
+        dp[k][i] = +Math.max(dp[k - 1][i], dp[k - 1][i - 1] + Long.valueOf(a[i]) * b[k]);
+      }
+    }
+    return dp[len - 1][3];
+  }
+
+  public int[] getSneakyNumbers(int[] nums) {
+    HashSet<Integer> set = new HashSet<>();
+    int[] res = new int[2];
+    int idx = 0;
+    for (int num : nums) {
+      if (set.contains(num)) {
+        res[idx++] = num;
+      } else {
+        set.add(num);
+      }
+    }
+    return res;
+  }
+
+  public long findMaximumScore(List<Integer> nums) {
+    int len = nums.size();
+    if (len == 1) {
+      return 0;
+    }
+    long[] dp = new long[len];
+    dp[0] = 0;
+    for (int i = 1; i < len; i++) {
+      final int i1 = i;
+      dp[i] =
+          IntStream.range(0, i)
+              .mapToLong(k -> Long.valueOf(nums.get(k)) * (i1 - k) + dp[k])
+              .max()
+              .getAsLong();
+    }
+    return dp[len - 1];
+  }
+
+  public int maxPossibleScore(int[] start, int d) {
+    Arrays.sort(start);
+    int len = start.length;
+    IntSummaryStatistics statistics =
+        IntStream.range(0, len - 1).map(i -> start[i + 1] - start[i]).summaryStatistics();
+    int high = statistics.getMax();
+    int low = statistics.getMin();
+    System.out.println("low = " + low + " high = " + high);
+    while (low < high) {
+      int mid = (low + high + 1) / 2;
+      if (isPossibleScore(start, d, mid)) {
+        low = mid;
+        System.out.println("Setting low to " + low);
+      } else {
+        high = mid - 1;
+        System.out.println("Setting high to " + high);
+      }
+    }
+    return low;
+  }
+
+  private boolean isPossibleScore(int[] start, int d, int mid) {
+    int len = start.length;
+    int prev = start[0];
+    for (int i = 1; i < len; i++) {
+      int next = prev + mid;
+      if (next < start[i]) {
+        prev = start[i];
+      } else if (next > start[i] + d) {
+        return false;
+      } else {
+        prev = next;
+      }
+    }
+    return true;
+  }
+}
+
+class ListNode {
+  int val;
+  ListNode next;
+
+  ListNode() {}
+
+  ListNode(int val) {
+    this.val = val;
+  }
+
+  ListNode(int val, ListNode next) {
+    this.val = val;
+    this.next = next;
+  }
 }

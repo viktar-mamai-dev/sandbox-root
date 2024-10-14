@@ -1,29 +1,24 @@
 package com.mamay.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mamay.TestHolder;
 import com.mamay.entity.AuthorEntity;
 import com.mamay.exception.NewsException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:applicationContextTest.xml")
-@TestExecutionListeners(
-    listeners = {DbUnitTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
-@DatabaseSetup(value = {"/dbunit/author-data.xml", "/dbunit/news_author-data.xml"})
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
+@Sql(value = {"/dbunit/author-data.xml", "/dbunit/news_author-data.xml"})
 public class AuthorDaoImplTest {
 
   @Autowired private AuthorDao authorDao;
@@ -89,6 +84,6 @@ public class AuthorDaoImplTest {
   }
 
   private void assertEntityEquals(AuthorEntity expected, AuthorEntity actual) {
-    Assert.assertEquals(expected.getName(), actual.getName());
+    assertEquals(expected.getName(), actual.getName());
   }
 }

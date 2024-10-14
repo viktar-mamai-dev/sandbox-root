@@ -1,22 +1,17 @@
 package com.mamay.inspection.dbhelper;
 
-import static org.junit.Assert.assertNull;
-
 import com.mamay.inspection.exception.DAOException;
 import com.mamay.inspection.manager.DatabaseManager;
 import java.util.LinkedList;
 import java.util.stream.IntStream;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 public class ConnectionPoolTest {
   private static ConnectionPool pool;
   private static LinkedList<ProxyConnection> connectionList;
   private static int poolSize;
 
-  @BeforeClass
+  @BeforeAll
   public static void before() throws DAOException {
     pool = ConnectionPool.getInstance();
     poolSize = Integer.parseInt(DatabaseManager.getProperty("db.poolsize"));
@@ -27,16 +22,16 @@ public class ConnectionPoolTest {
     }
   }
 
-  @AfterClass
+  @AfterAll
   public static void after() {
     IntStream.range(0, poolSize).forEach(i -> pool.closeConnection(connectionList.poll()));
   }
 
-  @Test(timeout = 10000)
-  @Ignore // TODO
+  @Test
+  @Disabled // TODO
   public void openConnectionTest() throws DAOException {
     ProxyConnection conn = pool.getConnection();
-    assertNull("Connection doesn't equal to null", conn);
+    Assertions.assertNull(conn, "Connection doesn't equal to null");
     pool.closeConnection(conn);
   }
 }

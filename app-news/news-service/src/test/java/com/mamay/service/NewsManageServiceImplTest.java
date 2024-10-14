@@ -11,14 +11,14 @@ import com.mamay.entity.NewsEntity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.lang.ArrayUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.commons.lang3.ArrayUtils;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class NewsManageServiceImplTest {
 
   @InjectMocks private static NewsManagementService newsManageService;
@@ -49,7 +49,7 @@ public class NewsManageServiceImplTest {
     List<Long> unmodifiableList = Arrays.asList(ArrayUtils.toObject(new long[] {7, 8, 9, 10, 11}));
     List<Long> tagIdList = new ArrayList<Long>(unmodifiableList);
     tagIdList.add(null);
-    Long authorId = Long.valueOf(12);
+    Long authorId = 12L;
 
     newsManageService.update(actualEntity, tagIdList, authorId);
 

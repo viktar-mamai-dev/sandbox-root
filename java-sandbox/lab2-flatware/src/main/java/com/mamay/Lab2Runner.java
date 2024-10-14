@@ -4,9 +4,8 @@ import com.mamay.builder.AbstractFlatwareBuilder;
 import com.mamay.exception.LogicalException;
 import com.mamay.factory.FlatwareBuilderFactory;
 import com.mamay.type.ParserType;
-import lombok.extern.log4j.Log4j2;
-
 import java.net.URL;
+import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class Lab2Runner {

@@ -1,29 +1,26 @@
 package com.mamay.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mamay.TestHolder;
 import com.mamay.entity.NewsEntity;
 import com.mamay.exception.NewsException;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:applicationContextTest.xml")
-@TestExecutionListeners(
-    listeners = {DbUnitTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
-@DatabaseSetup(
-    value = {"/dbunit/news-data.xml", "/dbunit/news_tag-data.xml", "/dbunit/news_author-data.xml"})
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
+@Sql(value = {"/dbunit/news-data.xml", "/dbunit/news_tag-data.xml", "/dbunit/news_author-data.xml"})
 public class NewsDaoImplTest {
 
   @Autowired private NewsDao newsDao;
@@ -83,7 +80,6 @@ public class NewsDaoImplTest {
   }
 
   private void assertEntityEquals(NewsEntity expectedEntity, NewsEntity actualEntity) {
-
-    Assert.assertEquals(expectedEntity.getTitle(), actualEntity.getTitle());
+    Assertions.assertEquals(expectedEntity.getTitle(), actualEntity.getTitle());
   }
 }

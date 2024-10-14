@@ -3,7 +3,6 @@
  */
 package com.mamay.task2.entity;
 
-import com.mamay.Lab1Exception;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

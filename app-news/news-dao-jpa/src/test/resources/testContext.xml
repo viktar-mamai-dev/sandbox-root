@@ -9,8 +9,8 @@
 	
 	<context:annotation-config />
 	<context:component-scan base-package="com.mamay.dao.jpaimpl" />
-	
 	<context:property-placeholder location="classpath:jdbcTest.properties, classpath:hibernateTest.properties"/>
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${oracle.driver}" />
 		<property name="url" value="${oracle.url}" />
@@ -44,15 +44,4 @@
 	
 	<bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"
 		/>
-	
-	<bean id="dataTypeFactory" class="org.dbunit.ext.oracle.OracleDataTypeFactory" />
-	
-	<bean id="dbUnitDatabaseConfig" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
-		<property name="datatypeFactory" ref="dataTypeFactory" />
-	</bean>
-	
-	<bean id="dbUnitDatabaseConnection" class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
-		<property name="databaseConfig" ref="dbUnitDatabaseConfig" />
-		<property name="dataSource" ref="dataSource" />
-	</bean>
 </beans>

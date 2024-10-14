@@ -5,9 +5,8 @@ import com.mamay.task8.entity.CourseType;
 import com.mamay.task8.entity.Student;
 import com.mamay.task8.service.CourseFactory;
 import com.mamay.task8.service.CourseService;
-import lombok.extern.log4j.Log4j2;
-
 import java.util.LinkedList;
+import lombok.extern.log4j.Log4j2;
 
 /** Created by admin on 9/24/2014. */
 @Log4j2

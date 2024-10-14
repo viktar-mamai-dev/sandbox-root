@@ -1,23 +1,23 @@
 package com.mamay.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.mamay.TestHolder;
 import com.mamay.entity.CommentEntity;
 import com.mamay.exception.NewsException;
 import java.util.List;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContextTest.xml")
-@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(locations = "classpath:testContext.xml")
+@Sql(scripts = "data/comment-data.sql")
 public class CommentDaoImplTest {
 
   @Autowired private CommentDao commentDao;
@@ -25,7 +25,7 @@ public class CommentDaoImplTest {
   @Test
   public void loadAll() throws NewsException {
     List<CommentEntity> commentList = commentDao.loadAll();
-    assertEquals(20, commentList.size());
+    Assertions.assertEquals(20, commentList.size());
   }
 
   @Test
@@ -63,8 +63,8 @@ public class CommentDaoImplTest {
 
   @Test
   public void delete() throws NewsException {
-    commentDao.delete(Long.valueOf(11));
-    commentDao.delete(Long.valueOf(14));
+    commentDao.delete(11L);
+    commentDao.delete(14L);
     List<CommentEntity> commentList = commentDao.loadAll();
     assertEquals(18, commentList.size());
   }

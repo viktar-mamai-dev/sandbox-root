@@ -16,17 +16,6 @@
         <maven.test.skip>true</maven.test.skip>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>pcdp-repo</id>
-            <url>https://raw.github.com/habanero-maven/hjlib-maven-repo/mvn-repo-pcdp-${pcdp.version}/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>

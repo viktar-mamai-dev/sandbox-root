@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>algo-princeton</module>
+        <!--<module>algo-princeton</module>-->
         <module>algo-stanford</module>
         <module>specialization-sda</module>
         <module>specialization-pcd</module>

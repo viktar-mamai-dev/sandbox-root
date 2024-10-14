@@ -1,62 +1,56 @@
 package com.mamay.inspection.manager;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Locale;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(Parameterized.class)
+@ExtendWith(MockitoExtension.class)
 public class PageContentManagerTest {
-  private final String expectedMessage;
-  private final String propertyName;
-  private PageContentManager manager;
 
-  public PageContentManagerTest(String expectedMessage, String propertyName) {
-    this.expectedMessage = expectedMessage;
-    this.propertyName = propertyName;
-  }
+  @InjectMocks private PageContentManager manager;
 
-  @Parameters
-  public static Collection<String[]> propertyValues() {
-    return Arrays.asList(
-        new String[][] {
-          {"Login", "link.login"},
-          {"Magazine", "title.magazine.item"},
-          {"Age", "label.user.age"},
-          {"Register", "button.register"}
-        });
-  }
-
-  @Before
+  @BeforeEach
   public void before() {
     manager = new PageContentManager();
     manager.changeResource(Locale.ENGLISH);
   }
 
-  @After
+  @AfterEach
   public void after() {
     manager = null;
   }
 
-  @Test
-  public void getPropertyTest() {
-    String actualMessage = manager.getProperty(this.propertyName);
+  @ParameterizedTest
+  @MethodSource("propertyValues")
+  public void getPropertyTest(String expectedMessage, String propertyName) {
+    String actualMessage = manager.getProperty(propertyName);
     assertEquals("Wrong message", expectedMessage, actualMessage);
   }
 
-  @Test
-  public void changeLocaleTest() {
-    String enValue = manager.getProperty(this.propertyName);
+  @ParameterizedTest
+  @MethodSource("propertyValues")
+  public void changeLocaleTest(String expectedMessage, String propertyName) {
+    String enValue = manager.getProperty(propertyName);
     manager.changeResource(new Locale("ru"));
-    String rusValue = manager.getProperty(this.propertyName);
+    String rusValue = manager.getProperty(propertyName);
     assertNotEquals("Same labels in different languages", enValue, rusValue);
+  }
+
+  public static Stream<Arguments> propertyValues() {
+    return Stream.of(
+        Arguments.of("Login", "link.login"),
+        Arguments.of("Magazine", "title.magazine.item"),
+        Arguments.of("Age", "label.user.age"),
+        Arguments.of("Register", "button.register"));
   }
 }

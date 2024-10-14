@@ -7,6 +7,7 @@ import com.mamay.entity.TagEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class TestHolder {
 
@@ -17,13 +18,7 @@ public class TestHolder {
   }
 
   public static String generateRandomString(int minLength, int maxLength) {
-    int leftLimit = 97; // letter 'a'
-    int rightLimit = 122; // letter 'z'
-    int targetStringLength = generateRandomNumber(minLength, maxLength);
-    return rand.ints(leftLimit, rightLimit + 1)
-        .limit(targetStringLength)
-        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-        .toString();
+    return RandomStringUtils.randomAlphabetic(minLength, maxLength);
   }
 
   public static List<AuthorEntity> generateAuthorList() {

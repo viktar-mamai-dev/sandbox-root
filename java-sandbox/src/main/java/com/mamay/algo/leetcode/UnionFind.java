@@ -27,6 +27,9 @@ class UnionFind {
   public void union(int xr, int yr) {
     xr = find(xr);
     yr = find(yr);
+    if (xr == yr) {
+      return;
+    }
     if (rank[xr] < rank[yr]) {
       parent[xr] = parent[yr];
       rank[yr] += rank[xr];

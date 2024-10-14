@@ -1,28 +1,26 @@
 package com.mamay.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.mamay.TestHolder;
 import com.mamay.entity.TagEntity;
 import com.mamay.exception.NewsException;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:applicationContextTest.xml")
-@TestExecutionListeners(
-    listeners = {DbUnitTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
-@DatabaseSetup(value = {"/dbunit/tag-data.xml", "/dbunit/news_tag-data.xml"})
+@TestExecutionListeners(listeners = {DependencyInjectionTestExecutionListener.class})
+@Sql(value = {"/dbunit/tag-data.xml", "/dbunit/news_tag-data.xml"})
 public class TagDaoImplTest {
 
   @Autowired private TagDao tagDao;
@@ -71,6 +69,6 @@ public class TagDaoImplTest {
   }
 
   private void assertEntityEquals(TagEntity expected, TagEntity actual) {
-    Assert.assertEquals(expected.getName(), actual.getName());
+    Assertions.assertEquals(expected.getName(), actual.getName());
   }
 }

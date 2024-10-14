@@ -3,7 +3,6 @@
  */
 package com.mamay.task2.entity;
 
-import com.mamay.Lab1Exception;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;

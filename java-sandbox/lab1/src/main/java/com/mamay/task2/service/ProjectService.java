@@ -5,9 +5,7 @@ import com.mamay.task2.entity.Project;
 
 public class ProjectService {
   public int calculateTotalIncome(Project project) {
-    return project.getProjectStuff().stream()
-            .mapToInt(BaseEmployee::getIncome)
-            .sum();
+    return project.getProjectStuff().stream().mapToInt(BaseEmployee::getIncome).sum();
   }
 
   public double calculateAverageIncome(Project project) {
