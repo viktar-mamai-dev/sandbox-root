@@ -1,8 +1,8 @@
 package patterns.composite;
 
 public class Song implements IComponent {
-  public String songName;
-  public String artist;
+  public final String songName;
+  public final String artist;
   public float speed;
 
   public Song(String songName, String artist) {

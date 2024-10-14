@@ -12,11 +12,11 @@
     <artifactId>algo-princeton</artifactId>
 
     <dependencies>
-        <!--<dependency> TODO
+        <dependency>
             <groupId>edu.princeton.cs</groupId>
             <artifactId>algs4</artifactId>
             <version>1.0.2</version>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -32,7 +32,7 @@ public class FileReaderWriter {
         scanner.nextLine();
         int[] array = readIntegerArray(scanner);
         int k = scanner.nextInt();
-        // writer.println(algoRunner.min(k, array)); todo
+        writer.println(algoRunner.minNumberOfSeconds(k, array));
       }
 
       /* Step 1. Implement your file read here*/

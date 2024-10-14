@@ -1,7 +1,6 @@
 package com.mamay.algo;
 
-import static com.mamay.EpmPrjInterviewTask.Month;
-import static com.mamay.EpmPrjInterviewTask.calculateDayOfYear;
+import static com.mamay.algo.EpmPrjInterviewTask.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;

@@ -3,8 +3,8 @@ package patterns.observer;
 import java.util.ArrayList;
 
 public class Channel implements Subject {
-  private ArrayList<Observer> observers;
-  private String channelName;
+  private final ArrayList<Observer> observers;
+  private final String channelName;
   private String status;
 
   public Channel(String channelName) {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Playlist implements IComponent {
 
-  public String playlistName;
-  public ArrayList<IComponent> playlist;
+  public final String playlistName;
+  public final ArrayList<IComponent> playlist;
 
   public Playlist(String playlistName) {
     this.playlistName = playlistName;

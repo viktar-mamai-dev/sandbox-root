@@ -1,7 +1,7 @@
 package patterns.observer;
 
 public class Follower implements Observer {
-  private String followername;
+  private final String followername;
 
   public Follower(String followername) {
     this.followername = followername;

@@ -18,11 +18,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <dependency>
             <groupId>edu.rice.pcdp</groupId>
             <artifactId>pcdp-core</artifactId>
             <version>${pcdp.version}</version>
@@ -40,6 +35,14 @@
             <artifactId>jna</artifactId>
             <version>4.2.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.11.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
