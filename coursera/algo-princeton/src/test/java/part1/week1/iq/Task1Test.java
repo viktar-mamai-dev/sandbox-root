@@ -1,7 +1,8 @@
 package part1.week1.iq;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 public class Task1Test {
 
@@ -14,12 +15,12 @@ public class Task1Test {
     main.union(5, 3);
     main.union(2, 4);
 
-    Assert.assertFalse(main.allFriends());
+    Assertions.assertFalse(main.allFriends());
 
     main.union(0, 4);
-    Assert.assertFalse(main.allFriends());
+    Assertions.assertFalse(main.allFriends());
 
     main.union(3, 2);
-    Assert.assertTrue(main.allFriends());
+    Assertions.assertTrue(main.allFriends());
   }
 }

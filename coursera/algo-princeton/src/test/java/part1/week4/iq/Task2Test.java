@@ -1,14 +1,13 @@
 package part1.week4.iq;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 public class Task2Test {
 
   private Task2 queue;
 
-  @Before
+  @BeforeEach
   public void init() {
     queue = createQueue();
   }
@@ -16,14 +15,14 @@ public class Task2Test {
   @Test
   public void testSample() {
     for (int i = 0; i < 10; i++) {
-      Assert.assertNotEquals(0, queue.sample());
+      Assertions.assertNotEquals(0, queue.sample());
     }
   }
 
   @Test
   public void testDelRandom() {
     for (int i = 0; i < 10; i++) {
-      Assert.assertNotEquals(0, queue.delRandom());
+      Assertions.assertNotEquals(0, queue.delRandom());
     }
   }
 

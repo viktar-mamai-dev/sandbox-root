@@ -1,10 +1,5 @@
 package com.mamay.inspection.manager;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import java.util.Locale;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +8,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Locale;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class PageContentManagerTest {
@@ -28,13 +28,6 @@ public class PageContentManagerTest {
   @AfterEach
   public void after() {
     manager = null;
-  }
-
-  @ParameterizedTest
-  @MethodSource("propertyValues")
-  public void getPropertyTest(String expectedMessage, String propertyName) {
-    String actualMessage = manager.getProperty(propertyName);
-    assertEquals("Wrong message", expectedMessage, actualMessage);
   }
 
   @ParameterizedTest

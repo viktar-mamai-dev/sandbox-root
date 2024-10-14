@@ -5,16 +5,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import part1.week4.BinarySearchTree;
 
 public class Task5Test {
 
   private Task5 tree;
 
-  @Before
+  @BeforeEach
   public void init() {
     tree = createTree();
   }
@@ -27,7 +28,7 @@ public class Task5Test {
       preOrderList.add(iterator.next());
     }
 
-    Assert.assertEquals(preOrderList, tree.morrisTraversal());
+    Assertions.assertEquals(preOrderList, tree.morrisTraversal());
   }
 
   private Task5 createTree() {

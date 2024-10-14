@@ -1,8 +1,7 @@
 package part1.week2.iq;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 public class Task3Test {
 
   @Test
@@ -11,10 +10,10 @@ public class Task3Test {
 
     main.createArrayCheckedType(Double.class, 10);
     main.put(0, 10.23);
-    Assert.assertEquals((Double) 10.23, main.get(0));
+    Assertions.assertEquals((Double) 10.23, main.get(0));
 
     main.createArrayUncheckedType(10);
     main.put(1, 10.23);
-    Assert.assertEquals((Double) 10.23, main.get(1));
+    Assertions.assertEquals((Double) 10.23, main.get(1));
   }
 }

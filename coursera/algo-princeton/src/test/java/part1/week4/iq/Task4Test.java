@@ -1,18 +1,18 @@
 package part1.week4.iq;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
-
 public class Task4Test {
 
   @Test
   public void test1() {
     for (int i = 0; i < 10; i++) {
       Task4 main = createTree();
-      Assert.assertTrue(main.checkBST());
+      Assertions.assertTrue(main.checkBST());
       // most likely Values won't be in order
       System.out.println("Checking BST by value: " + main.checkBSTByValue());
     }

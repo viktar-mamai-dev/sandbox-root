@@ -1,10 +1,9 @@
 package part1.week2.iq;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import part1.ArrayHelper;
 import part1.week2.PebbleColor;
-
 public class Task6Test {
 
   @Test
@@ -38,7 +37,7 @@ public class Task6Test {
 
       helper.printArray(main.getArray());
 
-      Assert.assertArrayEquals(expectedArray, main.getArray());
+      Assertions.assertArrayEquals(expectedArray, main.getArray());
     }
   }
 }

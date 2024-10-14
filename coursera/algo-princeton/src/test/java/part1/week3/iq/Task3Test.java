@@ -1,10 +1,10 @@
 package part1.week3.iq;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import part1.ArrayHelper;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 public class Task3Test {
 
   @Test

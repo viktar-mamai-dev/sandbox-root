@@ -6,10 +6,9 @@
 
 package part1.week2;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import part1.ArrayHelper;
-
 public class SortingTest {
 
   @Test
@@ -22,6 +21,6 @@ public class SortingTest {
     main.insertionSort(insertion);
     main.selectionSort(selection);
 
-    Assert.assertArrayEquals(insertion, selection);
+    Assertions.assertArrayEquals(insertion, selection);
   }
 }

@@ -1,8 +1,7 @@
 package part1.week2.iq;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 public class Task2Test {
 
   @Test
@@ -11,14 +10,14 @@ public class Task2Test {
     main.push(2000);
     main.push(1000);
     main.push(500);
-    Assert.assertEquals((Integer) 2000, main.getMax());
+    Assertions.assertEquals((Integer) 2000, main.getMax());
 
     main.push(3000);
     main.push(4000);
-    Assert.assertEquals((Integer) 4000, main.getMax());
+    Assertions.assertEquals((Integer) 4000, main.getMax());
 
     main.pop();
     main.pop();
-    Assert.assertEquals((Integer) 2000, main.getMax());
+    Assertions.assertEquals((Integer) 2000, main.getMax());
   }
 }

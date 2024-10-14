@@ -1,13 +1,12 @@
 package part1.week1.iq;
 
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 public class Task6Test {
 
   @Test
   public void test1() {
     Task6 main = new Task6();
-    Assert.assertEquals(2, main.eggDrop(20, 3));
+    Assertions.assertEquals(2, main.eggDrop(20, 3));
   }
 }

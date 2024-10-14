@@ -1,9 +1,8 @@
 package part1.week3;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import part1.ArrayHelper;
-
 public class SortingTest {
 
   @Test
@@ -19,6 +18,6 @@ public class SortingTest {
     main.mergeSort(merge);
     helper.printArrays(merge, quick);
 
-    Assert.assertArrayEquals(merge, quick);
+    Assertions.assertArrayEquals(merge, quick);
   }
 }

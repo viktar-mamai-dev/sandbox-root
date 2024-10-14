@@ -1,9 +1,8 @@
 package part1.week3.iq;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import part1.ArrayHelper;
-
 public class Task4Test {
 
   @Test
@@ -24,10 +23,10 @@ public class Task4Test {
 
       main.solve(nuts, bolts);
 
-      Assert.assertArrayEquals(nuts, bolts);
+      Assertions.assertArrayEquals(nuts, bolts);
       helper.printArray(nuts);
       helper.printArray(bolts);
-      Assert.assertTrue(helper.isSorted(nuts));
+      Assertions.assertTrue(helper.isSorted(nuts));
     }
   }
 }

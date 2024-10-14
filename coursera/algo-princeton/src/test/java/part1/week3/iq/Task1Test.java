@@ -1,10 +1,10 @@
 package part1.week3.iq;
 
 import edu.princeton.cs.algs4.StdRandom;
-import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import part1.ArrayHelper;
 
+import java.util.Arrays;
 public class Task1Test {
 
   @Test
